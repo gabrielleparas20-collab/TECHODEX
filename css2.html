@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Quiz 2</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body{background:#0b0f1a;color:#fff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#ff7a3d,#ffb07c);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#7a2b00;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 2 — Flexbox & Grid</h1>
+        <div style="color:#ffe9d9">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- 10 questions -->
+      <div class="question">
+        <div><strong>1.</strong> Flexbox is best for which layout?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> One-dimensional layouts</label>
+          <label><input type="radio" name="q1" value="b"> Database schemas</label>
+          <label><input type="radio" name="q1" value="c"> Server configuration</label>
+          <label><input type="radio" name="q1" value="d"> Image formats</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> justify-content aligns items along which axis?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> Main axis</label>
+          <label><input type="radio" name="q2" value="b"> Cross axis</label>
+          <label><input type="radio" name="q2" value="c"> Vertical axis only</label>
+          <label><input type="radio" name="q2" value="d"> Server axis</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> align-items aligns along which axis?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> Cross axis</label>
+          <label><input type="radio" name="q3" value="b"> Main axis</label>
+          <label><input type="radio" name="q3" value="c"> Server axis</label>
+          <label><input type="radio" name="q3" value="d"> Image axis</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> grid-template-columns does what?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> Defines column sizes</label>
+          <label><input type="radio" name="q4" value="b"> Is a JavaScript API</label>
+          <label><input type="radio" name="q4" value="c"> Deletes columns</label>
+          <label><input type="radio" name="q4" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> gap sets spacing between what?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> Grid or flex items</label>
+          <label><input type="radio" name="q5" value="b"> Server responses</label>
+          <label><input type="radio" name="q5" value="c"> Only tables</label>
+          <label><input type="radio" name="q5" value="d"> Images only</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> order property does what in flexbox?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> Changes visual order</label>
+          <label><input type="radio" name="q6" value="b"> Deletes elements</label>
+          <label><input type="radio" name="q6" value="c"> Is a JavaScript function</label>
+          <label><input type="radio" name="q6" value="d"> Only for grid</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> minmax() is used for?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> Flexible grid track sizes</label>
+          <label><input type="radio" name="q7" value="b"> Server commands</label>
+          <label><input type="radio" name="q7" value="c"> Image formats</label>
+          <label><input type="radio" name="q7" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> auto-fit helps with what?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> Responsive grid layouts</label>
+          <label><input type="radio" name="q8" value="b"> JavaScript APIs</label>
+          <label><input type="radio" name="q8" value="c"> Deleting columns</label>
+          <label><input type="radio" name="q8" value="d"> Only for tables</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> place-items is shorthand for?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> align-items and justify-items</label>
+          <label><input type="radio" name="q9" value="b"> Server settings</label>
+          <label><input type="radio" name="q9" value="c"> Image properties</label>
+          <label><input type="radio" name="q9" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> grid-auto-flow controls?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> How auto-placed items fill the grid</label>
+          <label><input type="radio" name="q10" value="b"> JavaScript APIs</label>
+          <label><input type="radio" name="q10" value="c"> Deleting rows</label>
+          <label><input type="radio" name="q10" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT = { q1:'a', q2:'a', q3:'a', q4:'a', q5:'a', q6:'a', q7:'a', q8:'a', q9:'a', q10:'a' };
+    document.getElementById('submit').addEventListener('click', () => {
+      for (let i=1;i<=10;i++){
+        if (![...document.getElementsByName('q'+i)].some(r=>r.checked)){ alert('Please answer all questions.'); return; }
+      }
+      let score=0;
+      for (let i=1;i<=10;i++){
+        const name='q'+i; const radios=document.getElementsByName(name); const correct=CORRECT[name];
+        for (const r of radios){
+          const lbl=r.parentElement; lbl.classList.remove('correct','incorrect');
+          if (r.value===correct) lbl.classList.add('correct');
+          if (r.checked && r.value!==correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value===correct) score++;
+          r.disabled=true;
+        }
+      }
+      document.getElementById('result').textContent = `Score: ${score} / 10 (${Math.round(score*10)}%)`;
+    });
+  </script>
+</body>
+</html>

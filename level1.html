@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Level 1 — Techodex Game</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body { margin:0; font-family:Inter,system-ui,Arial; background:#0d1b2a; color:#fff; }
+
+    header { display:flex; justify-content:space-between; align-items:center; padding:16px 28px; background:#1b263b; }
+    .brand { font-weight:800; font-size:1.3rem; }
+    nav a { color:#fff; margin-left:18px; text-decoration:none; font-weight:600; }
+    nav a:hover { text-decoration:underline; }
+
+    .hero {
+      text-align:center;
+      padding:30px 20px;
+      background:linear-gradient(135deg,#0d1b2a,#1b263b,#00aaff);
+    }
+    .hero h1 {
+      font-size:2rem;
+      margin-bottom:8px;
+      background:linear-gradient(90deg,#00aaff,#ff7a3d,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow:0 0 10px rgba(0,170,255,0.6); }
+      to { text-shadow:0 0 20px rgba(255,122,61,0.8); }
+    }
+
+    /* Grid map */
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(8,60px);
+      grid-template-rows:repeat(8,60px);
+      gap:4px;
+      justify-content:center;
+      margin:30px auto;
+      background:#1b263b;
+      padding:12px;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(0,170,255,0.4);
+    }
+    .cell {
+      width:60px; height:60px;
+      background:#0d1b2a;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem;
+      transition:background 0.3s ease;
+    }
+    .wall { background:#333; }
+    .item { background:#ff7a3d; border-radius:6px; box-shadow:0 0 12px rgba(255,122,61,0.8); animation:pulse 1.5s infinite; }
+    .avatar { background:#00aaff; border-radius:50%; transition:transform 0.25s ease; box-shadow:0 0 10px rgba(0,170,255,0.7); }
+    .door { background:#38bdf8; border-radius:6px; box-shadow:0 0 14px rgba(56,189,248,0.9); animation:doorGlow 2s infinite alternate; }
+
+    @keyframes pulse {
+      0% { transform:scale(1); }
+      50% { transform:scale(1.1); }
+      100% { transform:scale(1); }
+    }
+    @keyframes doorGlow {
+      from { box-shadow:0 0 10px rgba(56,189,248,0.6); }
+      to { box-shadow:0 0 20px rgba(56,189,248,1); }
+    }
+
+    /* Quiz popup */
+    .popup {
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+      background:#1b263b; padding:24px; border-radius:14px; width:360px;
+      display:none; color:#fff; box-shadow:0 12px 28px rgba(0,0,0,0.4);
+      animation:fadeIn 0.4s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translate(-50%,-40%); }
+      to { opacity:1; transform:translate(-50%,-50%); }
+    }
+    .popup h2 { margin-top:0; font-size:1.3rem; text-align:center; }
+    .option {
+      display:block; margin:10px 0; padding:12px; border-radius:10px;
+      background:#0d1b2a; cursor:pointer; transition:all 0.3s ease;
+      text-align:center; font-weight:600;
+    }
+    .option:hover {
+      background:#00aaff; transform:scale(1.05);
+      box-shadow:0 0 12px rgba(0,170,255,0.7);
+    }
+    .option.selected {
+      background:#ff7a3d; color:#fff;
+      box-shadow:0 0 14px rgba(255,122,61,0.9);
+    }
+    .popup button {
+      margin-top:16px; padding:10px 16px; border:none; border-radius:8px; cursor:pointer;
+      background:#00aaff; color:#fff; font-weight:600;
+      transition:background 0.3s;
+      width:100%;
+    }
+    .popup button:hover { background:#ff7a3d; }
+
+    /* Shake animation for wrong answer */
+    @keyframes shake {
+      0% { transform:translateX(0); }
+      25% { transform:translateX(-5px); }
+      50% { transform:translateX(5px); }
+      75% { transform:translateX(-5px); }
+      100% { transform:translateX(0); }
+    }
+    .wrong { animation:shake 0.4s; }
+
+    /* Error popup */
+    .error {
+      position:fixed; top:20px; left:50%; transform:translateX(-50%);
+      background:#ff3d3d; padding:12px 20px; border-radius:8px; color:#fff;
+      display:none; font-weight:600; animation:fadeIn 0.3s ease;
+    }
+
+    /* Lives display with hearts */
+    .lives {
+      text-align:center; font-size:1.2rem; margin-top:10px;
+    }
+    .heart {
+      color:#ff3d3d; font-size:1.5rem; margin:0 4px;
+      text-shadow:0 0 8px rgba(255,61,61,0.7);
+      animation:beat 1s infinite;
+    }
+    @keyframes beat {
+      0%,100% { transform:scale(1); }
+      50% { transform:scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">Techodex</div>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../lessons/index.html">Lessons</a>
+      <a href="../quizzes/index.html">Quizzes</a>
+      <a href="../achievements.html">Achievements</a>
+      <a href="index.html">Game</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Level 1 — Fundamentals Puzzle</h1>
+    <p>Move with arrow keys. Collect items, answer questions, and exit through the door!</p>
+    <div class="lives" id="lives"></div>
+  </section>
+
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- Quiz popup -->
+  <div class="popup" id="popup">
+    <h2 id="question"></h2>
+    <div id="options"></div>
+    <button onclick="submitAnswer()">Submit</button>
+  </div>
+
+  <!-- Error popup -->
+  <div class="error" id="error">Wrong answer! You lost a life.</div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const size = 8;
+    let avatarPos = {x:0,y:0};
+    let score = 0;
+    let lives = 3;
+    let doorUnlocked = false;
+
+    // Map: 0 empty, 1 wall, 2 item, 3 door
+    const map = [
+      [0,0,0,0,0,0,0,3],
+      [0,1,1,0,0,0,2,0],
+      [0,0,0,0,1,0,0,0],
+      [0,0,2,0,0,0,0,0],
+      [0,0,0,0,0,1,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0],
+      [0,2,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0,0]
+    ];
+
+    const questions = [
+      {q:"Which protocol transfers web pages?", opts:["FTP","HTTP","SMTP"], ans:1},
+      {q:"What does URL stand for?", opts:["Uniform Resource Locator","Universal Resource Link","User Resource Locator"], ans:0},
+      {q:"What does DNS do?", opts:["Translates domain names","Stores images","Encrypts traffic"], ans:0}
+    ];
+
+    function render() {
+      grid.innerHTML='';
+      for(let y=0;y<size;y++){
+        for(let x=0;x<size;x++){
+          const cell=document.createElement('div');
+          cell.classList.add('cell');
+          if(map[y][x]===1) cell.classList.add('wall');
+          if(map[y][x]===2) cell.classList.add('item');
+          if(map[y][x]===3) cell.classList.add('door');
+          if(avatarPos.x===x && avatarPos.y===y) cell.classList.add('avatar');
+          grid.appendChild(cell);
+        }
+      }
+      updateLives();
+    }
+
+    function move(dx,dy){
+      const nx=avatarPos.x+dx, ny=avatarPos.y+dy;
+      if(nx<0||ny<0||nx>=size||ny>=size) return;
+      if(map[ny][nx]===1) return; // wall
+      avatarPos={x:nx,y:ny};
+      render();
+      if(map[ny][nx]===2){ triggerQuiz(ny,nx); }
+      if(map[ny][nx]===3 && doorUnlocked){ completeLevel(); }
+    }
+
+    document.addEventListener('keydown',e=>{
+      if(e.key==='ArrowUp') move(0,-1);
+      if(e.key==='ArrowDown') move(0,1);
+      if(e.key==='ArrowLeft') move(-1,0);
+      if(e.key==='ArrowRight') move(1,0);
+    });
+
+    // Quiz logic
+    let currentQ=null;
+    let selected=null;
+    function triggerQuiz(y,x){
+      if(map[y][x]!==2) return;
+      map[y][x]=0; // remove item
+      currentQ=questions.shift();
+      if(!currentQ){ 
+        doorUnlocked=true; 
+        alert("The door is now unlocked!"); 
+        return; 
+      }
+      document.getElementById('question').textContent=currentQ.q;
+      const optsDiv=document.getElementById('options');
+      optsDiv.innerHTML='';
+      currentQ.opts.forEach((opt,i)=>{
+        const optDiv=document.createElement('div');
+        optDiv.textContent=opt;
+        optDiv.classList.add('option');
+        optDiv.onclick=()=>{
+          document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+          optDiv.classList.add('selected');
+          selected=i;
+        };
+        optsDiv.appendChild(optDiv);
+      });
+      selected=null;
+      document.getElementById('popup').style.display='block';
+    }
+
+    function submitAnswer(){
+      if(selected===null) return;
+      const chosen=document.querySelector('.option.selected');
+      if(selected===currentQ.ans) {
+        score++;
+      } else {
+        lives--;
+        updateLives();
+        showError();
+        if(chosen) chosen.classList.add('wrong');
+        if(lives <= 0){
+          alert("Game Over! You lost all lives.");
+          localStorage.setItem('stars1',0);
+          window.location.href='index.html';
+          return;
+        }
+      }
+      document.getElementById('popup').style.display='none';
+      if(questions.length === 0){
+        doorUnlocked = true;
+        alert("All questions answered! Find the glowing door to exit.");
+      }
+    }
+
+    function showError(){
+      const err = document.getElementById('error');
+      err.style.display='block';
+      setTimeout(()=>{ err.style.display='none'; },2000);
+    }
+
+    function updateLives(){
+      const livesDiv=document.getElementById('lives');
+      livesDiv.innerHTML='';
+      for(let i=0;i<lives;i++){
+        const heart=document.createElement('span');
+        heart.classList.add('heart');
+        heart.textContent='❤';
+        livesDiv.appendChild(heart);
+      }
+    }
+
+    function completeLevel(){
+      let stars=1;
+      if(score===3 && lives===3) stars=3;
+      else if(score>=2) stars=2;
+      localStorage.setItem('stars1',stars);
+      alert(`Level complete! You earned ${stars} star(s).`);
+      window.location.href='index.html';
+    }
+
+    render();
+  </script>
+</body>
+</html>

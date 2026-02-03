@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fundamentals — Quiz 1</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body{background:#071022;color:#eaf3ff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#00aaff,#0066cc);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#00324d;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 1 — Basics of the Web</h1>
+        <div style="color:#cfe9ff">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- Questions: each group name q1..q10 -->
+      <div class="question">
+        <div><strong>1.</strong> Which protocol is commonly used to transfer web pages?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> FTP</label>
+          <label><input type="radio" name="q1" value="b"> HTTP</label>
+          <label><input type="radio" name="q1" value="c"> SMTP</label>
+          <label><input type="radio" name="q1" value="d"> SSH</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> What does URL stand for?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> Uniform Resource Locator</label>
+          <label><input type="radio" name="q2" value="b"> Universal Resource Link</label>
+          <label><input type="radio" name="q2" value="c"> Uniform Reference Link</label>
+          <label><input type="radio" name="q2" value="d"> User Resource Locator</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> What does DNS do?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> Translates domain names to IP addresses</label>
+          <label><input type="radio" name="q3" value="b"> Stores website images</label>
+          <label><input type="radio" name="q3" value="c"> Serves CSS files</label>
+          <label><input type="radio" name="q3" value="d"> Encrypts traffic</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> HTTPS provides what over HTTP?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> Encryption</label>
+          <label><input type="radio" name="q4" value="b"> Faster downloads</label>
+          <label><input type="radio" name="q4" value="c"> Larger file sizes</label>
+          <label><input type="radio" name="q4" value="d"> No difference</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> Which file extension commonly contains HTML?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> .html</label>
+          <label><input type="radio" name="q5" value="b"> .css</label>
+          <label><input type="radio" name="q5" value="c"> .exe</label>
+          <label><input type="radio" name="q5" value="d"> .db</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> What is responsive design?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> Design that adapts to different screen sizes</label>
+          <label><input type="radio" name="q6" value="b"> Design only for desktop</label>
+          <label><input type="radio" name="q6" value="c"> Design that uses Flash</label>
+          <label><input type="radio" name="q6" value="d"> Design that disables CSS</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> Which language structures web content?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> HTML</label>
+          <label><input type="radio" name="q7" value="b"> SQL</label>
+          <label><input type="radio" name="q7" value="c"> Python</label>
+          <label><input type="radio" name="q7" value="d"> Bash</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> What is a web server?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> A machine or software that serves web resources</label>
+          <label><input type="radio" name="q8" value="b"> A browser plugin</label>
+          <label><input type="radio" name="q8" value="c"> A CSS framework</label>
+          <label><input type="radio" name="q8" value="d"> A database only</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> What is accessibility in web development?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> Making sites usable by people with disabilities</label>
+          <label><input type="radio" name="q9" value="b"> Hiding content from users</label>
+          <label><input type="radio" name="q9" value="c"> Only using images</label>
+          <label><input type="radio" name="q9" value="d"> Removing navigation</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> What is progressive enhancement?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> Building basic functionality first, then enhancing</label>
+          <label><input type="radio" name="q10" value="b"> Requiring latest browser features only</label>
+          <label><input type="radio" name="q10" value="c"> Ignoring accessibility</label>
+          <label><input type="radio" name="q10" value="d"> Using only Java applets</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    // correct answers map
+    const CORRECT = {
+      q1: 'b', q2: 'a', q3: 'a', q4: 'a', q5: 'a',
+      q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a'
+    };
+
+    document.getElementById('submit').addEventListener('click', () => {
+      const total = 10;
+      let score = 0;
+      // ensure all answered
+      for (let i=1;i<=10;i++){
+        const name = 'q'+i;
+        const radios = document.getElementsByName(name);
+        let chosen = null;
+        for (const r of radios) if (r.checked) chosen = r.value;
+        if (!chosen) {
+          alert('Please answer all questions before submitting.');
+          return;
+        }
+      }
+
+      // grade and highlight
+      for (let i=1;i<=10;i++){
+        const name = 'q'+i;
+        const radios = document.getElementsByName(name);
+        const correct = CORRECT[name];
+        for (const r of radios){
+          const lbl = r.parentElement;
+          lbl.classList.remove('correct','incorrect');
+          if (r.value === correct) lbl.classList.add('correct');
+          if (r.checked && r.value !== correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value === correct) score++;
+          r.disabled = true;
+        }
+      }
+
+      const percent = Math.round((score/total)*100);
+      document.getElementById('result').textContent = `Score: ${score} / ${total} (${percent}%)`;
+      // scroll to result
+      document.getElementById('result').scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  </script>
+</body>
+</html>

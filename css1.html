@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS — Quiz 1</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* reuse same visual style but different gradient */
+    body{background:#0b0f1a;color:#fff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#ff7a3d,#ffb07c);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#7a2b00;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 1 — Selectors & Box Model</h1>
+        <div style="color:#ffe9d9">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- 10 questions -->
+      <div class="question">
+        <div><strong>1.</strong> Which property includes padding in the element's width when set to border-box?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> box-sizing: border-box</label>
+          <label><input type="radio" name="q1" value="b"> display:inline</label>
+          <label><input type="radio" name="q1" value="c"> float:left</label>
+          <label><input type="radio" name="q1" value="d"> position:fixed</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> ID selectors use which symbol?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> #</label>
+          <label><input type="radio" name="q2" value="b"> .</label>
+          <label><input type="radio" name="q2" value="c"> *</label>
+          <label><input type="radio" name="q2" value="d"> $</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> Specificity decides what?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> Which CSS rule applies when multiple match</label>
+          <label><input type="radio" name="q3" value="b"> The file size of CSS</label>
+          <label><input type="radio" name="q3" value="c"> The number of images</label>
+          <label><input type="radio" name="q3" value="d"> The server response time</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> Padding is located where?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> Between content and border</label>
+          <label><input type="radio" name="q4" value="b"> Outside the margin</label>
+          <label><input type="radio" name="q4" value="c"> Inside the margin</label>
+          <label><input type="radio" name="q4" value="d"> Outside the border</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> :hover applies when?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> Pointer is over an element</label>
+          <label><input type="radio" name="q5" value="b"> On server side</label>
+          <label><input type="radio" name="q5" value="c"> Only on mobile</label>
+          <label><input type="radio" name="q5" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> Descendant selector uses what between selectors?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> A space</label>
+          <label><input type="radio" name="q6" value="b"> A comma</label>
+          <label><input type="radio" name="q6" value="c"> A plus sign</label>
+          <label><input type="radio" name="q6" value="d"> A hash</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> :root is used for what?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> Defining CSS variables globally</label>
+          <label><input type="radio" name="q7" value="b"> A JavaScript object</label>
+          <label><input type="radio" name="q7" value="c"> Only for images</label>
+          <label><input type="radio" name="q7" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> display:block does what?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> Makes element take full available width</label>
+          <label><input type="radio" name="q8" value="b"> Hides the element</label>
+          <label><input type="radio" name="q8" value="c"> Only for images</label>
+          <label><input type="radio" name="q8" value="d"> A server setting</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> box-sizing:border-box affects what?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> How width/height include padding and border</label>
+          <label><input type="radio" name="q9" value="b"> The server response</label>
+          <label><input type="radio" name="q9" value="c"> The number of selectors</label>
+          <label><input type="radio" name="q9" value="d"> The image format</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> media queries are used to?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> Adapt styles to different screen sizes</label>
+          <label><input type="radio" name="q10" value="b"> Only for print</label>
+          <label><input type="radio" name="q10" value="c"> A JavaScript API</label>
+          <label><input type="radio" name="q10" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT = { q1:'a', q2:'a', q3:'a', q4:'a', q5:'a', q6:'a', q7:'a', q8:'a', q9:'a', q10:'a' };
+    document.getElementById('submit').addEventListener('click', () => {
+      for (let i=1;i<=10;i++){
+        if (![...document.getElementsByName('q'+i)].some(r=>r.checked)){ alert('Please answer all questions.'); return; }
+      }
+      let score=0;
+      for (let i=1;i<=10;i++){
+        const name='q'+i; const radios=document.getElementsByName(name); const correct=CORRECT[name];
+        for (const r of radios){
+          const lbl=r.parentElement; lbl.classList.remove('correct','incorrect');
+          if (r.value===correct) lbl.classList.add('correct');
+          if (r.checked && r.value!==correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value===correct) score++;
+          r.disabled=true;
+        }
+      }
+      document.getElementById('result').textContent = `Score: ${score} / 10 (${Math.round(score*10)}%)`;
+    });
+  </script>
+</body>
+</html>

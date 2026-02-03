@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fundamentals — Quiz 2</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* same styling as fund1 for consistency */
+    body{background:#071022;color:#eaf3ff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#00aaff,#0066cc);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#00324d;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 2 — Development Workflow & Tools</h1>
+        <div style="color:#cfe9ff">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- 10 questions -->
+      <div class="question">
+        <div><strong>1.</strong> What is Git?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> A distributed version control system</label>
+          <label><input type="radio" name="q1" value="b"> A web browser</label>
+          <label><input type="radio" name="q1" value="c"> A CSS framework</label>
+          <label><input type="radio" name="q1" value="d"> A database</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> What is a pull request?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> A proposal to merge code changes</label>
+          <label><input type="radio" name="q2" value="b"> A way to delete a repository</label>
+          <label><input type="radio" name="q2" value="c"> A CSS rule</label>
+          <label><input type="radio" name="q2" value="d"> A server type</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> What does localhost refer to?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> Your own machine</label>
+          <label><input type="radio" name="q3" value="b"> A remote server</label>
+          <label><input type="radio" name="q3" value="c"> A CSS property</label>
+          <label><input type="radio" name="q3" value="d"> A database</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> What are unit tests for?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> Checking small parts of code</label>
+          <label><input type="radio" name="q4" value="b"> Only for images</label>
+          <label><input type="radio" name="q4" value="c"> Replacing manual testing entirely</label>
+          <label><input type="radio" name="q4" value="d"> Illegal</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> What is Continuous Integration (CI)?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> Automating tests on commits</label>
+          <label><input type="radio" name="q5" value="b"> A design tool</label>
+          <label><input type="radio" name="q5" value="c"> Only for mobile apps</label>
+          <label><input type="radio" name="q5" value="d"> A CSS framework</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> What does a build tool do?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> Bundles and optimizes assets</label>
+          <label><input type="radio" name="q6" value="b"> Is a text editor</label>
+          <label><input type="radio" name="q6" value="c"> A browser plugin</label>
+          <label><input type="radio" name="q6" value="d"> A database</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> What is linting?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> Checking code for style and errors</label>
+          <label><input type="radio" name="q7" value="b"> Deleting files</label>
+          <label><input type="radio" name="q7" value="c"> A deployment method</label>
+          <label><input type="radio" name="q7" value="d"> A server type</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> What is a staging environment?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> A pre-production environment</label>
+          <label><input type="radio" name="q8" value="b"> The same as production</label>
+          <label><input type="radio" name="q8" value="c"> Only for databases</label>
+          <label><input type="radio" name="q8" value="d"> A CSS property</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> What does rollback do?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> Restores a previous release</label>
+          <label><input type="radio" name="q9" value="b"> Speeds up deployment</label>
+          <label><input type="radio" name="q9" value="c"> Is a testing framework</label>
+          <label><input type="radio" name="q9" value="d"> A CSS layout</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> Why is documentation important?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> Helps future developers understand code</label>
+          <label><input type="radio" name="q10" value="b"> Unnecessary if code is short</label>
+          <label><input type="radio" name="q10" value="c"> Should be hidden from the team</label>
+          <label><input type="radio" name="q10" value="d"> Only for managers</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT = { q1:'a', q2:'a', q3:'a', q4:'a', q5:'a', q6:'a', q7:'a', q8:'a', q9:'a', q10:'a' };
+
+    document.getElementById('submit').addEventListener('click', () => {
+      for (let i=1;i<=10;i++){
+        const radios = document.getElementsByName('q'+i);
+        if (![...radios].some(r=>r.checked)){ alert('Please answer all questions.'); return; }
+      }
+      let score=0;
+      for (let i=1;i<=10;i++){
+        const name='q'+i; const radios=document.getElementsByName(name);
+        const correct=CORRECT[name];
+        for (const r of radios){
+          const lbl=r.parentElement; lbl.classList.remove('correct','incorrect');
+          if (r.value===correct) lbl.classList.add('correct');
+          if (r.checked && r.value!==correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value===correct) score++;
+          r.disabled=true;
+        }
+      }
+      document.getElementById('result').textContent = `Score: ${score} / 10 (${Math.round(score*10)}%)`;
+    });
+  </script>
+</body>
+</html>

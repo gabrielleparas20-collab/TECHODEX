@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HTML — Quiz 2</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body{background:#0b0620;color:#fff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#8b5cf6,#cda4ff);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#3b0f6b;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 2 — Forms, Inputs & Media</h1>
+        <div style="color:#efe6ff">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- 10 questions -->
+      <div class="question">
+        <div><strong>1.</strong> Which element groups inputs for submission?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> &lt;form&gt;</label>
+          <label><input type="radio" name="q1" value="b"> &lt;div&gt;</label>
+          <label><input type="radio" name="q1" value="c"> &lt;span&gt;</label>
+          <label><input type="radio" name="q1" value="d"> &lt;nav&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> Which input type helps validate email addresses?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> email</label>
+          <label><input type="radio" name="q2" value="b"> number</label>
+          <label><input type="radio" name="q2" value="c"> text</label>
+          <label><input type="radio" name="q2" value="d"> password</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> What improves form accessibility?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> Using &lt;label for="id"&gt;</label>
+          <label><input type="radio" name="q3" value="b"> Removing labels</label>
+          <label><input type="radio" name="q3" value="c"> Using only placeholders</label>
+          <label><input type="radio" name="q3" value="d"> Hiding inputs</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> Which button submits a form?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> &lt;button type="submit"&gt;</label>
+          <label><input type="radio" name="q4" value="b"> &lt;button type="reset"&gt;</label>
+          <label><input type="radio" name="q4" value="c"> &lt;div&gt;</label>
+          <label><input type="radio" name="q4" value="d"> &lt;span&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> Which tags embed media natively?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> &lt;audio&gt; and &lt;video&gt;</label>
+          <label><input type="radio" name="q5" value="b"> &lt;img&gt; only</label>
+          <label><input type="radio" name="q5" value="c"> &lt;link&gt;</label>
+          <label><input type="radio" name="q5" value="d"> &lt;meta&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> Which attribute forces input before submission?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> required</label>
+          <label><input type="radio" name="q6" value="b"> placeholder</label>
+          <label><input type="radio" name="q6" value="c"> readonly</label>
+          <label><input type="radio" name="q6" value="d"> disabled</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> Placeholder text should be?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> Not a substitute for labels</label>
+          <label><input type="radio" name="q7" value="b"> Replace labels</label>
+          <label><input type="radio" name="q7" value="c"> Hidden from users</label>
+          <label><input type="radio" name="q7" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> Which enctype is required for file uploads?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> multipart/form-data</label>
+          <label><input type="radio" name="q8" value="b"> text/plain</label>
+          <label><input type="radio" name="q8" value="c"> application/json</label>
+          <label><input type="radio" name="q8" value="d"> application/xml</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> The accept attribute on file inputs does what?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> Limits selectable file types</label>
+          <label><input type="radio" name="q9" value="b"> Deletes files</label>
+          <label><input type="radio" name="q9" value="c"> Is a CSS property</label>
+          <label><input type="radio" name="q9" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> How can form validation be enhanced?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> With JavaScript</label>
+          <label><input type="radio" name="q10" value="b"> It cannot be enhanced</label>
+          <label><input type="radio" name="q10" value="c"> Only with CSS</label>
+          <label><input type="radio" name="q10" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT = { q1:'a', q2:'a', q3:'a', q4:'a', q5:'a', q6:'a', q7:'a', q8:'a', q9:'a', q10:'a' };
+    document.getElementById('submit').addEventListener('click', () => {
+      for (let i=1;i<=10;i++){
+        if (![...document.getElementsByName('q'+i)].some(r=>r.checked)){ alert('Please answer all questions.'); return; }
+      }
+      let score=0;
+      for (let i=1;i<=10;i++){
+        const name='q'+i; const radios=document.getElementsByName(name); const correct=CORRECT[name];
+        for (const r of radios){
+          const lbl=r.parentElement; lbl.classList.remove('correct','incorrect');
+          if (r.value===correct) lbl.classList.add('correct');
+          if (r.checked && r.value!==correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value===correct) score++;
+          r.disabled=true;
+        }
+      }
+      document.getElementById('result').textContent = `Score: ${score} / 10 (${Math.round(score*10)}%)`;
+    });
+  </script>
+</body>
+</html>

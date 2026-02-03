@@ -3,20 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex Game — Home</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Techodex — Game</title>
+  <link rel="stylesheet" href="../style.css" />
   <style>
-    body { margin:0; font-family:Inter,system-ui,Arial; background:#0d1b2a; color:#fff; line-height:1.6; }
+    body { margin:0; font-family:Inter,system-ui,Arial; background:#0d1b2a; color:#fff; }
 
-    header { display:flex; justify-content:space-between; align-items:center; padding:16px 28px; background:#1b263b; position:sticky; top:0; z-index:1000; }
+    header { display:flex; justify-content:space-between; align-items:center; padding:16px 28px; background:#1b263b; }
     .brand { font-weight:800; font-size:1.3rem; }
     nav a { color:#fff; margin-left:18px; text-decoration:none; font-weight:600; }
     nav a:hover { text-decoration:underline; }
 
+    /* Hero */
     .hero {
       text-align:center;
       padding:60px 20px;
       background:linear-gradient(135deg,#0d1b2a,#1b263b,#00aaff);
+      animation:fadeInHero 1.5s ease forwards;
+    }
+    @keyframes fadeInHero {
+      from { opacity:0; transform:translateY(30px); }
+      to { opacity:1; transform:translateY(0); }
     }
     .hero h1 {
       font-size:2.5rem;
@@ -24,169 +30,103 @@
       background:linear-gradient(90deg,#00aaff,#ff7a3d,#8b5cf6);
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
-      animation:glow 2s infinite alternate;
+      animation:textGlow 3s infinite alternate;
     }
-    @keyframes glow {
-      from { text-shadow:0 0 10px rgba(0,170,255,0.6); }
-      to { text-shadow:0 0 20px rgba(255,122,61,0.8); }
+    @keyframes textGlow {
+      from { text-shadow:0 0 12px rgba(0,170,255,0.6); }
+      to { text-shadow:0 0 24px rgba(255,122,61,0.8); }
     }
+    .hero p { max-width:700px; margin:0 auto; font-size:1.1rem; color:rgba(255,255,255,0.85); }
 
-    .dashboard {
+    /* Level map grid */
+    .map {
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:30px;
-      padding:40px;
-    }
-    .card {
-      background:#1b263b;
-      border-radius:12px;
-      padding:30px;
-      text-align:center;
-      box-shadow:0 0 20px rgba(0,170,255,0.3);
-      transition:transform 0.3s ease, box-shadow 0.3s ease;
-      cursor:pointer;
-    }
-    .card:hover {
-      transform:translateY(-5px);
-      box-shadow:0 0 25px rgba(255,122,61,0.5);
-    }
-    .card h2 { margin:0 0 10px; }
-    .card p { font-size:0.95rem; }
-    .card a {
-      display:inline-block;
-      margin-top:15px;
-      padding:10px 16px;
-      border-radius:8px;
-      background:#00aaff;
-      color:#fff;
-      text-decoration:none;
-      font-weight:600;
-      transition:background 0.3s;
-    }
-    .card a:hover { background:#ff7a3d; }
-
-    .progress {
+      grid-template-columns:repeat(5,100px);
+      grid-gap:20px;
+      justify-content:center;
       margin:40px auto;
-      width:80%;
-      background:#333;
-      border-radius:10px;
-      overflow:hidden;
     }
-    .progress-bar {
-      height:20px;
-      background:linear-gradient(90deg,#00aaff,#ff7a3d);
-      width:0%;
+    .level {
+      width:100px; height:100px;
+      border-radius:16px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      font-weight:700; font-size:1rem;
+      cursor:pointer;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      position:relative;
     }
+    .level:hover { transform:translateY(-6px); box-shadow:0 12px 28px rgba(0,0,0,0.25); }
+    .locked { opacity:0.4; cursor:not-allowed; }
+    .stars { position:absolute; bottom:6px; font-size:1.2rem; }
 
-    .stats {
-      text-align:center;
-      margin-top:20px;
-      font-size:1.2rem;
-    }
+    /* Gradient themes */
+    .lvl1 { background:linear-gradient(135deg,#00aaff,#0066cc); }
+    .lvl2 { background:linear-gradient(135deg,#ff7a3d,#ffb07c); }
+    .lvl3 { background:linear-gradient(135deg,#8b5cf6,#cda4ff); }
+    .decor { background:#1b263b; opacity:0.3; cursor:default; color:#ccc; }
 
-    footer {
-      background:#1b263b;
-      color:#ccc;
-      text-align:center;
-      padding:30px 20px;
-      margin-top:60px;
-    }
-    footer .links {
-      margin-bottom:15px;
-    }
-    footer a {
-      color:#00aaff;
-      margin:0 10px;
-      text-decoration:none;
-      font-weight:600;
-    }
-    footer a:hover { color:#ff7a3d; }
-    footer p { font-size:0.9rem; margin:0; }
+    footer { text-align:center; padding:20px; background:#1b263b; color:#ccc; }
   </style>
 </head>
 <body>
   <header>
     <div class="brand">Techodex</div>
     <nav>
-      <a href="index.html">Home</a>
-      <a href="lessons/index.html">Lessons</a>
-      <a href="quizzes/index.html">Quizzes</a>
-      <a href="achievements.html">Achievements</a>
-      <a href="game/index.html">Game</a>
+      <a href="../index.html">Home</a>
+      <a href="../lessons/index.html">Lessons</a>
+      <a href="../quizzes/index.html">Quizzes</a>
+      <a href="../achievements.html">Achievements</a>
+      <a href="../game/index.html">Game</a>
     </nav>
   </header>
 
   <section class="hero">
-    <h1 id="greeting">Welcome to Techodex</h1>
-    <p>Your interactive journey through web programming fundamentals.</p>
+    <h1>Game Levels</h1>
+    <p>Complete puzzles to unlock new levels. Earn 3 stars to progress!</p>
   </section>
 
   <main>
-    <div class="dashboard">
-      <div class="card">
-        <h2>Lessons</h2>
-        <p>Learn HTML, CSS, JavaScript, and more with reliable tutorials.</p>
-        <a href="lessons/index.html">Go to Lessons</a>
-      </div>
-      <div class="card">
-        <h2>Quizzes</h2>
-        <p>Test your knowledge with interactive quizzes.</p>
-        <a href="quizzes/index.html">Go to Quizzes</a>
-      </div>
-      <div class="card">
-        <h2>Game</h2>
-        <p>Play through levels, answer questions, and earn stars.</p>
-        <a href="game/index.html">Start Game</a>
-      </div>
-      <div class="card">
-        <h2>Achievements</h2>
-        <p>Track your stars and progress across all levels.</p>
-        <a href="achievements.html">View Achievements</a>
-      </div>
+    <div class="map">
+      <div class="level lvl1" id="level1">Level 1<div class="stars" id="stars1"></div></div>
+      <div class="level lvl2 locked" id="level2">Level 2<div class="stars" id="stars2"></div></div>
+      <div class="level lvl3 locked" id="level3">Level 3<div class="stars" id="stars3"></div></div>
+      <div class="level decor">Level 4</div>
+      <div class="level decor">Level 5</div>
+      <div class="level decor">Level 6</div>
+      <div class="level decor">Level 7</div>
+      <div class="level decor">Level 8</div>
+      <div class="level decor">Level 9</div>
+      <div class="level decor">Level 10</div>
     </div>
-
-    <div class="progress">
-      <div class="progress-bar" id="progress-bar"></div>
-    </div>
-
-    <div class="stats" id="stats"></div>
   </main>
 
   <footer>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="lessons/index.html">Lessons</a>
-      <a href="quizzes/index.html">Quizzes</a>
-      <a href="achievements.html">Achievements</a>
-      <a href="game/index.html">Game</a>
-    </div>
-    <p>© 2026 Techodex — Interactive Learning Game</p>
+    &copy; 2026 Techodex. All rights reserved.
   </footer>
 
   <script>
-    // Dynamic greeting
-    const hour=new Date().getHours();
-    const greeting=document.getElementById('greeting');
-    if(hour<12) greeting.textContent="Good Morning, Welcome to Techodex!";
-    else if(hour<18) greeting.textContent="Good Afternoon, Welcome to Techodex!";
-    else greeting.textContent="Good Evening, Welcome to Techodex!";
+    // Load stars from localStorage
+    function loadStars(level) {
+      const stars = localStorage.getItem('stars'+level) || 0;
+      document.getElementById('stars'+level).textContent = '★'.repeat(stars);
+      return parseInt(stars);
+    }
 
-    // Progress bar animation
-    const stars1=parseInt(localStorage.getItem('stars1'))||0;
-    const stars2=parseInt(localStorage.getItem('stars2'))||0;
-    const stars3=parseInt(localStorage.getItem('stars3'))||0;
-    const totalStars=stars1+stars2+stars3;
-    const maxStars=9;
-    const progressPercent=(totalStars/maxStars)*100;
-    const bar=document.getElementById('progress-bar');
-    let width=0;
-    const animate=setInterval(()=>{
-      if(width>=progressPercent){ clearInterval(animate); }
-      else { width++; bar.style.width=width+'%'; }
-    },15);
+    const stars1 = loadStars(1);
+    const stars2 = loadStars(2);
 
-    // Show stats
-    document.getElementById('stats').textContent=`Total Stars Earned: ${totalStars} / ${maxStars}`;
+    // Unlock logic
+    if (stars1 === 3) document.getElementById('level2').classList.remove('locked');
+    if (stars2 === 3) document.getElementById('level3').classList.remove('locked');
+
+    // Click handlers
+    document.getElementById('level1').onclick = () => { window.location.href='level1.html'; };
+    document.getElementById('level2').onclick = () => {
+      if (!document.getElementById('level2').classList.contains('locked')) window.location.href='level2.html';
+    };
+    document.getElementById('level3').onclick = () => {
+      if (!document.getElementById('level3').classList.contains('locked')) window.location.href='level3.html';
+    };
   </script>
 </body>
 </html>

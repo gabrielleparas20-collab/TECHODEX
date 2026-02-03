@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HTML — Quiz 1</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body{background:#0b0620;color:#fff;font-family:Inter,system-ui,Arial}
+    .container{max-width:900px;margin:28px auto;padding:18px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    h1{margin:0 0 6px}
+    .card{background:linear-gradient(135deg,#8b5cf6,#cda4ff);padding:20px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.3)}
+    .question{background:rgba(255,255,255,0.06);padding:12px;border-radius:8px;margin-bottom:12px}
+    .options label{display:block;padding:8px;border-radius:8px;margin:6px 0;cursor:pointer;background:rgba(255,255,255,0.03)}
+    .options input{margin-right:10px}
+    button{margin-top:10px;padding:10px 14px;border-radius:8px;border:none;background:#fff;color:#3b0f6b;font-weight:800;cursor:pointer}
+    .result{margin-top:12px;font-weight:800}
+    .correct{background:rgba(0,255,150,0.12);border-left:4px solid rgba(0,255,150,0.28)}
+    .incorrect{background:rgba(255,80,80,0.08);border-left:4px solid rgba(255,80,80,0.18)}
+    a.back{display:inline-block;margin-top:12px;color:#fff;text-decoration:underline}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Quiz 1 — Document Structure & Semantics</h1>
+        <div style="color:#efe6ff">10 questions · Multiple choice · Auto‑grade</div>
+      </div>
+      <nav><a class="back" href="index.html">← Back to Quizzes</a></nav>
+    </header>
+
+    <div class="card" id="quiz-card">
+      <!-- 10 questions -->
+      <div class="question">
+        <div><strong>1.</strong> Where does metadata like &lt;title&gt; belong?</div>
+        <div class="options">
+          <label><input type="radio" name="q1" value="a"> &lt;head&gt;</label>
+          <label><input type="radio" name="q1" value="b"> &lt;body&gt;</label>
+          <label><input type="radio" name="q1" value="c"> &lt;footer&gt;</label>
+          <label><input type="radio" name="q1" value="d"> &lt;nav&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>2.</strong> Semantic tags improve what?</div>
+        <div class="options">
+          <label><input type="radio" name="q2" value="a"> Accessibility and clarity</label>
+          <label><input type="radio" name="q2" value="b"> Only styling</label>
+          <label><input type="radio" name="q2" value="c"> Server speed</label>
+          <label><input type="radio" name="q2" value="d"> Image quality</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>3.</strong> Which element groups navigation links?</div>
+        <div class="options">
+          <label><input type="radio" name="q3" value="a"> &lt;nav&gt;</label>
+          <label><input type="radio" name="q3" value="b"> &lt;main&gt;</label>
+          <label><input type="radio" name="q3" value="c"> &lt;figure&gt;</label>
+          <label><input type="radio" name="q3" value="d"> &lt;article&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>4.</strong> &lt;section&gt; is used to?</div>
+        <div class="options">
+          <label><input type="radio" name="q4" value="a"> Group related content</label>
+          <label><input type="radio" name="q4" value="b"> Only for forms</label>
+          <label><input type="radio" name="q4" value="c"> A JavaScript API</label>
+          <label><input type="radio" name="q4" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>5.</strong> &lt;article&gt; is best for?</div>
+        <div class="options">
+          <label><input type="radio" name="q5" value="a"> Self-contained content like blog posts</label>
+          <label><input type="radio" name="q5" value="b"> Only images</label>
+          <label><input type="radio" name="q5" value="c"> CSS only</label>
+          <label><input type="radio" name="q5" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>6.</strong> &lt;figure&gt; pairs with?</div>
+        <div class="options">
+          <label><input type="radio" name="q6" value="a"> &lt;figcaption&gt;</label>
+          <label><input type="radio" name="q6" value="b"> &lt;nav&gt;</label>
+          <label><input type="radio" name="q6" value="c"> &lt;main&gt;</label>
+          <label><input type="radio" name="q6" value="d"> &lt;footer&gt;</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>7.</strong> &lt;main&gt; should contain?</div>
+        <div class="options">
+          <label><input type="radio" name="q7" value="a"> Primary page content</label>
+          <label><input type="radio" name="q7" value="b"> Only navigation</label>
+          <label><input type="radio" name="q7" value="c"> CSS rules</label>
+          <label><input type="radio" name="q7" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>8.</strong> ARIA attributes are used to?</div>
+        <div class="options">
+          <label><input type="radio" name="q8" value="a"> Improve accessibility when used correctly</label>
+          <label><input type="radio" name="q8" value="b"> Always required</label>
+          <label><input type="radio" name="q8" value="c"> A CSS feature</label>
+          <label><input type="radio" name="q8" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>9.</strong> viewport meta tag helps with?</div>
+        <div class="options">
+          <label><input type="radio" name="q9" value="a"> Responsive layouts on mobile</label>
+          <label><input type="radio" name="q9" value="b"> Desktop only</label>
+          <label><input type="radio" name="q9" value="c"> JavaScript APIs</label>
+          <label><input type="radio" name="q9" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div><strong>10.</strong> Semantic HTML helps with?</div>
+        <div class="options">
+          <label><input type="radio" name="q10" value="a"> SEO and accessibility</label>
+          <label><input type="radio" name="q10" value="b"> Reducing performance</label>
+          <label><input type="radio" name="q10" value="c"> Print only</label>
+          <label><input type="radio" name="q10" value="d"> Deprecated</label>
+        </div>
+      </div>
+
+      <button id="submit">Submit Answers</button>
+      <div id="result" class="result"></div>
+    </div>
+  </div>
+
+  <script>
+    const CORRECT = { q1:'a', q2:'a', q3:'a', q4:'a', q5:'a', q6:'a', q7:'a', q8:'a', q9:'a', q10:'a' };
+    document.getElementById('submit').addEventListener('click', () => {
+      for (let i=1;i<=10;i++){
+        if (![...document.getElementsByName('q'+i)].some(r=>r.checked)){ alert('Please answer all questions.'); return; }
+      }
+      let score=0;
+      for (let i=1;i<=10;i++){
+        const name='q'+i; const radios=document.getElementsByName(name); const correct=CORRECT[name];
+        for (const r of radios){
+          const lbl=r.parentElement; lbl.classList.remove('correct','incorrect');
+          if (r.value===correct) lbl.classList.add('correct');
+          if (r.checked && r.value!==correct) lbl.classList.add('incorrect');
+          if (r.checked && r.value===correct) score++;
+          r.disabled=true;
+        }
+      }
+      document.getElementById('result').textContent = `Score: ${score} / 10 (${Math.round(score*10)}%)`;
+    });
+  </script>
+</body>
+</html>
