@@ -3,297 +3,96 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex — Lessons</title>
+  <title>Techodex — Game</title>
   <link rel="stylesheet" href="../css/main.css" />
-  <style>
-    :root{
-      --muted: #cfd8e3;
-      --accent-html: #0077aa;
-      --accent-css: #ff7a3d;
-      --panel-radius: 12px;
-    }
-
-    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: #0d1b2a; color: #fff; }
-
-    .lessons-root{ max-width:1100px; margin:28px auto; padding:18px; }
-    .header-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
-    .header-row h1{ margin:0; font-size:1.4rem; }
-    .panels{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-
-    .panel{ background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06)); border-radius:var(--panel-radius); border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 26px rgba(0,0,0,0.55); overflow:hidden; display:flex; flex-direction:column; }
-    .panel-head{ display:flex; align-items:center; justify-content:space-between; padding:12px 14px; cursor:pointer; gap:12px; }
-    .panel-title{ display:flex; gap:10px; align-items:center; font-weight:800; }
-    .panel-sub{ color:var(--muted); font-size:0.92rem; }
-
-    .toggle-btn{ background:transparent; border:none; color:var(--muted); font-weight:700; padding:8px 10px; border-radius:8px; cursor:pointer; }
-
-    .panel-list{ max-height:0; overflow:hidden; transition:max-height .28s ease, padding .18s ease; padding:0 12px; border-top:1px solid rgba(255,255,255,0.02); }
-    .panel.open .panel-list{ padding:10px 12px 14px; max-height:420px; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-
-    .lesson-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px; border-radius:8px; text-decoration:none; color:inherit; }
-    .lesson-row:hover{ background: rgba(255,255,255,0.02); transform:translateY(-2px); }
-    .lesson-left{ display:flex; gap:12px; align-items:center; min-width:0; }
-    .lesson-num{ width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; background:linear-gradient(135deg,#0f2b3a,#003a5a); flex-shrink:0; }
-    .lesson-meta{ min-width:0; overflow:hidden; }
-    .lesson-name{ font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .lesson-desc{ color:var(--muted); font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-
-    .lesson-action{ margin-left:12px; display:flex; gap:8px; align-items:center; }
-    .btn-small{ padding:8px 10px; border-radius:8px; font-weight:700; color:#fff; border:none; cursor:pointer; }
-    .btn-open{ background: linear-gradient(90deg,var(--accent-html),#0077aa); }
-    .btn-open.css{ background: linear-gradient(90deg,var(--accent-css),#aa4b1a); }
-    .btn-locked{ background: linear-gradient(90deg,#2b2b2b,#1a1a1a); color:#9aa6b8; cursor:default; }
-
-    .locked{ opacity:0.55; filter:grayscale(6%); pointer-events:none; }
-    .locked .lesson-num{ background: linear-gradient(135deg,#333,#222); color:#b0b8c4; }
-
-    @media (max-width:900px){
-      .panels{ grid-template-columns:1fr; }
-      .panel.open .panel-list{ max-height:360px; }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/responsive.css" />
 </head>
 <body>
-  <header class="site-header fade-in" style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12));position:sticky;top:0;z-index:1000;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <img src="../assets/logo.png" alt="Techodex Logo" style="height:32px;">
-      <span style="font-weight:700;font-size:1.05rem;">Techodex</span>
+  <!-- Header -->
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../assets/logo.png" alt="Techodex Logo" class="logo">
+      <span class="nameplate">Techodex</span>
     </div>
-    <nav style="display:flex;gap:12px;align-items:center;">
-      <a href="../index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Home</a>
-      <a href="index.html" aria-current="page" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;background:linear-gradient(90deg,var(--accent-html),var(--accent-css));">Lessons</a>
-      <a href="../quizzes/index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Quizzes</a>
-      <a href="../achievements.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Achievements</a>
-      <a href="../game/index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Game</a>
+    <nav class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../lessons/index.html">Lessons</a>
+      <a href="../quizzes/index.html">Quizzes</a>
+      <a href="../achievements.html">Achievements</a>
+      <a href="index.html">Game</a>
     </nav>
+    <button class="menu-toggle">☰</button>
   </header>
 
-  <main class="lessons-root fade-in" id="lessonsRoot">
-    <div class="header-row">
-      <div>
-        <h1 style="margin:0;">Lessons</h1>
-        <p style="margin:4px 0 0;color:var(--muted);">Choose a path and open lessons in order.</p>
+  <!-- Scrollable Game Map -->
+  <main class="game-map fade-in">
+    <h1>Treasure Map</h1>
+    <p>Scroll through the adventure. Levels unlock as you progress.</p>
+
+    <div class="map-container">
+      <!-- Chronological diagonal connections -->
+      <div class="hex-row">
+        <a href="levels/level1.html" class="hex-link">
+          <div class="hex level1"><span class="hex-label">1</span></div>
+        </a>
+        <div class="connector"></div>
+        <a href="levels/level2.html" class="hex-link">
+          <div class="hex level2 locked"><span class="hex-label">2</span></div>
+        </a>
       </div>
-      <div style="background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:700;" id="progressPill">HTML 0/10 · CSS 0/10</div>
-    </div>
-
-    <div class="panels" role="region" aria-label="Lesson paths">
-      <section class="panel panel-html" id="panelHtml" aria-labelledby="htmlLabel">
-        <div class="panel-head" tabindex="0" role="button" aria-expanded="false" aria-controls="htmlList">
-          <div>
-            <div class="panel-title" id="htmlLabel"><span class="icon">📘</span> HTML</div>
-            <div class="panel-sub">10 lessons</div>
-          </div>
-          <div>
-            <button class="toggle-btn" data-target="htmlList">Open</button>
-          </div>
-        </div>
-        <div class="panel-list" id="htmlList" aria-hidden="true"></div>
-      </section>
-
-      <section class="panel panel-css" id="panelCss" aria-labelledby="cssLabel">
-        <div class="panel-head" tabindex="0" role="button" aria-expanded="false" aria-controls="cssList">
-          <div>
-            <div class="panel-title" id="cssLabel"><span class="icon">🎨</span> CSS</div>
-            <div class="panel-sub">10 lessons</div>
-          </div>
-          <div>
-            <button class="toggle-btn" data-target="cssList">Open</button>
-          </div>
-        </div>
-        <div class="panel-list" id="cssList" aria-hidden="true"></div>
-      </section>
+      <div class="hex-row">
+        <div class="connector"></div>
+        <a href="levels/level3.html" class="hex-link">
+          <div class="hex level3 locked"><span class="hex-label">3</span></div>
+        </a>
+        <div class="connector"></div>
+      </div>
+      <div class="hex-row">
+        <a href="levels/level4.html" class="hex-link">
+          <div class="hex level4 locked"><span class="hex-label">4</span></div>
+        </a>
+        <div class="connector"></div>
+        <a href="levels/level5.html" class="hex-link">
+          <div class="hex level5 locked"><span class="hex-label">5</span></div>
+        </a>
+      </div>
+      <div class="hex-row">
+        <div class="connector"></div>
+        <a href="levels/level6.html" class="hex-link">
+          <div class="hex level6 locked"><span class="hex-label">6</span></div>
+        </a>
+        <div class="connector"></div>
+      </div>
+      <div class="hex-row">
+        <a href="levels/level7.html" class="hex-link">
+          <div class="hex level7 locked"><span class="hex-label">7</span></div>
+        </a>
+        <div class="connector"></div>
+        <a href="levels/level8.html" class="hex-link">
+          <div class="hex level8 locked"><span class="hex-label">8</span></div>
+        </a>
+      </div>
+      <div class="hex-row">
+        <div class="connector"></div>
+        <a href="levels/level9.html" class="hex-link">
+          <div class="hex level9 locked"><span class="hex-label">9</span></div>
+        </a>
+        <div class="connector"></div>
+      </div>
+      <div class="hex-row">
+        <a href="levels/level10.html" class="hex-link">
+          <div class="hex level10 locked"><span class="hex-label">10</span></div>
+        </a>
+      </div>
     </div>
   </main>
 
-  <footer class="site-footer fade-in" style="padding:18px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);">
-    <p style="margin:0;">© 2026 Techodex</p>
+  <!-- Footer -->
+  <footer class="site-footer fade-in">
+    <p>© 2026 Techodex — Interactive Learning Platform</p>
+    <p>Earn stars to unlock new levels and achievements.</p>
   </footer>
 
-  <script>
-    (function () {
-      const htmlLessons = [
-        { id:1, name:'Lesson 1', desc:'HTML Basics', href:'html/html1.html' },
-        { id:2, name:'Lesson 2', desc:'Text & Headings', href:'html/html2.html' },
-        { id:3, name:'Lesson 3', desc:'Links & Images', href:'html/html3.html' },
-        { id:4, name:'Lesson 4', desc:'Lists & Tables', href:'html/html4.html' },
-        { id:5, name:'Lesson 5', desc:'Forms', href:'html/html5.html' },
-        { id:6, name:'Lesson 6', desc:'Semantic HTML', href:'html/html6.html' },
-        { id:7, name:'Lesson 7', desc:'Media', href:'html/html7.html' },
-        { id:8, name:'Lesson 8', desc:'Attributes', href:'html/html8.html' },
-        { id:9, name:'Lesson 9', desc:'HTML5 APIs', href:'html/html9.html' },
-        { id:10, name:'Lesson 10', desc:'Final Project', href:'html/html10.html' }
-      ];
-
-      const cssLessons = [
-        { id:1, name:'Lesson 1', desc:'Selectors', href:'css/css1.html' },
-        { id:2, name:'Lesson 2', desc:'Box Model', href:'css/css2.html' },
-        { id:3, name:'Lesson 3', desc:'Colors & Backgrounds', href:'css/css3.html' },
-        { id:4, name:'Lesson 4', desc:'Typography', href:'css/css4.html' },
-        { id:5, name:'Lesson 5', desc:'Positioning', href:'css/css5.html' },
-        { id:6, name:'Lesson 6', desc:'Flexbox', href:'css/css6.html' },
-        { id:7, name:'Lesson 7', desc:'Grid', href:'css/css7.html' },
-        { id:8, name:'Lesson 8', desc:'Animations', href:'css/css8.html' },
-        { id:9, name:'Lesson 9', desc:'Advanced CSS', href:'css/css9.html' },
-        { id:10, name:'Lesson 10', desc:'Final Project', href:'css/css10.html' }
-      ];
-
-      const STORAGE_KEY = 'techodex_lessons_opened';
-
-      function getOpened() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return { html: [1], css: [1] };
-          return JSON.parse(raw);
-        } catch (e) {
-          return { html: [1], css: [1] };
-        }
-      }
-
-      function setOpened(obj) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
-      }
-
-      function markOpened(path, id) {
-        const opened = getOpened();
-        if (!opened[path].includes(id)) opened[path].push(id);
-        const next = id + 1;
-        if (next <= 10 && !opened[path].includes(next)) opened[path].push(next);
-        opened[path] = Array.from(new Set(opened[path])).sort((a,b)=>a-b);
-        setOpened(opened);
-        render();
-      }
-
-      function buildRow(lesson, path, openedIds) {
-        const row = document.createElement('a');
-        row.className = 'lesson-row';
-        row.href = lesson.href;
-        row.setAttribute('data-desc', lesson.desc);
-        row.setAttribute('role','link');
-
-        const left = document.createElement('div');
-        left.className = 'lesson-left';
-        const num = document.createElement('div');
-        num.className = 'lesson-num';
-        num.textContent = lesson.id;
-        const meta = document.createElement('div');
-        meta.className = 'lesson-meta';
-        const name = document.createElement('div');
-        name.className = 'lesson-name';
-        name.textContent = lesson.name;
-        const desc = document.createElement('div');
-        desc.className = 'lesson-desc';
-        desc.textContent = lesson.desc;
-        meta.appendChild(name);
-        meta.appendChild(desc);
-        left.appendChild(num);
-        left.appendChild(meta);
-
-        const action = document.createElement('div');
-        action.className = 'lesson-action';
-        const btn = document.createElement('button');
-        btn.className = 'btn-small';
-        btn.type = 'button';
-
-        const isUnlocked = openedIds.includes(lesson.id);
-        if (isUnlocked) {
-          btn.classList.add('btn-open');
-          if (path === 'css') btn.classList.add('css');
-          btn.textContent = 'Open';
-        } else {
-          btn.classList.add('btn-locked');
-          btn.textContent = 'Locked';
-          row.classList.add('locked');
-          row.setAttribute('aria-disabled','true');
-          row.href = '#';
-        }
-
-        action.appendChild(btn);
-        row.appendChild(left);
-        row.appendChild(action);
-
-        row.addEventListener('click', (e) => {
-          if (!isUnlocked) {
-            e.preventDefault();
-            row.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(0)' }], { duration: 180 });
-            return;
-          }
-          e.preventDefault();
-          markOpened(path, lesson.id);
-          setTimeout(() => { window.location.href = lesson.href; }, 120);
-        });
-
-        row.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            row.click();
-          }
-        });
-
-        row.setAttribute('tabindex','0');
-
-        return row;
-      }
-
-      function render() {
-        const opened = getOpened();
-        const htmlList = document.getElementById('htmlList');
-        const cssList = document.getElementById('cssList');
-        htmlList.innerHTML = '';
-        cssList.innerHTML = '';
-
-        htmlLessons.forEach(l => htmlList.appendChild(buildRow(l, 'html', opened.html)));
-        cssLessons.forEach(l => cssList.appendChild(buildRow(l, 'css', opened.css)));
-
-        const htmlCount = Array.from(new Set(opened.html)).filter(n => n >=1 && n <=10).length;
-        const cssCount = Array.from(new Set(opened.css)).filter(n => n >=1 && n <=10).length;
-        document.getElementById('progressPill').textContent = `HTML ${htmlCount}/10 · CSS ${cssCount}/10`;
-      }
-
-      document.querySelectorAll('.panel').forEach(panel => {
-        const head = panel.querySelector('.panel-head');
-        const list = panel.querySelector('.panel-list');
-        const btn = head.querySelector('.toggle-btn');
-
-        function open() {
-          panel.classList.add('open');
-          head.setAttribute('aria-expanded','true');
-          list.setAttribute('aria-hidden','false');
-          btn.textContent = 'Close';
-        }
-        function close() {
-          panel.classList.remove('open');
-          head.setAttribute('aria-expanded','false');
-          list.setAttribute('aria-hidden','true');
-          btn.textContent = 'Open';
-        }
-        function toggle() { panel.classList.contains('open') ? close() : open(); }
-
-        head.addEventListener('click', (e) => {
-          if (e.target.closest('a') || e.target.closest('button') && !e.target.classList.contains('toggle-btn')) return;
-          toggle();
-        });
-        head.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-          if (e.key === 'ArrowDown') { e.preventDefault(); panel.querySelector('.panel-list .lesson-row:not(.locked)')?.focus(); }
-        });
-        btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
-      });
-
-      document.addEventListener('keydown', (e) => {
-        const active = document.activeElement;
-        if (!active || !active.classList.contains('lesson-row')) return;
-        const list = active.closest('.panel-list');
-        if (!list) return;
-        const items = Array.from(list.querySelectorAll('.lesson-row:not(.locked)'));
-        const idx = items.indexOf(active);
-        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
-      });
-
-      render();
-      document.querySelectorAll('.panel-list').forEach(pl => pl.setAttribute('tabindex','-1'));
-    })();
-  </script>
+  <script src="../js/responsive.js"></script>
 </body>
 </html>
