@@ -3,282 +3,417 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex — CSS Quiz 3: Colors & Backgrounds</title>
+  <title>CSS Lesson 3 — Colors & Backgrounds | Techodex</title>
+
   <link rel="stylesheet" href="../../css/main.css" />
-  <link rel="stylesheet" href="../../css/responsive.css" />
+
   <style>
     :root{
-      --bg-0:#071428;
-      --muted:#bfcbdc;
-      --accent:#00aaff;
-      --accent-2:#7b61ff;
-      --success:#00d18a;
-      --danger:#ff4f9a;
-      --card-radius:12px;
-      --max-width:980px;
-      --gap:12px;
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
     }
 
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,var(--bg-0),#041226);color:#eaf6ff;-webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-width);margin:28px auto;padding:18px}
-
-    /* Header */
-    .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
-    .nameplate{font-weight:800}
-    .nav-links a{color:var(--muted);margin-left:12px;text-decoration:none;font-weight:700}
-
-    /* Card */
-    .quiz-card{
-      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      padding:18px;border-radius:var(--card-radius);border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 18px 48px rgba(0,0,0,0.6);
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
     }
 
-    .quiz-header{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-    .quiz-header h1{margin:0;font-size:1.25rem}
-    .quiz-header .sub{color:var(--muted);font-size:0.95rem;margin:0}
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
 
-    /* Progress */
-    .progress-row{display:flex;align-items:center;gap:12px;margin-top:6px}
-    .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .28s ease}
-    .score{min-width:72px;text-align:right;color:var(--muted);font-weight:800}
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
 
-    /* Questions */
-    .questions{display:grid;gap:var(--gap);margin-top:14px}
-    .question{background:linear-gradient(180deg,#071a2b,#061423);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
-    .question h2{margin:0 0 8px 0;font-size:1rem}
-    .question p{margin:0 0 12px 0;color:var(--muted);white-space:pre-wrap}
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
 
-    /* Options */
-    .options{display:grid;gap:10px}
-    .option{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:linear-gradient(180deg,#0b2a44,#072033);border:1px solid rgba(255,255,255,0.03);color:#eaf6ff;font-weight:800;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease}
-    .option:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.45)}
-    .option.correct{background:linear-gradient(90deg,var(--success),#2fe0b0);color:#071428}
-    .option.wrong{background:linear-gradient(90deg,var(--danger),#ff7aa6);color:#071428}
-    .option .label{flex:1;text-align:left;white-space:pre-wrap}
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
 
-    /* Controls */
-    .controls{display:flex;gap:10px;align-items:center;margin-top:14px}
-    .btn{padding:10px 14px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071428}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-    .final{margin-left:12px;color:var(--muted);font-weight:800}
+    .swatch-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .swatch{
+      border-radius:8px;
+      padding:12px;
+      color:#071428;
+      font-weight:700;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:64px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    }
 
-    @media (max-width:720px){
-      .wrap{padding:12px}
-      .quiz-card{padding:14px}
-      .option{padding:10px}
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="site-header" role="banner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div class="nameplate">Techodex</div>
-          <div style="color:var(--muted);font-size:0.92rem">CSS Quiz 3</div>
-        </div>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson3">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 3 — Colors & Backgrounds</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner → Intermediate</strong></div>
       </div>
-
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="../../index.html">Home</a>
-        <a href="../../lessons/index.html">Lessons</a>
-        <a href="../index.html">Quizzes</a>
-        <a href="../../game/index.html">Game</a>
-      </nav>
-    </header>
-
-    <article class="quiz-card" role="main" aria-labelledby="quizTitle">
-      <header class="quiz-header">
-        <h1 id="quizTitle">CSS Quiz 3 — Colors & Backgrounds</h1>
-        <div class="sub">Five focused questions on color values, backgrounds, and gradients. Instant feedback, randomized, no repeats.</div>
-
-        <div class="progress-row" aria-hidden="false">
-          <div class="progress-bar" aria-hidden="true"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
-          <div class="score" id="scoreBadge">0 / 5</div>
-        </div>
-      </header>
-
-      <section id="questions" class="questions" aria-live="polite"></section>
-
-      <div class="controls" aria-hidden="false">
-        <button id="restart" class="btn ghost" type="button">Shuffle & Restart</button>
-        <button id="finish" class="btn primary" type="button">Finish</button>
-        <div id="final" class="final" aria-live="polite"></div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
       </div>
-    </article>
-  </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#color-models">Color models</a>
+      <a href="#color-units">Color units</a>
+      <a href="#background-properties">Background properties</a>
+      <a href="#gradients">Gradients</a>
+      <a href="#transparency-blend">Transparency & blending</a>
+      <a href="#contrast-accessibility">Contrast & accessibility</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Colors and backgrounds set tone, hierarchy, and readability. This lesson explains color models, CSS color syntaxes, background properties, gradients, transparency, blending modes, and accessibility considerations for contrast and color usage.</p>
+    </section>
+
+    <section id="color-models">
+      <h2>Color models</h2>
+      <p>Common color models used on the web:</p>
+      <ul>
+        <li><strong>RGB</strong> — additive model using red, green, blue channels.</li>
+        <li><strong>HSL</strong> — hue, saturation, lightness; often easier for perceptual adjustments.</li>
+        <li><strong>Hex</strong> — compact RGB representation (for example <code>#00aaff</code>).</li>
+        <li><strong>Lab and LCH</strong> — perceptually uniform models (supported via color() in modern browsers) for advanced color work.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Tip:</strong> Use HSL when you need to adjust lightness or saturation programmatically; use RGB/hex for exact color matches.
+      </div>
+    </section>
+
+    <section id="color-units">
+      <h2>Color units and syntaxes</h2>
+      <p>CSS supports multiple syntaxes. Examples:</p>
+
+      <pre class="code">
+/* hex */
+color: #00aaff;
+
+/* short hex */
+color: #0af;
+
+/* rgb / rgba */
+color: rgb(0,170,255);
+color: rgba(0,170,255,0.85);
+
+/* hsl / hsla */
+color: hsl(197, 100%, 53%);
+color: hsla(197, 100%, 53%, 0.85);
+
+/* modern color() with display-p3 or lab (browser support varies) */
+color: color(display-p3 0.0 0.67 1.0);
+      </pre>
+
+      <div class="example">
+        <strong>When to use alpha</strong>
+        <p>Use alpha channels for overlays, subtle shadows, and layered UI elements. Prefer semi-transparent black/white for overlays to preserve contrast with varied backgrounds.</p>
+      </div>
+    </section>
+
+    <section id="background-properties">
+      <h2>Background properties</h2>
+      <p>Backgrounds combine color, images, position, repeat, size, and attachment. Key properties:</p>
+      <ul>
+        <li><code>background-color</code></li>
+        <li><code>background-image</code></li>
+        <li><code>background-position</code></li>
+        <li><code>background-size</code></li>
+        <li><code>background-repeat</code></li>
+        <li><code>background-attachment</code></li>
+        <li><code>background-blend-mode</code></li>
+      </ul>
+
+      <pre class="code">
+/* shorthand */
+.header {
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)),
+              url('../images/hero.jpg') center/cover no-repeat;
+}
+
+/* separate properties */
+.card {
+  background-color: #071428;
+  background-image: url('pattern.svg');
+  background-repeat: repeat;
+  background-size: 40px 40px;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Performance:</strong> Use optimized images and prefer CSS patterns or SVG for small repeating textures to reduce requests and file size.
+      </div>
+    </section>
+
+    <section id="gradients">
+      <h2>Gradients</h2>
+      <p>CSS gradients are images generated by the browser. They are useful for subtle depth, overlays, and decorative backgrounds without extra assets.</p>
+
+      <pre class="code">
+/* linear gradient */
+.hero {
+  background: linear-gradient(180deg, #00aaff 0%, #0077aa 100%);
+}
+
+/* radial gradient */
+.badge {
+  background: radial-gradient(circle at 30% 30%, #fff 0%, rgba(255,255,255,0) 40%);
+}
+
+/* conic gradient */
+.loader {
+  background: conic-gradient(from 90deg, #00aaff, #0077aa, #00aaff);
+}
+      </pre>
+
+      <div class="example">
+        <strong>Layered gradients</strong>
+        <p>Combine gradients with images to create readable overlays:</p>
+        <pre class="code">
+.hero {
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.6)),
+    url('hero.jpg') center/cover no-repeat;
+}
+        </pre>
+      </div>
+    </section>
+
+    <section id="transparency-blend">
+      <h2>Transparency and blending</h2>
+      <p>Alpha channels and blend modes let you create layered visual effects. Use <code>mix-blend-mode</code> and <code>background-blend-mode</code> carefully — they can affect readability and performance.</p>
+
+      <pre class="code">
+/* semi-transparent overlay */
+.overlay {
+  background-color: rgba(0,0,0,0.5);
+}
+
+/* blend mode */
+.image {
+  background-image: url('photo.jpg');
+  background-blend-mode: multiply;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Accessibility caution:</strong> Blending can reduce contrast. Always verify text legibility after applying blend modes or semi-transparent overlays.
+      </div>
+    </section>
+
+    <section id="contrast-accessibility">
+      <h2>Contrast and accessibility</h2>
+      <p>Contrast affects readability for users with low vision. Follow WCAG contrast guidelines: at least 4.5:1 for normal text and 3:1 for large text. Tools and browser extensions can measure contrast ratios.</p>
+
+      <pre class="code">
+/* example: high-contrast text */
+.button {
+  background: #00aaff;
+  color: #ffffff; /* check contrast ratio against background */
+}
+      </pre>
+
+      <div class="example">
+        <strong>Practical checks</strong>
+        <ul>
+          <li>Test color combinations with a contrast checker.</li>
+          <li>Provide alternative indicators (icons, underlines) not relying on color alone.</li>
+          <li>Respect user preferences for reduced motion and high-contrast modes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Theme variables and light/dark switch</h3>
+      <pre class="code">
+:root {
+  --bg: #ffffff;
+  --text: #071428;
+  --accent: #00aaff;
+}
+
+[data-theme="dark"] {
+  --bg: #071428;
+  --text: #eaf6ff;
+  --accent: #00aaff;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+      </pre>
+
+      <h3>Hero with overlay and responsive image</h3>
+      <pre class="code">
+.hero {
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.6)),
+    url('hero-1200.jpg') center/cover no-repeat;
+  min-height: 60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+}
+      </pre>
+
+      <h3>Accessible accent and focus state</h3>
+      <pre class="code">
+a { color: var(--accent); }
+a:focus, a:hover { outline: 3px solid rgba(0,170,255,0.18); outline-offset: 3px; }
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Create a small palette (primary, secondary, neutral, accent) and build a demo page that switches between light and dark themes using CSS variables.
+      </div>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). CSS color. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Using CSS gradients. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2018). CSS Color Module Level 4. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 3: Colors & Backgrounds</p>
+    </footer>
+  </main>
 
   <script>
-    (function () {
-      const BANK = [
-        { q: 'Which property sets the background color of an element?', opts: ['color', 'background-color', 'bg', 'background-style'], correct: 1 },
-        { q: 'Which of these is a valid CSS gradient function?', opts: ['linear-gradient(red, blue)', 'color-gradient(red, blue)', 'bg-gradient(red, blue)', 'gradient(red, blue)'], correct: 0 },
-        { q: 'Which property sets an image as the background?', opts: ['background-image', 'image-src', 'bg-image', 'src'], correct: 0 },
-        { q: 'Which color format is valid in CSS?', opts: ['#ff0000', 'rgb(255,0,0)', 'hsl(0,100%,50%)', 'All of the above'], correct: 3 },
-        { q: 'Which property controls whether a background image repeats?', opts: ['background-repeat', 'repeat-bg', 'image-repeat', 'bg-repeat'], correct: 0 },
-        { q: 'Which property sets the position of a background image?', opts: ['background-position', 'bg-pos', 'image-position', 'position-bg'], correct: 0 },
-        { q: 'Which shorthand sets multiple background properties in one declaration?', opts: ['background', 'bg-shorthand', 'background-all', 'bg'], correct: 0 },
-        { q: 'Which value makes a background image cover the entire element while preserving aspect ratio?', opts: ['background-size: cover;', 'background-size: contain;', 'background-fit: cover;', 'background-scale: full;'], correct: 0 },
-        { q: 'Which CSS function defines a radial gradient?', opts: ['radial-gradient()', 'circle-gradient()', 'ellipse-gradient()', 'gradient-radial()'], correct: 0 },
-        { q: 'Which property sets the transparency of a background color using alpha?', opts: ['background-alpha', 'background-opacity', 'rgba() in background-color', 'opacity-color'], correct: 2 }
-      ];
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
-      function shuffle(arr) {
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      }
-
-      function buildQuiz() {
-        return shuffle(BANK).slice(0, 5).map(q => {
-          const optsShuffled = shuffle(q.opts.map((t, idx) => ({ t, idx })));
-          const correctText = q.opts[q.correct];
-          const correctIndex = optsShuffled.findIndex(o => o.t === correctText);
-          return {
-            id: 'q-' + Math.random().toString(36).slice(2, 8),
-            q: q.q,
-            opts: optsShuffled.map(o => o.t),
-            correctIndex
-          };
-        });
-      }
-
-      let selected = buildQuiz();
-      let selections = {};
-      let score = 0;
-
-      const questionsEl = document.getElementById('questions');
-      const progressFill = document.getElementById('progressFill');
-      const scoreBadge = document.getElementById('scoreBadge');
-      const finalEl = document.getElementById('final');
-      const finishBtn = document.getElementById('finish');
-      const restartBtn = document.getElementById('restart');
-
-      function render() {
-        questionsEl.innerHTML = '';
-        selected.forEach((item, i) => {
-          const sec = document.createElement('section');
-          sec.className = 'question';
-          sec.id = item.id;
-          sec.setAttribute('aria-labelledby', `${item.id}-title`);
-
-          const h2 = document.createElement('h2');
-          h2.id = `${item.id}-title`;
-          h2.textContent = `Question ${i + 1}`;
-          sec.appendChild(h2);
-
-          const p = document.createElement('p');
-          p.textContent = item.q;
-          sec.appendChild(p);
-
-          const opts = document.createElement('div');
-          opts.className = 'options';
-          opts.setAttribute('role', 'list');
-
-          item.opts.forEach((optText, oi) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'option';
-            btn.setAttribute('data-q', item.id);
-            btn.setAttribute('data-idx', oi);
-            btn.setAttribute('aria-pressed', 'false');
-
-            const label = document.createElement('span');
-            label.className = 'label';
-            label.textContent = optText;
-
-            btn.appendChild(label);
-            btn.addEventListener('click', onSelect);
-            opts.appendChild(btn);
-          });
-
-          sec.appendChild(opts);
-          questionsEl.appendChild(sec);
-        });
-
-        updateProgress();
-      }
-
-      function onSelect(e) {
-        const btn = e.currentTarget;
-        const qid = btn.getAttribute('data-q');
-        const idx = Number(btn.getAttribute('data-idx'));
-        if (selections[qid] != null) return;
-
-        selections[qid] = idx;
-        const item = selected.find(s => s.id === qid);
-        const container = document.getElementById(qid);
-        const buttons = Array.from(container.querySelectorAll('.option'));
-        buttons.forEach(b => b.disabled = true);
-
-        const chosen = container.querySelector(`.option[data-idx="${idx}"]`);
-        const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-
-        if (idx === item.correctIndex) {
-          chosen.classList.add('correct');
-          score++;
-        } else {
-          chosen.classList.add('wrong');
-          if (correct) correct.classList.add('correct');
-        }
-
-        buttons.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        chosen.setAttribute('aria-pressed', 'true');
-        if (correct) correct.setAttribute('aria-pressed', 'true');
-
-        updateProgress();
-      }
-
-      function updateProgress() {
-        const answered = Object.keys(selections).length;
-        const total = selected.length;
-        const percent = Math.round((answered / total) * 100);
-        progressFill.style.width = percent + '%';
-        scoreBadge.textContent = `${score} / ${total}`;
-      }
-
-      function finish() {
-        selected.forEach(item => {
-          if (selections[item.id] == null) {
-            const container = document.getElementById(item.id);
-            const buttons = Array.from(container.querySelectorAll('.option'));
-            buttons.forEach(b => b.disabled = true);
-            const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-            if (correct) correct.classList.add('correct');
-          }
-        });
-        updateProgress();
-        finalEl.textContent = `Final score: ${score} / ${selected.length}`;
-        finishBtn.disabled = true;
-      }
-
-      function restart() {
-        selections = {};
-        score = 0;
-        finalEl.textContent = '';
-        finishBtn.disabled = false;
-        selected = buildQuiz();
-        render();
-      }
-
-      finishBtn.addEventListener('click', finish);
-      restartBtn.addEventListener('click', restart);
-
-      // initial render
-      render();
-
-      // expose for debugging
-      window.__tdx_css3 = { selected, selections };
-    })();
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
   </script>
 </body>
 </html>
