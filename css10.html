@@ -1,0 +1,408 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Lesson 10 — Advanced Techniques & Best Practices | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson10">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 10 — Advanced Techniques & Best Practices</h1>
+        <div class="lesson-meta">Estimated time: <strong>45–75 minutes</strong> · Level: <strong>Intermediate → Advanced</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#custom-properties">Custom properties</a>
+      <a href="#modern-functions">Modern CSS functions</a>
+      <a href="#logical-properties">Logical properties</a>
+      <a href="#isolation-scoping">Isolation and scoping</a>
+      <a href="#performance">Performance and critical rendering</a>
+      <a href="#testing-maintenance">Testing and maintainability</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson collects advanced CSS techniques you’ll use to build robust, maintainable interfaces: custom properties, modern functions like <code>clamp()</code> and <code>minmax()</code>, logical properties for internationalization, scoping and isolation patterns, performance-minded choices, and testing/maintenance strategies. These patterns help scale CSS in real projects.</p>
+    </section>
+
+    <section id="custom-properties">
+      <h2>Custom properties</h2>
+      <p>CSS variables provide runtime theming, component-level overrides, and dynamic calculations. They differ from preprocessor variables because they are available in the browser at runtime and can be changed with JavaScript or media queries.</p>
+
+      <h3>Basics</h3>
+      <pre class="code">
+:root {
+  --accent: #00aaff;
+  --radius: 8px;
+  --gap: 1rem;
+}
+
+.button {
+  background: var(--accent);
+  border-radius: var(--radius);
+  padding: calc(var(--gap) / 2);
+}
+      </pre>
+
+      <h3>Theming and overrides</h3>
+      <pre class="code">
+.card { --card-bg: #071428; background: var(--card-bg); }
+
+/* override for a specific instance */
+.card.highlight { --card-bg: #0a2b44; }
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use custom properties for values that change across themes or components. Keep semantic names (for example <code>--surface-1</code>, <code>--text-muted</code>) to make intent clear.
+      </div>
+    </section>
+
+    <section id="modern-functions">
+      <h2>Modern CSS functions</h2>
+      <p>Newer CSS functions let you express responsive, fluid, and calculated values concisely.</p>
+
+      <h3>clamp, min, max, calc</h3>
+      <pre class="code">
+/* fluid font size */
+h1 {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* layout math */
+.sidebar { width: calc(25% - 1rem); }
+
+/* minmax in grid */
+.grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+      </pre>
+
+      <h3>env and safe-area-inset</h3>
+      <pre class="code">
+/* account for device safe areas (notch) */
+.container {
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+      </pre>
+
+      <div class="example">
+        <strong>Practical pattern</strong>
+        <p>Combine custom properties with <code>clamp()</code> to create themeable, fluid scales:</p>
+        <pre class="code">
+:root { --base: 1rem; }
+h2 { font-size: clamp(calc(var(--base) * 1.25), 2.5vw, calc(var(--base) * 1.75)); }
+        </pre>
+      </div>
+    </section>
+
+    <section id="logical-properties">
+      <h2>Logical properties</h2>
+      <p>Logical properties replace physical ones (left/right/top/bottom) with flow-relative names, improving support for different writing modes and internationalization.</p>
+
+      <pre class="code">
+/* physical */
+.element { margin-left: 16px; padding-right: 8px; }
+
+/* logical */
+.element { margin-inline-start: 16px; padding-inline-end: 8px; }
+      </pre>
+
+      <div class="note">
+        <strong>Why use them:</strong> Logical properties make layouts resilient to RTL languages and vertical writing modes without duplicating rules.
+      </div>
+    </section>
+
+    <section id="isolation-scoping">
+      <h2>Isolation and scoping</h2>
+      <p>Keep styles predictable by scoping variables and avoiding global side effects. Use component-level custom properties, the <code>:where()</code> selector for low-specificity defaults, and <code>isolation</code> to control stacking contexts when needed.</p>
+
+      <pre class="code">
+/* low-specificity defaults */
+:where(.card) { padding: 1rem; border-radius: 8px; }
+
+/* component-scoped variables */
+.card { --card-gap: 12px; }
+.card .title { margin-bottom: var(--card-gap); }
+
+/* isolation to prevent z-index bleed */
+.modal { isolation: isolate; }
+      </pre>
+
+      <div class="note">
+        <strong>Rule:</strong> Prefer class-based scoping and avoid styling global element selectors in large apps.
+      </div>
+    </section>
+
+    <section id="performance">
+      <h2>Performance and critical rendering</h2>
+      <p>CSS choices affect rendering performance and perceived load time. Keep critical CSS small, avoid expensive properties in animations, and prefer composited properties for motion.</p>
+
+      <h3>Practical guidance</h3>
+      <ul>
+        <li>Animate <code>transform</code> and <code>opacity</code> rather than layout properties.</li>
+        <li>Limit use of heavy filters and large box-shadows on many elements.</li>
+        <li>Place critical CSS inline for above-the-fold content and defer noncritical styles.</li>
+        <li>Use <code>contain</code> to limit layout/paint scope when appropriate.</li>
+      </ul>
+
+      <pre class="code">
+/* hint for compositor */
+.card { will-change: transform, opacity; }
+
+/* containment to reduce layout cost */
+.widget { contain: layout paint; }
+      </pre>
+
+      <div class="note">
+        <strong>Measure:</strong> Use browser DevTools to profile paint and layout; optimize based on real bottlenecks rather than assumptions.
+      </div>
+    </section>
+
+    <section id="testing-maintenance">
+      <h2>Testing and maintainability</h2>
+      <p>Adopt patterns that make CSS easier to test and maintain: design tokens, utility classes, component-based styles, and automated checks.</p>
+
+      <h3>Strategies</h3>
+      <ul>
+        <li>Use design tokens (variables) for colors, spacing, and type scales.</li>
+        <li>Keep a small set of utility classes for spacing and layout to reduce duplication.</li>
+        <li>Document component APIs: which custom properties are supported and what they control.</li>
+        <li>Run visual regression tests for UI changes and lint CSS for consistency.</li>
+      </ul>
+
+      <pre class="code">
+/* example token file (CSS) */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --color-primary: #00aaff;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Team tip:</strong> Keep tokens and component docs in a central place so designers and developers share the same language.
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Themeable component with variables</h3>
+      <pre class="code">
+.card {
+  --card-bg: var(--surface-1, #071428);
+  background: var(--card-bg);
+  padding: var(--space-3, 16px);
+  border-radius: 12px;
+}
+
+/* override in a theme */
+[data-theme="light"] .card { --card-bg: #ffffff; }
+      </pre>
+
+      <h3>Fluid spacing using clamp and variables</h3>
+      <pre class="code">
+:root { --g: 1rem; }
+.container { gap: clamp(0.5rem, 2vw, 2rem); padding: var(--g); }
+      </pre>
+
+      <h3>Logical properties and container query</h3>
+      <pre class="code">
+.card { container-type: inline-size; padding-inline: 1rem; padding-block: 1rem; }
+
+@container (min-width: 420px) {
+  .card { display:flex; gap: 1rem; align-items:center; }
+}
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Convert a small component to use scoped custom properties, logical properties, and a container query. Test theme overrides and reduced-motion preferences.
+      </div>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). CSS Custom Properties. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). clamp() CSS function. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (n.d.). CSS Logical Properties and Values. Retrieved from https://www.w3.org</li>
+        <li>Google Web Fundamentals. (n.d.). Performance. Retrieved from https://web.dev</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 10: Advanced Techniques & Best Practices</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

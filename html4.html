@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 4 — Lists and Tables | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson4">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 4 — Lists and Tables</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html3.html" aria-label="Back to Lesson 3">Back to Lesson 3</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#lists">Lists</a>
+      <a href="#lists-types">List types & nesting</a>
+      <a href="#tables">Tables</a>
+      <a href="#tables-accessibility">Tables and accessibility</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson covers lists and tables: when to use each, how to structure them semantically, nesting rules, and accessibility considerations. Lists are for grouped items; tables are for tabular data only.</p>
+    </section>
+
+    <section id="lists">
+      <h2>Lists</h2>
+      <p>Use lists to group related items. Choose the correct list type for meaning:</p>
+      <ul>
+        <li><strong>Unordered list</strong> (<code>&lt;ul&gt;</code>) for items without a required order.</li>
+        <li><strong>Ordered list</strong> (<code>&lt;ol&gt;</code>) for sequences or steps.</li>
+        <li><strong>Description list</strong> (<code>&lt;dl&gt;</code>) for name/value pairs or term/definition pairs.</li>
+      </ul>
+
+      <h3>Structure</h3>
+      <p>Each list item uses <code>&lt;li&gt;</code>. Description lists use <code>&lt;dt&gt;</code> (term) and <code>&lt;dd&gt;</code> (description).</p>
+
+      <pre class="code">
+&lt;ul&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Bananas&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Preheat oven&lt;/li&gt;
+  &lt;li&gt;Mix ingredients&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+&lt;/dl&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Avoid using lists purely for visual layout (for example to create columns of links). Use CSS for layout and keep lists for semantic grouping.
+      </div>
+    </section>
+
+    <section id="lists-types">
+      <h2>List types and nesting</h2>
+      <p>Nesting lists is allowed; keep nesting shallow for readability. Use ordered lists for steps and unordered lists for collections. Use CSS counters if you need custom numbering styles.</p>
+
+      <pre class="code">
+&lt;ol&gt;
+  &lt;li&gt;Step one
+    &lt;ol&gt;
+      &lt;li&gt;Sub-step A&lt;/li&gt;
+      &lt;li&gt;Sub-step B&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Step two&lt;/li&gt;
+&lt;/ol&gt;
+      </pre>
+
+      <div class="example">
+        <strong>When not to use lists</strong>
+        <p>Do not use lists to group unrelated layout elements; prefer semantic containers and CSS for layout control.</p>
+      </div>
+    </section>
+
+    <section id="tables">
+      <h2>Tables</h2>
+      <p>Use tables only for tabular data — information that fits naturally into rows and columns. Do not use tables for page layout.</p>
+
+      <h3>Basic table structure</h3>
+      <p>Use <code>&lt;table&gt;</code> with optional <code>&lt;caption&gt;</code>, a header row in <code>&lt;thead&gt;</code>, body rows in <code>&lt;tbody&gt;</code>, and optional footer in <code>&lt;tfoot&gt;</code>. Use <code>&lt;th&gt;</code> for header cells and <code>&lt;td&gt;</code> for data cells.</p>
+
+      <pre class="code">
+&lt;table&gt;
+  &lt;caption&gt;Monthly sales (USD)&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Month&lt;/th&gt;
+      &lt;th&gt;Sales&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;January&lt;/td&gt;&lt;td&gt;10,000&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;February&lt;/td&gt;&lt;td&gt;12,500&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Always include a <code>&lt;caption&gt;</code> for context and use header cells (<code>&lt;th&gt;</code>) to describe columns or rows.
+      </div>
+    </section>
+
+    <section id="tables-accessibility">
+      <h2>Tables and accessibility</h2>
+      <p>Accessible tables use clear headers and, when necessary, <code>scope</code> attributes (<code>scope="col"</code> or <code>scope="row"</code>) or <code>id</code>/<code>headers</code> associations for complex tables. Provide a caption and, for very complex tables, a summary or long description via nearby text or <code>aria-describedby</code>.</p>
+
+      <pre class="code">
+&lt;table&gt;
+  &lt;caption&gt;Quarterly revenue&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Quarter&lt;/th&gt;
+      &lt;th scope="col"&gt;Revenue&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Q1&lt;/td&gt;&lt;td&gt;$50,000&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Complex tables</strong>
+        <p>For tables with multi-row headers or merged cells, use <code>id</code> on header cells and <code>headers</code> on data cells to explicitly associate them for assistive tech.</p>
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Shopping list (unordered)</h3>
+      <pre class="code">
+&lt;ul&gt;
+  &lt;li&gt;Milk&lt;/li&gt;
+  &lt;li&gt;Bread&lt;/li&gt;
+  &lt;li&gt;Eggs&lt;/li&gt;
+&lt;/ul&gt;
+      </pre>
+
+      <h3>Recipe steps (ordered)</h3>
+      <pre class="code">
+&lt;ol&gt;
+  &lt;li&gt;Preheat oven to 180°C.&lt;/li&gt;
+  &lt;li&gt;Mix dry ingredients.&lt;/li&gt;
+  &lt;li&gt;Bake for 25 minutes.&lt;/li&gt;
+&lt;/ol&gt;
+      </pre>
+
+      <h3>Data table with caption</h3>
+      <pre class="code">
+&lt;table&gt;
+  &lt;caption&gt;Top contributors&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Contributions&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Alex&lt;/td&gt;&lt;td&gt;42&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Sam&lt;/td&gt;&lt;td&gt;37&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Practice tip:</strong> Convert a list of items from a plain text file into an HTML list and a small CSV into a table to practice structure and semantics.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Use lists for grouped items and tables for true tabular data. Keep markup semantic, include captions and headers for tables, and ensure accessibility with proper attributes and descriptions. Avoid using tables for layout and avoid using lists for purely visual grouping.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Lists. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Tables. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 4: Lists and Tables</p>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

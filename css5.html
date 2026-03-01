@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Lesson 5 — Positioning | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .demo {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .demo .card {
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson5">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 5 — Positioning</h1>
+        <div class="lesson-meta">Estimated time: <strong>30–45 minutes</strong> · Level: <strong>Beginner → Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#normal-flow">Normal flow</a>
+      <a href="#position-property">Position property</a>
+      <a href="#z-index-stacking">Z-index & stacking context</a>
+      <a href="#sticky-fixed">Sticky & fixed</a>
+      <a href="#transforms">Transforms & positioning tricks</a>
+      <a href="#best-practices">Best practices</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Positioning controls where elements appear on the page and how they interact with other elements. This lesson explains the normal document flow, the <code>position</code> property values, stacking contexts, and practical patterns for layout and UI components.</p>
+    </section>
+
+    <section id="normal-flow">
+      <h2>Normal flow</h2>
+      <p>By default, elements participate in the normal document flow: block-level elements stack vertically, inline elements flow horizontally. Understanding normal flow is the foundation for using positioning without breaking layout unexpectedly.</p>
+
+      <pre class="code">
+/* normal flow examples */
+header { display: block; }
+p { display: block; margin: 1rem 0; }
+span { display: inline; }
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Try to rely on normal flow and modern layout systems (flexbox, grid) for most layouts; use positioning for overlays, small UI components, and exceptions.
+      </div>
+    </section>
+
+    <section id="position-property">
+      <h2>Position property</h2>
+      <p>The <code>position</code> property accepts several values. Each changes how an element is laid out and how offsets (<code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code>) are interpreted.</p>
+
+      <h3>static</h3>
+      <p>Default. Element follows normal flow; offsets have no effect.</p>
+
+      <h3>relative</h3>
+      <p>Element remains in normal flow but can be offset relative to its normal position. Offsetting does not affect surrounding elements' layout space.</p>
+
+      <h3>absolute</h3>
+      <p>Element is removed from normal flow and positioned relative to the nearest positioned ancestor (an ancestor with <code>position</code> other than <code>static</code>). If none exists, it is positioned relative to the initial containing block (usually the viewport).</p>
+
+      <h3>fixed</h3>
+      <p>Element is removed from flow and positioned relative to the viewport. It stays fixed during scrolling (unless inside a transformed ancestor in some browsers).</p>
+
+      <h3>sticky</h3>
+      <p>Hybrid: behaves like <code>relative</code> until a threshold is crossed, then becomes fixed relative to its nearest scrolling ancestor. Useful for headers and table-of-contents sidebars.</p>
+
+      <pre class="code">
+/* examples */
+.box-relative { position: relative; top: 8px; left: 8px; }
+.box-absolute { position: absolute; top: 16px; right: 16px; }
+.box-fixed { position: fixed; bottom: 12px; right: 12px; }
+.header-sticky { position: sticky; top: 0; }
+      </pre>
+    </section>
+
+    <section id="z-index-stacking">
+      <h2>Z-index and stacking context</h2>
+      <p><code>z-index</code> controls stacking order for positioned elements. Stacking contexts determine how <code>z-index</code> values are compared; new stacking contexts are created by certain properties (for example <code>position</code> with <code>z-index</code>, <code>opacity</code> less than 1, <code>transform</code>, <code>filter</code>, and <code>mix-blend-mode</code>).</p>
+
+      <pre class="code">
+/* stacking example */
+.modal { position: fixed; z-index: 1000; }
+.overlay { position: fixed; z-index: 900; }
+
+/* transformed parent creates a new stacking context */
+.parent { transform: translateZ(0); }
+.child { position: absolute; z-index: 9999; /* z-index limited to parent's context */ }
+      </pre>
+
+      <div class="note">
+        <strong>Warning:</strong> Unexpected stacking issues often come from unintended stacking contexts (for example a parent with <code>transform</code>). Inspect computed styles in DevTools to debug.
+      </div>
+    </section>
+
+    <section id="sticky-fixed">
+      <h2>Sticky and fixed</h2>
+      <p><strong>Fixed</strong> is great for persistent UI (toasts, sticky footers). <strong>Sticky</strong> is ideal for elements that should remain visible within a scroll container (table headers, side navigation).</p>
+
+      <pre class="code">
+/* sticky header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(7,20,40,0.95);
+}
+
+/* fixed action button */
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+}
+      </pre>
+
+      <div class="example">
+        <strong>Notes on sticky</strong>
+        <ul>
+          <li>Sticky only works within the scrollable ancestor; if the ancestor has <code>overflow</code> set, sticky behavior is relative to that container.</li>
+          <li>Ensure the sticky element's parent has enough height for the effect to be noticeable.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="transforms">
+      <h2>Transforms & positioning tricks</h2>
+      <p>Transforms do not affect document flow but create new stacking contexts. Use transforms and translate for smoother animations and to center elements without affecting layout space.</p>
+
+      <pre class="code">
+/* centering with transform */
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* hardware-accelerated animation */
+.pop {
+  transform: translateZ(0) scale(1);
+  transition: transform 180ms ease;
+}
+.pop:hover { transform: translateZ(0) scale(1.03); }
+      </pre>
+
+      <div class="note">
+        <strong>Performance tip:</strong> Animate transforms and opacity where possible; avoid animating layout-triggering properties like <code>width</code>, <code>height</code>, <code>top</code>, or <code>left</code> for smoother rendering.
+      </div>
+    </section>
+
+    <section id="best-practices">
+      <h2>Best practices</h2>
+      <ul>
+        <li>Prefer modern layout systems (flexbox, grid) for most layout tasks; use positioning for overlays and small UI components.</li>
+        <li>Keep stacking contexts intentional; avoid creating unnecessary ones with transforms or opacity.</li>
+        <li>Use <code>position: relative</code> on a container to scope absolutely positioned children.</li>
+        <li>Test sticky and fixed elements on mobile; some mobile browsers handle fixed positioning differently.</li>
+        <li>Use <code>translate()</code> for centering and animations to avoid layout thrashing.</li>
+      </ul>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Scoped absolute positioning</h3>
+      <pre class="code">
+.card {
+  position: relative; /* establishes containing block for absolute children */
+  padding: 16px;
+}
+.card .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+      </pre>
+
+      <h3>Sticky table header</h3>
+      <pre class="code">
+.table-wrapper { max-height: 60vh; overflow: auto; }
+.table-wrapper thead th {
+  position: sticky;
+  top: 0;
+  background: #071428;
+  z-index: 10;
+}
+      </pre>
+
+      <h3>Centered modal</h3>
+      <pre class="code">
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90%, 720px);
+  background: #071428;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 900;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Build a small demo with a card that has an absolutely positioned badge, a sticky sidebar, and a centered modal to see how positioning interacts with flow and stacking.
+      </div>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Positioning. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Stacking context. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2018). CSS Positioned Layout Module. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 5: Positioning</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links

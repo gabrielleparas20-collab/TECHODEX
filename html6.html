@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 6 — Semantic HTML | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson6">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 6 — Semantic HTML</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html5.html" aria-label="Back to Lesson 5">Back to Lesson 5</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#landmarks">Landmark elements</a>
+      <a href="#when-to-use">When to use semantic elements</a>
+      <a href="#aria">ARIA basics</a>
+      <a href="#practical-patterns">Practical patterns</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Semantic HTML uses elements that convey meaning about the content they contain. Using semantic elements improves accessibility, search engine understanding, and maintainability. This lesson explains common landmark elements, when to prefer them over generic containers, and how to combine semantic markup with ARIA when needed.</p>
+    </section>
+
+    <section id="landmarks">
+      <h2>Landmark elements</h2>
+      <p>Landmark elements define the major regions of a page. Use them to create a clear document outline and to help assistive technologies navigate content.</p>
+
+      <ul>
+        <li><strong>&lt;header&gt;</strong> — introductory content or site/page header.</li>
+        <li><strong>&lt;nav&gt;</strong> — primary navigation links.</li>
+        <li><strong>&lt;main&gt;</strong> — the main content of the document (one per page).</li>
+        <li><strong>&lt;article&gt;</strong> — self-contained content that could be syndicated.</li>
+        <li><strong>&lt;section&gt;</strong> — thematic grouping of content, typically with a heading.</li>
+        <li><strong>&lt;aside&gt;</strong> — tangential content such as sidebars or pull quotes.</li>
+        <li><strong>&lt;footer&gt;</strong> — footer for a page or section.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Simple page skeleton</strong>
+        <pre class="code">
+&lt;header&gt;
+  &lt;h1&gt;Site title&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Article title&lt;/h2&gt;
+    &lt;p&gt;Article content...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;aside&gt;
+    &lt;h3&gt;Related&lt;/h3&gt;
+    &lt;p&gt;Sidebar content...&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;...&lt;/footer&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="when-to-use">
+      <h2>When to use semantic elements</h2>
+      <p>Prefer semantic elements when the element's role is clear. Use generic <code>&lt;div&gt;</code> only when no semantic element fits. Semantic markup helps:</p>
+      <ul>
+        <li>Screen readers and assistive tech to navigate the page.</li>
+        <li>Search engines to understand page structure and content.</li>
+        <li>Developers to maintain and reason about the codebase.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Rule of thumb:</strong> If a container has a clear role (navigation, main content, article, sidebar), use the corresponding semantic element.
+      </div>
+    </section>
+
+    <section id="aria">
+      <h2>ARIA basics</h2>
+      <p>ARIA (Accessible Rich Internet Applications) provides attributes to enhance accessibility when native semantics are insufficient. Use ARIA to fill gaps, not to replace semantic HTML.</p>
+
+      <h3>Common ARIA attributes</h3>
+      <ul>
+        <li><code>role</code> — explicitly defines an element's role (for example <code>role="navigation"</code>).</li>
+        <li><code>aria-label</code> — provides an accessible name when visible text is not available.</li>
+        <li><code>aria-labelledby</code> — references an element that labels the current element.</li>
+        <li><code>aria-describedby</code> — references an element that describes the current element.</li>
+        <li><code>aria-hidden="true"</code> — hides decorative content from assistive tech.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Use ARIA only when needed</strong>
+        <pre class="code">
+&lt;nav aria-label="Primary navigation"&gt;
+  &lt;ul&gt;...&lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;div role="dialog" aria-labelledby="dialogTitle"&gt;
+  &lt;h2 id="dialogTitle"&gt;Dialog title&lt;/h2&gt;
+  ...
+&lt;/div&gt;
+        </pre>
+      </div>
+
+      <div class="note">
+        <strong>Warning:</strong> Misusing ARIA can reduce accessibility. Always prefer native semantic elements first.
+      </div>
+    </section>
+
+    <section id="practical-patterns">
+      <h2>Practical patterns</h2>
+
+      <h3>Header + nav pattern</h3>
+      <pre class="code">
+&lt;header&gt;
+  &lt;div class="brand"&gt;&lt;h1&gt;Site&lt;/h1&gt;&lt;/div&gt;
+  &lt;nav aria-label="Main"&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+      </pre>
+
+      <h3>Article with related aside</h3>
+      <pre class="code">
+&lt;main&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Article title&lt;/h2&gt;
+    &lt;p&gt;Content...&lt;/p&gt;
+  &lt;/article&gt;
+
+  &lt;aside aria-label="Related resources"&gt;
+    &lt;h3&gt;Related&lt;/h3&gt;
+    &lt;ul&gt;...&lt;/ul&gt;
+  &lt;/aside&gt;
+&lt;/main&gt;
+      </pre>
+
+      <h3>Landmark roles for single-page apps</h3>
+      <p>In dynamic apps, ensure landmarks remain present and update content inside them rather than removing landmarks entirely. Use <code>aria-live</code> for important dynamic updates.</p>
+    </section>
+
+    <section id="examples">
+      <h2>Examples</h2>
+
+      <h3>Blog post layout</h3>
+      <pre class="code">
+&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Post title&lt;/h1&gt;
+    &lt;p&gt;By Author — Date&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;section&gt;
+    &lt;h2&gt;Introduction&lt;/h2&gt;
+    &lt;p&gt;...&lt;/p&gt;
+  &lt;/section>
+
+  &lt;footer&gt;
+    &lt;p&gt;Tags: ...&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;
+      </pre>
+
+      <h3>Accessible navigation</h3>
+      <pre class="code">
+&lt;nav aria-label="Primary"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Review an existing page and replace generic <code>&lt;div&gt;</code> containers with semantic elements where appropriate.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Semantic HTML clarifies the role of content for users, assistive technologies, and search engines. Use landmark elements for structure, prefer native semantics over ARIA when possible, and apply ARIA only to fill gaps. Small semantic choices compound into a more accessible, maintainable site.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Semantic HTML. Retrieved from https://developer.mozilla.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 6: Semantic HTML</p>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 9 — HTML5 APIs | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson9">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 9 — HTML5 APIs</h1>
+        <div class="lesson-meta">Estimated time: <strong>30–50 minutes</strong> · Level: <strong>Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html8.html" aria-label="Back to Lesson 8">Back to Lesson 8</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#canvas">Canvas</a>
+      <a href="#fetch">Fetch API</a>
+      <a href="#storage">Web Storage (localStorage/sessionStorage)</a>
+      <a href="#service-workers">Service Workers (intro)</a>
+      <a href="#geolocation">Geolocation</a>
+      <a href="#examples">Examples</a>
+      <a href="#summary">Summary</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Modern browsers expose APIs that let web pages do more than static markup: draw graphics, fetch data, store state, work offline, and access device features. This lesson introduces several commonly used HTML5 and browser APIs and shows practical snippets to get started safely and accessibly.</p>
+    </section>
+
+    <section id="canvas">
+      <h2>Canvas</h2>
+      <p>The <code>&lt;canvas&gt;</code> element provides a drawable region controlled via JavaScript. It's useful for charts, games, and custom graphics. Canvas is pixel-based — use semantic alternatives when content must be accessible (provide text alternatives or ARIA descriptions).</p>
+
+      <pre class="code">
+&lt;canvas id="myCanvas" width="400" height="200"&gt;Your browser does not support canvas.&lt;/canvas&gt;
+
+&lt;script&gt;
+  const c = document.getElementById('myCanvas');
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#00aaff';
+  ctx.fillRect(10, 10, 150, 100);
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Accessibility:</strong> Provide a descriptive caption or an offscreen text alternative for important canvas content.
+      </div>
+    </section>
+
+    <section id="fetch">
+      <h2>Fetch API</h2>
+      <p>The Fetch API replaces older XHR patterns with a promise-based interface for network requests. Use <code>fetch()</code> for GET/POST requests and handle errors and timeouts gracefully.</p>
+
+      <pre class="code">
+&lt;script&gt;
+  async function getData() {
+    try {
+      const res = await fetch('/api/data');
+      if (!res.ok) throw new Error('Network response was not ok');
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.error('Fetch error:', err);
+    }
+  }
+  getData();
+&lt;/script&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Tip:</strong> Always check <code>res.ok</code> and handle network failures; avoid exposing raw error messages to users.
+      </div>
+    </section>
+
+    <section id="storage">
+      <h2>Web Storage</h2>
+      <p><code>localStorage</code> and <code>sessionStorage</code> provide simple key/value storage in the browser. Use them for small amounts of non-sensitive state. For larger or structured data, consider IndexedDB.</p>
+
+      <pre class="code">
+&lt;script&gt;
+  // Save
+  localStorage.setItem('theme', 'dark');
+
+  // Read
+  const theme = localStorage.getItem('theme');
+
+  // Remove
+  localStorage.removeItem('theme');
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Security:</strong> Do not store sensitive data (passwords, tokens) in localStorage; prefer secure, short-lived server-side sessions or secure cookies.
+      </div>
+    </section>
+
+    <section id="service-workers">
+      <h2>Service Workers (intro)</h2>
+      <p>Service workers run in the background and can intercept network requests, enable offline caching, and power push notifications. They require HTTPS and careful lifecycle management.</p>
+
+      <pre class="code">
+&lt;script&gt;
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('SW registered', reg))
+      .catch(err => console.error('SW registration failed', err));
+  }
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Warning:</strong> Service workers are powerful; test update and cache strategies to avoid serving stale content.
+      </div>
+    </section>
+
+    <section id="geolocation">
+      <h2>Geolocation</h2>
+      <p>The Geolocation API provides the user's location with permission. Always request permission at the point of need and provide a fallback if permission is denied.</p>
+
+      <pre class="code">
+&lt;script&gt;
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      pos =&gt; console.log(pos.coords.latitude, pos.coords.longitude),
+      err =&gt; console.warn('Geolocation error', err),
+      { enableHighAccuracy: false, timeout: 5000 }
+    );
+  }
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Privacy:</strong> Explain why you need location and how it will be used; respect user consent and provide controls to disable location features.
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — putting APIs together</h2>
+
+      <h3>Simple offline-ready fetch with cache fallback</h3>
+      <pre class="code">
+&lt;script&gt;
+async function loadData() {
+  try {
+    const res = await fetch('/api/items');
+    if (!res.ok) throw new Error('Network error');
+    const items = await res.json();
+    localStorage.setItem('cachedItems', JSON.stringify(items));
+    render(items);
+  } catch {
+    const cached = localStorage.getItem('cachedItems');
+    if (cached) render(JSON.parse(cached));
+    else showError('Unable to load items.');
+  }
+}
+loadData();
+&lt;/script&gt;
+      </pre>
+
+      <h3>Canvas + fetch: draw image from network</h3>
+      <pre class="code">
+&lt;canvas id="c" width="400" height="200"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+const ctx = document.getElementById('c').getContext('2d');
+const img = new Image();
+img.crossOrigin = 'anonymous';
+img.onload = () =&gt; ctx.drawImage(img, 0, 0);
+img.src = '/images/photo.jpg';
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Build a small page that fetches JSON, caches it in localStorage, and renders a simple canvas visualization from the data.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>HTML5 and browser APIs expand what web pages can do: draw graphics, fetch and cache data, store state, run offline, and access device features. Use these APIs responsibly — prioritize accessibility, privacy, and progressive enhancement so features degrade gracefully when unavailable.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Canvas API. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Fetch API. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Web Storage API. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Service workers. Retrieved from https://developer.mozilla.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 9: HTML5 APIs</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

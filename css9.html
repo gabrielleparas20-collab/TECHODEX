@@ -1,0 +1,437 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Lesson 9 — Responsive Design & Media Queries | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson9">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 9 — Responsive Design & Media Queries</h1>
+        <div class="lesson-meta">Estimated time: <strong>35–60 minutes</strong> · Level: <strong>Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#principles">Core principles</a>
+      <a href="#units-viewport">Responsive units & viewport</a>
+      <a href="#media-queries">Media queries & breakpoints</a>
+      <a href="#container-queries">Container queries & feature queries</a>
+      <a href="#images-media">Responsive images & media</a>
+      <a href="#accessibility">Accessibility & user preferences</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Responsive design ensures interfaces adapt to different screen sizes, input methods, and user preferences. This lesson covers the practical tools and patterns: fluid units, media queries, container queries, responsive images, and how to respect accessibility and performance while building flexible layouts.</p>
+    </section>
+
+    <section id="principles">
+      <h2>Core principles</h2>
+      <ul>
+        <li><strong>Mobile first</strong> — design for small screens first, then enhance for larger viewports.</li>
+        <li><strong>Progressive enhancement</strong> — provide a usable baseline and layer improvements.</li>
+        <li><strong>Fluidity</strong> — prefer flexible units and layouts that adapt rather than fixed breakpoints only.</li>
+        <li><strong>Performance</strong> — load only what’s necessary for the current context.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Rule:</strong> Start with a simple, readable layout and add complexity only where it improves the experience.
+      </div>
+    </section>
+
+    <section id="units-viewport">
+      <h2>Responsive units and viewport</h2>
+      <p>Choose units that scale well across devices:</p>
+      <ul>
+        <li><code>rem</code> — root-relative, respects user font-size settings.</li>
+        <li><code>em</code> — relative to the current element's font-size.</li>
+        <li><code>%</code> — relative to parent dimensions.</li>
+        <li><code>vw</code> / <code>vh</code> — viewport width/height; use carefully for text to avoid overly large/small sizes.</li>
+        <li><code>vmin</code> / <code>vmax</code> — based on smaller/larger viewport dimension.</li>
+        <li><code>fr</code> — grid fractional unit for flexible tracks.</li>
+      </ul>
+
+      <pre class="code">
+/* fluid typography using clamp */
+h1 {
+  font-size: clamp(1.5rem, 2.5vw + 1rem, 3rem);
+}
+
+/* layout using rem and percent */
+.container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use <code>rem</code> for spacing and type to respect user preferences; use viewport units for decorative, non-critical sizing.
+      </div>
+    </section>
+
+    <section id="media-queries">
+      <h2>Media queries and breakpoints</h2>
+      <p>Media queries let you apply styles based on viewport characteristics. Favor a mobile-first approach: write base styles for small screens and add queries for larger viewports.</p>
+
+      <h3>Basic syntax</h3>
+      <pre class="code">
+/* mobile-first: add rules for larger screens */
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+      </pre>
+
+      <h3>Choosing breakpoints</h3>
+      <p>Prefer content-driven breakpoints rather than device-specific ones. Inspect where the layout breaks and add a breakpoint there.</p>
+
+      <h3>Media features</h3>
+      <pre class="code">
+/* orientation */
+@media (orientation: landscape) { ... }
+
+/* reduced motion preference */
+@media (prefers-reduced-motion: reduce) { ... }
+
+/* high-resolution images */
+@media (min-resolution: 2dppx) { ... }
+      </pre>
+
+      <div class="example">
+        <strong>Pattern</strong>
+        <pre class="code">
+/* base (mobile) */
+.nav { display: block; }
+
+/* tablet and up */
+@media (min-width: 768px) {
+  .nav { display: flex; gap: 1rem; }
+}
+        </pre>
+      </div>
+    </section>
+
+    <section id="container-queries">
+      <h2>Container queries & feature queries</h2>
+      <p>Container queries allow components to adapt to the size of their container rather than the viewport. Use <code>@container</code> for truly modular, reusable components. Use <code>@supports</code> to feature-detect CSS capabilities.</p>
+
+      <pre class="code">
+/* enable container sizing on the parent */
+.card {
+  container-type: inline-size;
+}
+
+/* query based on container width */
+@container (min-width: 360px) {
+  .card { display: flex; gap: 1rem; }
+}
+
+/* feature query */
+@supports (display: grid) {
+  .layout { display: grid; }
+}
+      </pre>
+
+      <div class="note">
+        <strong>Browser support:</strong> Container queries are supported in modern browsers; use feature detection and fallbacks for older browsers.
+      </div>
+    </section>
+
+    <section id="images-media">
+      <h2>Responsive images and media</h2>
+      <p>Deliver appropriately sized images and media to save bandwidth and improve load times.</p>
+
+      <h3>Responsive image patterns</h3>
+      <pre class="code">
+/* srcset + sizes */
+<img
+  src="hero-800.jpg"
+  srcset="hero-400.jpg 400w, hero-800.jpg 800w, hero-1200.jpg 1200w"
+  sizes="(max-width:600px) 100vw, 800px"
+  alt="...">
+      </pre>
+
+      <h3>Art direction with picture</h3>
+      <pre class="code">
+<picture>
+  <source media="(min-width:1024px)" srcset="hero-wide.jpg">
+  <source media="(max-width:1023px)" srcset="hero-narrow.jpg">
+  <img src="hero-fallback.jpg" alt="...">
+</picture>
+      </pre>
+
+      <h3>Video & audio</h3>
+      <p>Provide multiple sources and captions; lazy-load or defer heavy media when appropriate.</p>
+
+      <div class="note">
+        <strong>Performance:</strong> Combine responsive images with a CDN and modern formats (WebP/AVIF) for best results.
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility & user preferences</h2>
+      <p>Respect user settings and ensure responsive changes do not break accessibility.</p>
+
+      <ul>
+        <li>Honor <code>prefers-reduced-motion</code> and provide non-animated alternatives.</li>
+        <li>Respect <code>prefers-color-scheme</code> for light/dark themes and provide readable contrast in both modes.</li>
+        <li>Ensure focus order and keyboard navigation remain logical across breakpoints.</li>
+        <li>Test with screen readers and keyboard-only navigation at multiple viewport sizes.</li>
+      </ul>
+
+      <pre class="code">
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* dark mode */
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #071428; --text: #eaf6ff; }
+}
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> When changing layout order visually (grid/flex reordering), keep DOM order meaningful for keyboard and assistive tech.
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Mobile-first layout with breakpoints</h3>
+      <pre class="code">
+/* base (mobile) */
+.container {
+  padding: 1rem;
+  display: block;
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  .container { display: grid; grid-template-columns: 1fr 320px; gap: 1.25rem; }
+}
+
+/* desktop */
+@media (min-width: 1200px) {
+  .container { max-width: 1200px; margin: 0 auto; }
+}
+      </pre>
+
+      <h3>Fluid card width using clamp</h3>
+      <pre class="code">
+.card {
+  width: clamp(220px, 30vw, 420px);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+      </pre>
+
+      <h3>Container query for a component</h3>
+      <pre class="code">
+.card {
+  container-type: inline-size;
+  padding: 1rem;
+}
+
+@container (min-width: 420px) {
+  .card { display: flex; gap: 1rem; align-items: center; }
+}
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Convert a fixed-width layout into a mobile-first responsive layout. Replace fixed breakpoints with content-driven ones and add a container query for a reusable card component.
+      </div>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Responsive design. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Using media queries. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2020). Media Queries Level 4. Retrieved from https://www.w3.org</li>
+        <li>CSS Working Group. (n.d.). Container Queries. Retrieved from https://developer.mozilla.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 9: Responsive Design & Media Queries</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

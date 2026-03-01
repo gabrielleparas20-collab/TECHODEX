@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Lesson 8 — Transforms, Effects, and Motion | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .demo-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .demo-card{
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson8">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 8 — Transforms, Effects, and Motion</h1>
+        <div class="lesson-meta">Estimated time: <strong>35–55 minutes</strong> · Level: <strong>Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#transforms-filters">Transforms and Filters</a>
+      <a href="#transitions-animations">Transitions and Animations</a>
+      <a href="#responsive-motion">Responsive Motion and Layout Considerations</a>
+      <a href="#performance-accessibility">Performance and Accessibility</a>
+      <a href="#examples-sources">Examples and Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson covers CSS transforms, visual effects, and motion techniques. You will learn how to manipulate elements in 2D and 3D, apply filters and blend modes, create smooth transitions and keyframe animations, and apply motion responsibly for performance and accessibility.</p>
+    </section>
+
+    <section id="transforms-filters">
+      <h2>Transforms and Filters</h2>
+      <p><strong>Transforms</strong> change the coordinate space of an element without affecting document flow. Use transforms for positioning, scaling, rotating, and 3D effects. Transforms are GPU-friendly and ideal for animations.</p>
+
+      <h3>Common transform functions</h3>
+      <pre class="code">
+/* 2D transforms */
+.transform-translate { transform: translate(20px, 10px); }
+.transform-scale { transform: scale(1.1); }
+.transform-rotate { transform: rotate(12deg); }
+
+/* 3D transforms */
+.transform-3d { transform: perspective(800px) rotateY(18deg); }
+
+/* combine transforms */
+.card:hover { transform: translateY(-6px) rotateX(2deg) scale(1.02); }
+      </pre>
+
+      <p><strong>Filters</strong> apply image-like effects to elements. Use filters for subtle visual polish and to avoid extra image assets.</p>
+
+      <h3>Common filter functions</h3>
+      <pre class="code">
+/* filters */
+.blur { filter: blur(6px); }
+.grayscale { filter: grayscale(100%); }
+.contrast { filter: contrast(1.15) saturate(1.05); }
+
+/* multiple filters */
+.photo { filter: saturate(1.1) contrast(1.05) drop-shadow(0 6px 12px rgba(0,0,0,0.45)); }
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Prefer transforms and opacity for animations. Filters can be expensive on some devices so use them sparingly and test performance.
+      </div>
+    </section>
+
+    <section id="transitions-animations">
+      <h2>Transitions and Animations</h2>
+      <p><strong>Transitions</strong> provide simple, declarative interpolation between two states. Use transitions for hover, focus, and state changes. <strong>Keyframe animations</strong> enable more complex sequences and looping motion.</p>
+
+      <h3>Transitions</h3>
+      <pre class="code">
+/* transition example */
+.button {
+  transition: background-color 180ms ease, transform 220ms cubic-bezier(.2,.9,.2,1);
+}
+.button:hover {
+  background-color: #0088dd;
+  transform: translateY(-4px);
+}
+      </pre>
+
+      <h3>Keyframe animations</h3>
+      <pre class="code">
+/* keyframes */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+
+/* apply animation */
+.icon-float {
+  animation: float 3s ease-in-out infinite;
+}
+      </pre>
+
+      <p><strong>Animation properties</strong> to control behavior:</p>
+      <ul>
+        <li><code>animation-duration</code></li>
+        <li><code>animation-timing-function</code></li>
+        <li><code>animation-delay</code></li>
+        <li><code>animation-iteration-count</code></li>
+        <li><code>animation-direction</code></li>
+        <li><code>animation-fill-mode</code></li>
+      </ul>
+
+      <div class="example">
+        <strong>Motion design pattern</strong>
+        <p>Use short, subtle transitions for micro-interactions and longer, eased keyframes for decorative motion. Keep motion meaningful and avoid gratuitous movement.</p>
+      </div>
+    </section>
+
+    <section id="responsive-motion">
+      <h2>Responsive Motion and Layout Considerations</h2>
+      <p>Motion must adapt to different screen sizes and input methods. Use media queries and feature detection to tailor effects. Avoid absolute positioning that breaks layout when animating size or position.</p>
+
+      <h3>Responsive techniques</h3>
+      <pre class="code">
+/* reduce motion on small screens */
+@media (max-width: 600px) {
+  .hero-animate { animation: none; transform: none; }
+}
+
+/* respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .icon-float, .button { transition: none; animation: none; }
+}
+      </pre>
+
+      <p><strong>Layout-friendly motion</strong> uses transforms and opacity so layout does not reflow during animation. When you must animate layout properties, keep durations short and test for jank.</p>
+    </section>
+
+    <section id="performance-accessibility">
+      <h2>Performance and Accessibility</h2>
+      <p>Design motion that is performant and inclusive. Prioritize animations that run on the compositor thread and avoid layout-triggering properties. Respect user preferences for reduced motion and ensure motion does not cause disorientation.</p>
+
+      <h3>Performance checklist</h3>
+      <ul>
+        <li>Animate <strong>transform</strong> and <strong>opacity</strong> where possible.</li>
+        <li>Avoid animating <strong>width</strong>, <strong>height</strong>, <strong>top</strong>, or <strong>left</strong> for frequent animations.</li>
+        <li>Use <code>will-change</code> sparingly to hint the browser about upcoming animations.</li>
+        <li>Test on low-end devices and measure frame rates in DevTools.</li>
+      </ul>
+
+      <h3>Accessibility checklist</h3>
+      <ul>
+        <li>Honor <code>prefers-reduced-motion</code> and provide non-animated alternatives.</li>
+        <li>Do not rely on motion alone to convey information. Provide text or ARIA updates when motion indicates state changes.</li>
+        <li>Keep motion short and avoid rapid flashing that could trigger seizures.</li>
+      </ul>
+
+      <pre class="code">
+/* safe hint for upcoming transform */
+.card {
+  will-change: transform, opacity;
+}
+
+/* reduced motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+      </pre>
+    </section>
+
+    <section id="examples-sources">
+      <h2>Examples and Sources</h2>
+
+      <h3>Subtle hover lift</h3>
+      <pre class="code">
+.card {
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), box-shadow 220ms ease;
+  transform-origin: center;
+}
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+      </pre>
+
+      <h3>Accessible toast animation</h3>
+      <pre class="code">
+@keyframes slideIn {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.toast {
+  animation: slideIn 240ms cubic-bezier(.2,.9,.2,1) both;
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .toast { animation: none; opacity: 1; transform: none; }
+}
+      </pre>
+
+      <h3>3D card tilt</h3>
+      <pre class="code">
+.card-3d {
+  perspective: 900px;
+}
+.card-3d .inner {
+  transform-style: preserve-3d;
+  transition: transform 300ms ease;
+}
+.card-3d:hover .inner {
+  transform: rotateX(6deg) rotateY(-8deg);
+}
+      </pre>
+
+      <div class="demo-grid" aria-hidden="true">
+        <div class="demo-card">
+          <strong>Practice</strong>
+          <p>Create three small demos: a hover-lift card, a looping decorative icon using keyframes, and a toast that respects reduced motion. Test each on desktop and mobile.</p>
+        </div>
+
+        <div class="demo-card">
+          <strong>Checklist</strong>
+          <ul>
+            <li>Does motion use transform or opacity?</li>
+            <li>Is performance acceptable on low-end devices?</li>
+            <li>Does the UI respect prefers-reduced-motion?</li>
+            <li>Is information conveyed by motion also available as text?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sources" aria-label="Sources">
+        <h2>Sources</h2>
+        <ul>
+          <li>MDN Web Docs. CSS Transforms. Retrieved from https://developer.mozilla.org</li>
+          <li>MDN Web Docs. CSS Animations. Retrieved from https://developer.mozilla.org</li>
+          <li>W3C. Media Queries Level 5. Retrieved from https://www.w3.org</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 8: Transforms, Effects, and Motion</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

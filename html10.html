@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 10 — Advanced Patterns & Best Practices | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson10">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 10 — Advanced Patterns & Best Practices</h1>
+        <div class="lesson-meta">Estimated time: <strong>40–60 minutes</strong> · Level: <strong>Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html9.html" aria-label="Back to Lesson 9">Back to Lesson 9</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#progressive-enhancement">Progressive enhancement</a>
+      <a href="#performance">Performance tips</a>
+      <a href="#security">Security basics</a>
+      <a href="#testing-debugging">Testing & debugging</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson gathers advanced HTML patterns and practical best practices you’ll use when building real sites: progressive enhancement, performance-minded markup, basic security considerations, and testing/debugging workflows. These practices help your pages remain robust, fast, and maintainable.</p>
+    </section>
+
+    <section id="progressive-enhancement">
+      <h2>Progressive enhancement</h2>
+      <p>Start with a solid HTML baseline that works without JavaScript, then layer on CSS and JavaScript. This ensures content is accessible and functional in constrained environments and improves resilience.</p>
+
+      <h3>Principles</h3>
+      <ul>
+        <li>Deliver meaningful content in plain HTML first.</li>
+        <li>Add CSS for presentation and JavaScript for enhanced interactions.</li>
+        <li>Feature-detect APIs and provide fallbacks when unavailable.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Pattern</strong>
+        <pre class="code">
+&lt;button class="menu-toggle" aria-expanded="false"&gt;Menu&lt;/button&gt;
+&lt;nav class="main-nav" hidden&gt;...&lt;/nav&gt;
+
+&lt;script&gt;
+  const btn = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.main-nav');
+  btn.addEventListener('click', () =&gt; {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    nav.hidden = expanded;
+  });
+&lt;/script&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="performance">
+      <h2>Performance tips</h2>
+      <p>Small HTML choices affect load time and perceived performance. Optimize markup and assets to reduce blocking and improve first meaningful paint.</p>
+
+      <h3>Practical rules</h3>
+      <ul>
+        <li>Include the viewport meta tag and critical metadata in the head.</li>
+        <li>Defer nonessential scripts; place critical CSS inline or load it early.</li>
+        <li>Use responsive images (<code>srcset</code>, <code>sizes</code>) and modern image formats (WebP/AVIF) where supported.</li>
+        <li>Prefer semantic elements to reduce extra wrapper markup.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Responsive image</strong>
+        <pre class="code">
+&lt;img src="hero-800.jpg"
+     srcset="hero-400.jpg 400w, hero-800.jpg 800w, hero-1200.jpg 1200w"
+     sizes="(max-width:600px) 100vw, 800px"
+     alt="Project screenshot"&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="security">
+      <h2>Security basics</h2>
+      <p>HTML interacts with other layers; follow simple rules to reduce common risks.</p>
+
+      <ul>
+        <li>Never embed untrusted HTML; sanitize server-side before rendering.</li>
+        <li>Use <code>rel="noopener noreferrer"</code> with <code>target="_blank"</code>.</li>
+        <li>Prefer HTTPS for all pages and assets to protect integrity and privacy.</li>
+        <li>Avoid exposing secrets in markup or data attributes.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Example</strong>: safe external link
+        <pre class="code">
+&lt;a href="https://external.example" target="_blank" rel="noopener noreferrer"&gt;External site&lt;/a&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="testing-debugging">
+      <h2>Testing & debugging</h2>
+      <p>Adopt a simple workflow to catch issues early: validate markup, test accessibility, and inspect network and rendering behavior.</p>
+
+      <h3>Checklist</h3>
+      <ul>
+        <li>Run HTML validation (W3C validator) for structural issues.</li>
+        <li>Use browser DevTools to inspect network, layout, and console errors.</li>
+        <li>Test keyboard navigation and screen-reader basics for accessibility.</li>
+        <li>Check pages on multiple viewport sizes and devices (or emulators).</li>
+      </ul>
+
+      <div class="example">
+        <strong>Quick DevTools tip</strong>
+        <pre class="code">
+Open DevTools → Network tab → Reload page to see blocking resources and load times.
+        </pre>
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Minimal accessible modal (pattern)</h3>
+      <pre class="code">
+&lt;button id="open" aria-haspopup="dialog" aria-controls="modal"&gt;Open&lt;/button&gt;
+&lt;div id="modal" role="dialog" aria-modal="true" hidden&gt;
+  &lt;h2 id="modalTitle"&gt;Dialog&lt;/h2&gt;
+  &lt;button id="close"&gt;Close&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+const open = document.getElementById('open');
+const close = document.getElementById('close');
+const modal = document.getElementById('modal');
+open.addEventListener('click', () =&gt; modal.hidden = false);
+close.addEventListener('click', () =&gt; modal.hidden = true);
+&lt;/script&gt;
+      </pre>
+
+      <h3>Lightweight lazy-load pattern</h3>
+      <pre class="code">
+&lt;img loading="lazy" src="thumb.jpg" data-src="hero.jpg" alt="..."&gt;
+
+&lt;script&gt;
+if ('loading' in HTMLImageElement.prototype) {
+  document.querySelectorAll('img[loading="lazy"]').forEach(img =&gt; {
+    img.src = img.dataset.src || img.src;
+  });
+}
+&lt;/script&gt;
+      </pre>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Progressive enhancement. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Responsive images. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 10: Advanced Patterns & Best Practices</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

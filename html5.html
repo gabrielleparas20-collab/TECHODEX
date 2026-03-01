@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 5 — Forms and Inputs | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson5">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 5 — Forms and Inputs</h1>
+        <div class="lesson-meta">Estimated time: <strong>30–45 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html4.html" aria-label="Back to Lesson 4">Back to Lesson 4</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#form-structure">Form structure</a>
+      <a href="#input-types">Input types</a>
+      <a href="#labels-accessibility">Labels & accessibility</a>
+      <a href="#validation">Validation</a>
+      <a href="#security-privacy">Security & privacy</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Forms collect user input. This lesson covers the semantic structure of forms, common input types, labeling and accessibility, client-side validation basics, and security/privacy considerations. Well-structured forms improve usability and reduce errors.</p>
+    </section>
+
+    <section id="form-structure">
+      <h2>Form structure</h2>
+      <p>The <code>&lt;form&gt;</code> element wraps controls and defines submission behavior via <code>action</code> and <code>method</code>. Use fieldsets and legends to group related controls.</p>
+
+      <pre class="code">
+&lt;form action="/subscribe" method="post"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Contact details&lt;/legend&gt;
+    &lt;label for="name"&gt;Name&lt;/label&gt;
+    &lt;input id="name" name="name" type="text" required&gt;
+  &lt;/fieldset&gt;
+  &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use <code>method="post"</code> for actions that change server state or submit sensitive data.
+      </div>
+    </section>
+
+    <section id="input-types">
+      <h2>Input types</h2>
+      <p>HTML provides many input types that improve UX and enable built-in validation: <code>text</code>, <code>email</code>, <code>tel</code>, <code>number</code>, <code>url</code>, <code>password</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, <code>file</code>, and more.</p>
+
+      <pre class="code">
+&lt;input type="text" name="username" required&gt;
+&lt;input type="email" name="email" required&gt;
+&lt;input type="tel" name="phone"&gt;
+&lt;input type="number" name="quantity" min="1" max="10"&gt;
+&lt;input type="checkbox" id="agree" name="agree"&gt;
+&lt;input type="file" name="attachment" accept=".pdf,.jpg"&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Why types matter</strong>
+        <p>Using <code>type="email"</code> triggers email-specific keyboards on mobile and enables browser validation for email format.</p>
+      </div>
+    </section>
+
+    <section id="labels-accessibility">
+      <h2>Labels and accessibility</h2>
+      <p>Always associate labels with inputs using <code>for</code> and <code>id</code>, or wrap the input inside the label. Use <code>aria-describedby</code> for additional help text and <code>aria-invalid</code> to indicate validation state.</p>
+
+      <pre class="code">
+&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input id="email" name="email" type="email" aria-describedby="emailHelp" required&gt;
+&lt;div id="emailHelp"&gt;We will never share your email.&lt;/div&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> For groups of radios or checkboxes, use a fieldset with a legend to provide context for assistive technologies.
+      </div>
+    </section>
+
+    <section id="validation">
+      <h2>Validation</h2>
+      <p>Browsers provide basic validation for certain input types and attributes (<code>required</code>, <code>min</code>, <code>max</code>, <code>pattern</code>). Use client-side validation for immediate feedback, but always validate on the server as well.</p>
+
+      <pre class="code">
+&lt;input type="text" name="zip" pattern="\\d{5}" title="Five digit ZIP code"&gt;
+
+&lt;!-- Example: show custom message via JS --&gt;
+&lt;script&gt;
+  // simple example: prevent submit if invalid
+  // (server-side validation still required)
+&lt;/script&gt;
+      </pre>
+
+      <div class="example">
+        <strong>UX note</strong>
+        <p>Show clear, inline error messages and keep focus on the first invalid control to help users correct mistakes quickly.</p>
+      </div>
+    </section>
+
+    <section id="security-privacy">
+      <h2>Security and privacy</h2>
+      <ul>
+        <li>Never rely solely on client-side validation; validate and sanitize on the server.</li>
+        <li>Use HTTPS for forms that transmit sensitive data.</li>
+        <li>Limit file upload types and sizes; scan or validate uploads server-side.</li>
+        <li>Minimize data collection and explain why you collect each field.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Privacy tip:</strong> Add a short privacy note near sensitive fields (for example, why you need an email) to build trust.
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Contact form</h3>
+      <pre class="code">
+&lt;form action="/contact" method="post"&gt;
+  &lt;label for="name"&gt;Full name&lt;/label&gt;
+  &lt;input id="name" name="name" type="text" required&gt;
+
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" name="email" type="email" required&gt;
+
+  &lt;label for="message"&gt;Message&lt;/label&gt;
+  &lt;textarea id="message" name="message" rows="6" required&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+      </pre>
+
+      <h3>Login form (minimal)</h3>
+      <pre class="code">
+&lt;form action="/login" method="post"&gt;
+  &lt;label for="user"&gt;Username&lt;/label&gt;
+  &lt;input id="user" name="user" type="text" required&gt;
+
+  &lt;label for="pass"&gt;Password&lt;/label&gt;
+  &lt;input id="pass" name="pass" type="password" required&gt;
+
+  &lt;button type="submit"&gt;Log in&lt;/button&gt;
+&lt;/form&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Practice tip:</strong> Build a small contact form and test it in your browser. Inspect the network request to see the form payload and experiment with client-side validation attributes.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Forms are essential for interaction. Use semantic structure, label every control, choose appropriate input types, provide clear validation feedback, and always validate on the server. Prioritize security and privacy when collecting user data.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>A11y Project. (n.d.). Accessibility resources. Retrieved from https://www.a11yproject.com</li>
+        <li>MDN Web Docs. (n.d.). Forms. Retrieved from https://developer.mozilla.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+        <li>W3Schools. (n.d.). HTML forms. Retrieved from https://www.w3schools.com</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 5: Forms and Inputs</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

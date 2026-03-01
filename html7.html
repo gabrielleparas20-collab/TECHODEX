@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 7 — Media | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson7">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 7 — Media</h1>
+        <div class="lesson-meta">Estimated time: <strong>30–45 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html6.html" aria-label="Back to Lesson 6">Back to Lesson 6</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#audio">Audio</a>
+      <a href="#video">Video</a>
+      <a href="#captions-transcripts">Captions & transcripts</a>
+      <a href="#performance">Performance & lazy loading</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson covers embedding and controlling audio and video, accessibility considerations (captions, transcripts), responsive media techniques, and performance best practices. Media enhances content but must be implemented with accessibility and performance in mind.</p>
+    </section>
+
+    <section id="audio">
+      <h2>Audio</h2>
+      <p>Use the <code>&lt;audio&gt;</code> element for sound. Provide controls for user playback and include fallback content. Prefer common formats (MP3, AAC, Ogg) and offer multiple sources when necessary.</p>
+
+      <pre class="code">
+&lt;audio controls&gt;
+  &lt;source src="audio/podcast-episode.mp3" type="audio/mpeg"&gt;
+  &lt;source src="audio/podcast-episode.ogg" type="audio/ogg"&gt;
+  Your browser does not support the audio element.
+&lt;/audio&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Avoid autoplaying audio. Let users control playback to respect context and accessibility.
+      </div>
+    </section>
+
+    <section id="video">
+      <h2>Video</h2>
+      <p>Use the <code>&lt;video&gt;</code> element with controls. Provide multiple source formats and a poster image for the initial frame. For complex layouts, use the <code>&lt;picture&gt;</code> pattern for poster images if needed.</p>
+
+      <pre class="code">
+&lt;video controls width="720" poster="images/hero-poster.jpg"&gt;
+  &lt;source src="video/lecture-720.mp4" type="video/mp4"&gt;
+  &lt;source src="video/lecture-720.webm" type="video/webm"&gt;
+  Your browser does not support the video element.
+&lt;/video&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Adaptive delivery</strong>
+        <p>Deliver multiple resolutions and let the player or CDN choose the best stream for the user's connection. Consider HLS/DASH for long-form or adaptive streaming.</p>
+      </div>
+    </section>
+
+    <section id="captions-transcripts">
+      <h2>Captions and transcripts</h2>
+      <p>Always provide captions for video and transcripts for audio. Captions help deaf or hard-of-hearing users and improve comprehension for all users. Use <code>&lt;track kind="captions"&gt;</code> for captions and provide a downloadable transcript if possible.</p>
+
+      <pre class="code">
+&lt;video controls&gt;
+  &lt;source src="video/lecture.mp4" type="video/mp4"&gt;
+  &lt;track kind="captions" srclang="en" label="English" src="captions/lecture-en.vtt"&gt;
+&lt;/video&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use WebVTT (.vtt) for captions. Ensure captions are synchronized and accurately reflect spoken content and important non-speech audio cues.
+      </div>
+    </section>
+
+    <section id="performance">
+      <h2>Performance and lazy loading</h2>
+      <p>Media can be heavy. Use these techniques to reduce impact:</p>
+      <ul>
+        <li>Lazy-load offscreen media (defer loading until user interaction or viewport).</li>
+        <li>Use optimized encodings and multiple resolutions.</li>
+        <li>Serve media from a CDN and enable range requests for efficient seeking.</li>
+        <li>Use the <code>preload</code> attribute carefully: <code>metadata</code> is often a good default.</li>
+      </ul>
+
+      <pre class="code">
+&lt;video controls preload="metadata"&gt;...&lt;/video&gt;
+
+&lt;img loading="lazy" src="images/hero.jpg" alt="..."&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Lazy initialization</strong>
+        <p>Defer creating heavy players until the user clicks a play button; replace a lightweight poster with the actual <code>&lt;video&gt;</code> element on demand.</p>
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+      <p>Accessible media includes captions, transcripts, descriptive text for important visuals, and keyboard-accessible controls. Use ARIA where native semantics are insufficient, and ensure focus management for custom players.</p>
+
+      <ul>
+        <li>Provide captions (<code>&lt;track kind="captions"&gt;</code>) and transcripts.</li>
+        <li>Offer keyboard controls and visible focus states for custom players.</li>
+        <li>Include descriptive <code>alt</code> text for poster images and meaningful <code>title</code> attributes when appropriate.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Practice:</strong> Test media with a screen reader and keyboard-only navigation to confirm controls and captions are usable.
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — practical snippets</h2>
+
+      <h3>Simple audio player with transcript</h3>
+      <pre class="code">
+&lt;audio controls&gt;
+  &lt;source src="audio/interview.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;
+
+&lt;section aria-labelledby="transcriptTitle"&gt;
+  &lt;h3 id="transcriptTitle"&gt;Transcript&lt;/h3&gt;
+  &lt;p&gt;[00:00] Host: Welcome...&lt;/p&gt;
+&lt;/section&gt;
+      </pre>
+
+      <h3>Video with captions and poster</h3>
+      <pre class="code">
+&lt;video controls width="640" poster="images/video-poster.jpg"&gt;
+  &lt;source src="video/intro.mp4" type="video/mp4"&gt;
+  &lt;track kind="captions" srclang="en" label="English" src="captions/intro-en.vtt"&gt;
+&lt;/video&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Provide both captions and a transcript for maximum accessibility and searchability.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Use native media elements for straightforward playback, always provide captions and transcripts, optimize media for performance, and prioritize accessible controls. Thoughtful media implementation improves reach and user experience across devices and abilities.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Audio and video content. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2018). WebVTT: The Web Video Text Tracks Format. Retrieved from https://www.w3.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 7: Media</p>
+    </footer>
+  </main>
+
+  <script>
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

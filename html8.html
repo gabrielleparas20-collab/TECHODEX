@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lesson 8 — Attributes and Global Attributes | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson8">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 8 — Attributes and Global Attributes</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html7.html" aria-label="Back to Lesson 7">Back to Lesson 7</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#global-attributes">Global attributes</a>
+      <a href="#data-attributes">Custom data attributes</a>
+      <a href="#aria">ARIA attributes</a>
+      <a href="#common-attributes">Common element attributes</a>
+      <a href="#examples">Examples</a>
+      <a href="#summary">Summary</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Attributes add information to HTML elements. Some attributes are specific to certain elements (for example <code>src</code> on <code>&lt;img&gt;</code>), while global attributes can be used on most elements. This lesson explains global attributes, custom data attributes, ARIA attributes, and common element-specific attributes you will use frequently.</p>
+    </section>
+
+    <section id="global-attributes">
+      <h2>Global attributes</h2>
+      <p>Global attributes are available on most HTML elements. They provide common functionality such as identification, styling hooks, accessibility, and behavior control.</p>
+
+      <h3>Key global attributes</h3>
+      <ul>
+        <li><code>id</code> — unique identifier for an element; useful for anchors, scripting, and labeling.</li>
+        <li><code>class</code> — one or more class names for styling and selection.</li>
+        <li><code>title</code> — advisory information shown as a tooltip in some browsers.</li>
+        <li><code>hidden</code> — indicates the element is not relevant and should not be displayed.</li>
+        <li><code>style</code> — inline CSS styles (use sparingly; prefer external stylesheets).</li>
+        <li><code>tabindex</code> — controls keyboard focus order and whether an element is focusable.</li>
+        <li><code>contenteditable</code> — makes an element editable by the user.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Example</strong>
+        <pre class="code">
+&lt;div id="intro" class="panel highlight" title="Introduction panel" tabindex="0"&gt;
+  &lt;p&gt;Welcome to the course.&lt;/p&gt;
+&lt;/div&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="data-attributes">
+      <h2>Custom data attributes</h2>
+      <p>Custom data attributes allow you to store private data on elements using attributes prefixed with <code>data-</code>. They are accessible in JavaScript via the <code>dataset</code> property and are useful for attaching metadata without polluting global namespaces.</p>
+
+      <h3>Usage</h3>
+      <pre class="code">
+&lt;div data-user-id="42" data-state="draft"&gt;...&lt;/div&gt;
+
+&lt;script&gt;
+  const el = document.querySelector('[data-user-id]');
+  console.log(el.dataset.userId); // "42"
+  console.log(el.dataset.state);  // "draft"
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Keep data attributes for data that is relevant to the client-side script or UI state. Do not store sensitive information in attributes.
+      </div>
+    </section>
+
+    <section id="aria">
+      <h2>ARIA attributes</h2>
+      <p>ARIA attributes enhance accessibility for dynamic or custom UI components. Use ARIA to complement semantic HTML when native elements do not provide the required semantics. Prefer native elements first; use ARIA only when necessary.</p>
+
+      <h3>Common ARIA attributes</h3>
+      <ul>
+        <li><code>role</code> — defines the role of an element (for example <code>role="dialog"</code>).</li>
+        <li><code>aria-label</code> — provides an accessible name when visible text is not available.</li>
+        <li><code>aria-labelledby</code> — references an element that labels the current element.</li>
+        <li><code>aria-describedby</code> — references an element that describes the current element.</li>
+        <li><code>aria-hidden</code> — hides content from assistive technologies.</li>
+        <li><code>aria-expanded</code> — indicates whether a collapsible element is expanded.</li>
+      </ul>
+
+      <div class="example">
+        <strong>ARIA example</strong>
+        <pre class="code">
+&lt;button aria-expanded="false" aria-controls="menu1" id="menuBtn"&gt;Menu&lt;/button&gt;
+&lt;nav id="menu1" aria-labelledby="menuBtn"&gt;...&lt;/nav&gt;
+        </pre>
+      </div>
+
+      <div class="note">
+        <strong>Warning:</strong> Incorrect ARIA usage can reduce accessibility. Test with assistive technologies and follow ARIA authoring practices.
+      </div>
+    </section>
+
+    <section id="common-attributes">
+      <h2>Common element attributes</h2>
+      <p>Many elements have attributes specific to their role. A few commonly used ones:</p>
+
+      <h3>Examples</h3>
+      <ul>
+        <li><code>&lt;a href="..." target="_blank" rel="noopener noreferrer"&gt;</code> — links and safe new-tab behavior.</li>
+        <li><code>&lt;img src="..." alt="..." width="..." height="..."&gt;</code> — images with dimensions and alt text.</li>
+        <li><code>&lt;input type="..." name="..." value="..." required&gt;</code> — form controls with names and validation.</li>
+        <li><code>&lt;button type="submit"&gt;</code> — button types for form behavior.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Practical snippet</strong>
+        <pre class="code">
+&lt;a href="report.pdf" target="_blank" rel="noopener noreferrer" title="Download report (PDF)"&gt;Download report&lt;/a&gt;
+
+&lt;img src="avatar.jpg" alt="Profile photo of Alex" width="120" height="120"&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="examples">
+      <h2>Examples — putting attributes to work</h2>
+
+      <h3>Interactive card</h3>
+      <pre class="code">
+&lt;article id="card-7" class="card" tabindex="0" data-card-type="lesson" aria-labelledby="card7Title"&gt;
+  &lt;h3 id="card7Title"&gt;Lesson 8: Attributes&lt;/h3&gt;
+  &lt;p&gt;Short description...&lt;/p&gt;
+&lt;/article&gt;
+      </pre>
+
+      <h3>Accessible toggle</h3>
+      <pre class="code">
+&lt;button id="toggle" aria-expanded="false" aria-controls="panel"&gt;Show details&lt;/button&gt;
+&lt;div id="panel" hidden&gt;Details here&lt;/div&gt;
+
+&lt;script&gt;
+  const btn = document.getElementById('toggle');
+  const panel = document.getElementById('panel');
+  btn.addEventListener('click', () =&gt; {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    panel.hidden = expanded;
+  });
+&lt;/script&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Add <code>data-*</code> attributes to a UI component and read them from JavaScript to control behavior without adding global variables.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Attributes are the mechanism for adding metadata, behavior, and accessibility to HTML elements. Use global attributes for common needs, <code>data-*</code> for custom data, and ARIA to fill semantic gaps. Prefer native semantics and keep attributes meaningful, minimal, and secure.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). HTML global attributes. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Using ARIA. Retrieved from https://developer.mozilla.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 8: Attributes and Global Attributes</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>

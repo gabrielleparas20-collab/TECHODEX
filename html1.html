@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Techodex — HTML Quiz 1: Basics</title>
+  <link rel="stylesheet" href="../../css/main.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <style>
+    :root{
+      --bg-0: #071428;
+      --panel: #0b2540;
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --accent-2: #7b61ff;
+      --success: #00d18a;
+      --danger: #ff4f9a;
+      --card-radius: 12px;
+      --max-width: 980px;
+      --gap: 12px;
+    }
+
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,var(--bg-0),#041226);color:#eaf6ff;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:var(--max-width);margin:28px auto;padding:18px}
+
+    /* Header */
+    .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+    .nameplate{font-weight:800}
+    .nav-links a{color:var(--muted);margin-left:12px;text-decoration:none;font-weight:700}
+
+    /* Card */
+    .quiz-card{
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
+      padding:18px;border-radius:var(--card-radius);border:1px solid rgba(255,255,255,0.04);
+      box-shadow:0 18px 48px rgba(0,0,0,0.6);
+    }
+
+    .quiz-header{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+    .quiz-header h1{margin:0;font-size:1.25rem}
+    .quiz-header .sub{color:var(--muted);font-size:0.95rem;margin:0}
+
+    /* Progress */
+    .progress-row{display:flex;align-items:center;gap:12px;margin-top:6px}
+    .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .28s ease}
+    .score{min-width:72px;text-align:right;color:var(--muted);font-weight:800}
+
+    /* Questions layout */
+    .questions{display:grid;gap:var(--gap);margin-top:14px}
+    .question{
+      background:linear-gradient(180deg,#071a2b,#061423);
+      border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);
+      box-shadow:0 8px 24px rgba(0,0,0,0.5);
+    }
+    .question h2{margin:0 0 8px 0;font-size:1rem}
+    .question p{margin:0 0 12px 0;color:var(--muted);line-height:1.4;white-space:pre-wrap}
+
+    /* Options */
+    .options{display:grid;gap:10px}
+    .option{
+      display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:linear-gradient(180deg,#0b2a44,#072033);
+      border:1px solid rgba(255,255,255,0.03);color:#eaf6ff;font-weight:800;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease;
+    }
+    .option:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.45)}
+    .option[aria-pressed="true"]{outline:3px solid rgba(0,170,255,0.12)}
+    .option.correct{background:linear-gradient(90deg,var(--success),#2fe0b0);color:#071428;border-color:rgba(0,209,138,0.12)}
+    .option.wrong{background:linear-gradient(90deg,var(--danger),#ff7aa6);color:#071428;border-color:rgba(255,79,154,0.12)}
+    .option .label{flex:1;text-align:left;white-space:pre-wrap}
+
+    /* Controls */
+    .controls{display:flex;gap:10px;align-items:center;margin-top:14px}
+    .btn{padding:10px 14px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071428}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .final{margin-left:12px;color:var(--muted);font-weight:800}
+
+    @media (max-width:720px){
+      .wrap{padding:12px}
+      .quiz-card{padding:14px}
+      .option{padding:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <header class="site-header" role="banner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="nameplate">Techodex</div>
+          <div style="color:var(--muted);font-size:0.92rem">HTML Quiz 1</div>
+        </div>
+      </div>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="../../index.html">Home</a>
+        <a href="../../lessons/index.html">Lessons</a>
+        <a href="../index.html">Quizzes</a>
+        <a href="../../game/index.html">Game</a>
+      </nav>
+    </header>
+
+    <!-- Quiz card -->
+    <article class="quiz-card" role="main" aria-labelledby="quizTitle">
+      <header class="quiz-header">
+        <h1 id="quizTitle">HTML Quiz 1 — Basics</h1>
+        <div class="sub">Five randomized questions. Answers are checked instantly and cannot be changed. No repeats within a session.</div>
+
+        <div class="progress-row" aria-hidden="false">
+          <div class="progress-bar" aria-hidden="true"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
+          <div class="score" id="scoreBadge">0 / 5</div>
+        </div>
+      </header>
+
+      <section id="questions" class="questions" aria-live="polite">
+        <!-- Questions injected by script -->
+      </section>
+
+      <div class="controls" aria-hidden="false">
+        <button id="restart" class="btn ghost" type="button">Shuffle & Restart</button>
+        <button id="finish" class="btn primary" type="button">Finish</button>
+        <div id="final" class="final" aria-live="polite"></div>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    (function () {
+      // Bank of questions (more than 5 to avoid repetition)
+      const BANK = [
+        { id: 'a', q: 'Which tag defines the main heading of a page?', opts: ['<h1>', '<head>', '<title>', '<header>'], correct: 0 },
+        { id: 'b', q: 'Which element wraps the visible content of the page?', opts: ['<body>', '<main>', '<content>', '<page>'], correct: 0 },
+        { id: 'c', q: 'Which declaration tells the browser the document type?', opts: ['<!DOCTYPE html>', '<!HTML>', '<doctype html>', '<!DOCTYPE>'], correct: 0 },
+        { id: 'd', q: 'Which tag contains metadata like title and links to stylesheets?', opts: ['<head>', '<header>', '<meta>', '<info>'], correct: 0 },
+        { id: 'e', q: 'Which tag creates a paragraph?', opts: ['<p>', '<para>', '<text>', '<paragraph>'], correct: 0 },
+        { id: 'f', q: 'Which tag is used for an ordered list?', opts: ['<ol>', '<ul>', '<li>', '<list>'], correct: 0 },
+        { id: 'g', q: 'Which tag is used to include a line break?', opts: ['<br>', '<lb>', '<break>', '<newline>'], correct: 0 },
+        { id: 'h', q: 'Which tag defines a hyperlink?', opts: ['<a>', '<link>', '<href>', '<nav>'], correct: 0 },
+        { id: 'i', q: 'Which tag is semantic for navigation links?', opts: ['<nav>', '<div>', '<menu>', '<links>'], correct: 0 },
+        { id: 'j', q: 'Which tag sets the page title shown in the browser tab?', opts: ['<title>', '<head>', '<meta>', '<tab>'], correct: 0 }
+      ];
+
+      // Shuffle helper
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      // Build a randomized quiz of 5 unique questions
+      function buildQuiz() {
+        return shuffle(BANK).slice(0, 5).map(q => {
+          const optsShuffled = shuffle(q.opts.map((t, idx) => ({ t, idx })));
+          const correctText = q.opts[q.correct];
+          const correctIndex = optsShuffled.findIndex(o => o.t === correctText);
+          return { id: q.id + '-' + Math.random().toString(36).slice(2,6), q: q.q, opts: optsShuffled.map(o => o.t), correctIndex };
+        });
+      }
+
+      let selected = buildQuiz();
+
+      const questionsEl = document.getElementById('questions');
+      const progressFill = document.getElementById('progressFill');
+      const scoreBadge = document.getElementById('scoreBadge');
+      const finalEl = document.getElementById('final');
+      let selections = {}; // qid -> chosen index
+      let score = 0;
+
+      // Render questions using textContent to avoid HTML parsing of tags
+      function render() {
+        questionsEl.innerHTML = '';
+        selected.forEach((item, i) => {
+          const sec = document.createElement('section');
+          sec.className = 'question';
+          sec.id = 'q-' + item.id;
+          sec.setAttribute('aria-labelledby', `q-${item.id}-title`);
+
+          const h2 = document.createElement('h2');
+          h2.id = `q-${item.id}-title`;
+          h2.textContent = `Question ${i + 1}`;
+          sec.appendChild(h2);
+
+          const p = document.createElement('p');
+          // Use textContent so strings like "<h1>" render literally
+          p.textContent = item.q;
+          sec.appendChild(p);
+
+          const opts = document.createElement('div');
+          opts.className = 'options';
+          opts.setAttribute('role', 'list');
+
+          item.opts.forEach((optText, oi) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'option';
+            btn.setAttribute('data-q', item.id);
+            btn.setAttribute('data-idx', oi);
+            btn.setAttribute('aria-pressed', 'false');
+
+            const label = document.createElement('span');
+            label.className = 'label';
+            // Use textContent to avoid HTML parsing
+            label.textContent = optText;
+
+            btn.appendChild(label);
+            btn.addEventListener('click', onSelect);
+            opts.appendChild(btn);
+          });
+
+          sec.appendChild(opts);
+          questionsEl.appendChild(sec);
+        });
+
+        updateProgress();
+      }
+
+      function onSelect(e) {
+        const btn = e.currentTarget;
+        const qid = btn.getAttribute('data-q');
+        const idx = Number(btn.getAttribute('data-idx'));
+        if (selections[qid] != null) return; // already answered
+
+        selections[qid] = idx;
+        const item = selected.find(s => s.id === qid);
+        const container = document.getElementById('q-' + qid);
+        const buttons = Array.from(container.querySelectorAll('.option'));
+        buttons.forEach(b => b.disabled = true);
+
+        const chosen = container.querySelector(`.option[data-idx="${idx}"]`);
+        const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
+
+        if (idx === item.correctIndex) {
+          chosen.classList.add('correct');
+          score++;
+        } else {
+          chosen.classList.add('wrong');
+          if (correct) correct.classList.add('correct');
+        }
+
+        buttons.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        chosen.setAttribute('aria-pressed', 'true');
+        if (correct) correct.setAttribute('aria-pressed', 'true');
+
+        updateProgress();
+      }
+
+      function updateProgress() {
+        const answered = Object.keys(selections).length;
+        const total = selected.length;
+        const percent = Math.round((answered / total) * 100);
+        progressFill.style.width = percent + '%';
+        scoreBadge.textContent = `${score} / ${total}`;
+      }
+
+      function finish() {
+        selected.forEach(item => {
+          if (selections[item.id] == null) {
+            const container = document.getElementById('q-' + item.id);
+            const buttons = Array.from(container.querySelectorAll('.option'));
+            buttons.forEach(b => b.disabled = true);
+            const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
+            if (correct) correct.classList.add('correct');
+          }
+        });
+        updateProgress();
+        finalEl.textContent = `Final score: ${score} / ${selected.length}`;
+        document.getElementById('finish').disabled = true;
+      }
+
+      function restart() {
+        selections = {};
+        score = 0;
+        finalEl.textContent = '';
+        document.getElementById('finish').disabled = false;
+        selected = buildQuiz();
+        render();
+      }
+
+      // Wire controls
+      document.getElementById('finish').addEventListener('click', finish);
+      document.getElementById('restart').addEventListener('click', restart);
+
+      // Initial render
+      render();
+
+      // Expose for debugging if needed
+      window.__tdx_html1 = { selected, selections };
+    })();
+  </script>
+</body>
+</html>

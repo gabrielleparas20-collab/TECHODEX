@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CSS Lesson 6 — Flexbox | Techodex</title>
+
+  <link rel="stylesheet" href="../../css/main.css" />
+
+  <style>
+    :root{
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
+    }
+
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
+
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
+
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
+
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
+
+    .demo {
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    .demo .panel {
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+    .flex-box {
+      display:flex;
+      gap:8px;
+      padding:12px;
+      background: rgba(0,0,0,0.45);
+      border-radius:8px;
+      margin-top:8px;
+    }
+    .flex-box .item {
+      background: linear-gradient(180deg, rgba(0,170,255,0.12), rgba(255,255,255,0.02));
+      padding:10px 12px;
+      border-radius:6px;
+      min-width:40px;
+      text-align:center;
+      color:#eaf6ff;
+      font-weight:700;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="css-lesson6">
+    <div class="lesson-header">
+      <div>
+        <h1>CSS Lesson 6 — Flexbox</h1>
+        <div class="lesson-meta">Estimated time: <strong>30–50 minutes</strong> · Level: <strong>Beginner → Intermediate</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#flex-container">Flex container</a>
+      <a href="#flex-items">Flex items</a>
+      <a href="#alignment">Alignment</a>
+      <a href="#ordering-sizing">Ordering & sizing</a>
+      <a href="#patterns">Common patterns</a>
+      <a href="#examples">Examples</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>Flexbox is a one-dimensional layout model for arranging items in a row or column. It simplifies alignment, spacing, and distribution of space among items, especially when building responsive components. Use flexbox for toolbars, card rows, navs, and small layout components; combine with grid for two-dimensional layouts.</p>
+    </section>
+
+    <section id="flex-container">
+      <h2>Flex container</h2>
+      <p>Make an element a flex container with <code>display: flex</code> (row by default) or <code>display: inline-flex</code>. Key container properties:</p>
+      <ul>
+        <li><code>flex-direction</code> — <code>row</code>, <code>row-reverse</code>, <code>column</code>, <code>column-reverse</code>.</li>
+        <li><code>flex-wrap</code> — <code>nowrap</code>, <code>wrap</code>, <code>wrap-reverse</code>.</li>
+        <li><code>gap</code> — spacing between items (replaces margin hacks).</li>
+        <li><code>justify-content</code> — main-axis distribution.</li>
+        <li><code>align-items</code> — cross-axis alignment for items.</li>
+      </ul>
+
+      <pre class="code">
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use <code>gap</code> instead of per-item margins for consistent spacing and simpler responsive behavior.
+      </div>
+    </section>
+
+    <section id="flex-items">
+      <h2>Flex items</h2>
+      <p>Items inside a flex container can be controlled with item-level properties:</p>
+      <ul>
+        <li><code>order</code> — controls visual order without changing DOM order.</li>
+        <li><code>flex-grow</code> — how much an item grows relative to others.</li>
+        <li><code>flex-shrink</code> — how an item shrinks when space is limited.</li>
+        <li><code>flex-basis</code> — initial main size before free space distribution.</li>
+        <li><code>align-self</code> — override container's <code>align-items</code> for a single item.</li>
+      </ul>
+
+      <pre class="code">
+.item {
+  flex: 1 1 200px; /* flex-grow:1; flex-shrink:1; flex-basis:200px */
+}
+.item.fixed {
+  flex: 0 0 120px; /* fixed width */
+}
+.item.priority {
+  order: -1; /* appears first visually */
+}
+      </pre>
+    </section>
+
+    <section id="alignment">
+      <h2>Alignment</h2>
+      <p>Alignment in flexbox is powerful and concise. Use these properties to position items along main and cross axes:</p>
+      <ul>
+        <li><code>justify-content</code> — <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code>.</li>
+        <li><code>align-items</code> — <code>stretch</code>, <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>baseline</code>.</li>
+        <li><code>align-content</code> — controls multi-line alignment when there is extra cross-axis space.</li>
+      </ul>
+
+      <pre class="code">
+.header {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+      </pre>
+
+      <div class="example">
+        <strong>Centering both axes</strong>
+        <pre class="code">
+.centered {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+        </pre>
+      </div>
+    </section>
+
+    <section id="ordering-sizing">
+      <h2>Ordering and sizing</h2>
+      <p>Use <code>order</code> sparingly; prefer DOM order for accessibility and source order reading. For responsive sizing, combine <code>flex-basis</code> with <code>flex-grow</code> and <code>min-width</code>/<code>max-width</code> to avoid overflow.</p>
+
+      <pre class="code">
+/* responsive card row */
+.card { flex: 1 1 220px; min-width: 180px; max-width: 1fr; }
+
+/* hero layout: sidebar fixed, content flexible */
+.sidebar { flex: 0 0 280px; }
+.content { flex: 1 1 0; }
+      </pre>
+
+      <div class="note">
+        <strong>Accessibility:</strong> Changing visual order with <code>order</code> does not change DOM order; keyboard and screen-reader users follow DOM order. Use order only when it doesn't harm reading flow.
+      </div>
+    </section>
+
+    <section id="patterns">
+      <h2>Common patterns</h2>
+      <p>Flexbox shines in small, common UI patterns. A few practical patterns:</p>
+      <ul>
+        <li><strong>Horizontal nav</strong> — distribute links with <code>justify-content: space-between</code> or <code>gap</code>.</li>
+        <li><strong>Card grid</strong> — use wrapping flex with fixed <code>flex-basis</code> to create responsive rows.</li>
+        <li><strong>Sticky footer layout</strong> — make page a column flex container and let main grow to push footer down.</li>
+        <li><strong>Toolbar with actions</strong> — left-aligned title and right-aligned actions using <code>margin-left: auto</code> on the action group.</li>
+      </ul>
+
+      <pre class="code">
+/* sticky footer */
+.page {
+  display:flex;
+  flex-direction:column;
+  min-height:100vh;
+}
+.page main { flex: 1 0 auto; }
+.page footer { flex-shrink: 0; }
+      </pre>
+    </section>
+
+    <section id="examples">
+      <h2>Examples</h2>
+
+      <div class="demo" aria-hidden="true">
+        <div class="panel">
+          <strong>Row with spaced items</strong>
+          <div class="flex-box" style="justify-content:space-between; align-items:center;">
+            <div class="item">Logo</div>
+            <div class="item">Nav</div>
+            <div class="item">Search</div>
+            <div class="item">Profile</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <strong>Wrapping card row</strong>
+          <div class="flex-box" style="flex-wrap:wrap;">
+            <div class="item" style="flex:1 1 220px;">Card A</div>
+            <div class="item" style="flex:1 1 220px;">Card B</div>
+            <div class="item" style="flex:1 1 220px;">Card C</div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <strong>Toolbar with actions</strong>
+          <div class="flex-box" style="align-items:center;">
+            <div class="item">Title</div>
+            <div style="margin-left:auto; display:flex; gap:8px;">
+              <div class="item">Save</div>
+              <div class="item">Share</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Code snippets</h3>
+      <pre class="code">
+/* simple responsive row */
+.row {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.row > * { flex: 1 1 200px; }
+
+/* center content vertically and horizontally */
+.center {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height: 200px;
+}
+      </pre>
+
+      <div class="note">
+        <strong>Practice:</strong> Build a small demo page with a header, a wrapping card row, and a footer using flexbox. Inspect behavior as you resize the viewport and tweak <code>flex-basis</code>, <code>gap</code>, and <code>min-width</code>.
+      </div>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>MDN Web Docs. (n.d.). Flexible Box Layout. Retrieved from https://developer.mozilla.org</li>
+        <li>CSS-Tricks. (n.d.). A Complete Guide to Flexbox. Retrieved from https://css-tricks.com</li>
+        <li>W3C. (2018). CSS Flexible Box Layout Module Level 1. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — CSS Lesson 6: Flexbox</p>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
+  </script>
+</body>
+</html>
