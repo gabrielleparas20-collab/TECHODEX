@@ -3,285 +3,306 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex — HTML Quiz 3: Links & Images</title>
+  <title>Lesson 3 — Links and Images | Techodex</title>
+
+  <!-- Global stylesheet -->
   <link rel="stylesheet" href="../../css/main.css" />
-  <link rel="stylesheet" href="../../css/responsive.css" />
+
+  <!-- Local lesson styles (isolated) -->
   <style>
     :root{
-      --bg-0:#071428;
-      --muted:#bfcbdc;
-      --accent:#00aaff;
-      --accent-2:#7b61ff;
-      --success:#00d18a;
-      --danger:#ff4f9a;
-      --card-radius:12px;
-      --max-width:980px;
-      --gap:12px;
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+      --muted: #bfcbdc;
+      --accent: #00aaff;
+      --card-radius: 10px;
+      --max-width: 980px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
     }
 
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,var(--bg-0),#041226);color:#eaf6ff;-webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-width);margin:28px auto;padding:18px}
-
-    /* Header */
-    .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
-    .nameplate{font-weight:800}
-    .nav-links a{color:var(--muted);margin-left:12px;text-decoration:none;font-weight:700}
-
-    /* Card */
-    .quiz-card{
-      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      padding:18px;border-radius:var(--card-radius);border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 18px 48px rgba(0,0,0,0.6);
+    /* Container */
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
     }
 
-    .quiz-header{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-    .quiz-header h1{margin:0;font-size:1.25rem}
-    .quiz-header .sub{color:var(--muted);font-size:0.95rem;margin:0}
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
 
-    /* Progress */
-    .progress-row{display:flex;align-items:center;gap:12px;margin-top:6px}
-    .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .28s ease}
-    .score{min-width:72px;text-align:right;color:var(--muted);font-weight:800}
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
+    }
 
-    /* Questions */
-    .questions{display:grid;gap:var(--gap);margin-top:14px}
-    .question{background:linear-gradient(180deg,#071a2b,#061423);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
-    .question h2{margin:0 0 8px 0;font-size:1rem}
-    .question p{margin:0 0 12px 0;color:var(--muted);white-space:pre-wrap}
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    h3{ font-size:0.98rem; margin:8px 0; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
 
-    /* Options */
-    .options{display:grid;gap:10px}
-    .option{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:linear-gradient(180deg,#0b2a44,#072033);border:1px solid rgba(255,255,255,0.03);color:#eaf6ff;font-weight:800;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease}
-    .option:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.45)}
-    .option.correct{background:linear-gradient(90deg,var(--success),#2fe0b0);color:#071428}
-    .option.wrong{background:linear-gradient(90deg,var(--danger),#ff7aa6);color:#071428}
-    .option .label{flex:1;text-align:left;white-space:pre-wrap}
+    /* Code blocks */
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
 
-    /* Controls */
-    .controls{display:flex;gap:10px;align-items:center;margin-top:14px}
-    .btn{padding:10px 14px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071428}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
-    .final{margin-left:12px;color:var(--muted);font-weight:800}
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
 
-    @media (max-width:720px){
-      .wrap{padding:12px}
-      .quiz-card{padding:14px}
-      .option{padding:10px}
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    /* Highlighted sources area */
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="site-header" role="banner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div class="nameplate">Techodex</div>
-          <div style="color:var(--muted);font-size:0.92rem">HTML Quiz 3</div>
-        </div>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson3">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 3 — Links and Images</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner</strong></div>
+      </div>
+      <div>
+        <a class="btn-ghost" href="html2.html" aria-label="Back to Lesson 2">Back to Lesson 2</a>
+      </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#overview">Overview</a>
+      <a href="#links">Links (anchors)</a>
+      <a href="#urls">URLs and paths</a>
+      <a href="#images">Images and alt text</a>
+      <a href="#responsive-images">Responsive images</a>
+      <a href="#best-practices">Best practices</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <p>This lesson covers anchors (links), URL types and pathing, image markup and accessibility, responsive image techniques, and practical best practices. Links connect documents and resources; images convey visual information and must be marked up for accessibility and performance.</p>
+    </section>
+
+    <section id="links">
+      <h2>Links (anchor element)</h2>
+      <p>The anchor element <code>&lt;a&gt;</code> creates hyperlinks. The most important attribute is <code>href</code>, which specifies the destination. Use descriptive link text that explains the destination or action.</p>
+
+      <h3>Basic examples</h3>
+      <pre class="code">
+&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+
+&lt;a href="about.html"&gt;About this course&lt;/a&gt;  &lt;!-- relative link to a page in the same folder --&gt;
+
+&lt;a href="#section-id"&gt;Jump to section&lt;/a&gt;  &lt;!-- in-page anchor --&gt;
+      </pre>
+
+      <h3>Attributes and behaviors</h3>
+      <ul>
+        <li><code>target="_blank"</code> opens the link in a new tab; pair it with <code>rel="noopener noreferrer"</code> for security.</li>
+        <li><code>rel</code> describes the relationship (for example <code>rel="nofollow"</code> or <code>rel="noopener"</code>).</li>
+        <li>Use clear, meaningful link text (avoid "click here").</li>
+      </ul>
+
+      <div class="example">
+        <strong>Open in new tab safely</strong>
+        <pre class="code">
+&lt;a href="https://example.com" target="_blank" rel="noopener noreferrer"&gt;Open Example in new tab&lt;/a&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="urls">
+      <h2>URLs and path types</h2>
+      <p>Links use absolute or relative URLs. Choose the right type depending on where the target lives and whether you plan to move or deploy the site.</p>
+
+      <h3>Absolute vs relative</h3>
+      <ul>
+        <li><strong>Absolute URL</strong>: full path including protocol (e.g., <code>https://example.com/page.html</code>).</li>
+        <li><strong>Relative URL</strong>: path relative to the current document (e.g., <code>about.html</code>, <code>../index.html</code>, <code>images/photo.jpg</code>).</li>
+      </ul>
+
+      <div class="example">
+        <strong>Relative examples</strong>
+        <pre class="code">
+&lt;a href="html/html4.html"&gt;Lesson 4&lt;/a&gt;        &lt;!-- child folder from lessons/index.html --&gt;
+&lt;a href="../index.html"&gt;Back to Lessons&lt;/a&gt;   &lt;!-- from lessons/html/html3.html to lessons/index.html --&gt;
+        </pre>
       </div>
 
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="../../index.html">Home</a>
-        <a href="../../lessons/index.html">Lessons</a>
-        <a href="../index.html">Quizzes</a>
-        <a href="../../game/index.html">Game</a>
-      </nav>
-    </header>
+      <h3>Mailto and telephone links</h3>
+      <pre class="code">
+&lt;a href="mailto:hello@example.com"&gt;Email us&lt;/a&gt;
+&lt;a href="tel:+15551234567"&gt;Call support&lt;/a&gt;
+      </pre>
+    </section>
 
-    <article class="quiz-card" role="main" aria-labelledby="quizTitle">
-      <header class="quiz-header">
-        <h1 id="quizTitle">HTML Quiz 3 — Links & Images</h1>
-        <div class="sub">Five focused questions on anchors, images, and best practices. Instant feedback, randomized, no repeats.</div>
+    <section id="images">
+      <h2>Images and accessibility</h2>
+      <p>The <code>&lt;img&gt;</code> element embeds images. Always include an <code>alt</code> attribute. The <code>alt</code> text should describe the image's content or purpose; if the image is purely decorative, use an empty <code>alt=""</code> so screen readers skip it.</p>
 
-        <div class="progress-row" aria-hidden="false">
-          <div class="progress-bar" aria-hidden="true"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
-          <div class="score" id="scoreBadge">0 / 5</div>
-        </div>
-      </header>
+      <h3>Basic image markup</h3>
+      <pre class="code">
+&lt;img src="images/logo.png" alt="Techodex logo"&gt;
 
-      <section id="questions" class="questions" aria-live="polite">
-        <!-- injected -->
-      </section>
+&lt;img src="images/hero.jpg" alt="Students collaborating on laptops"&gt;
+      </pre>
 
-      <div class="controls" aria-hidden="false">
-        <button id="restart" class="btn ghost" type="button">Shuffle & Restart</button>
-        <button id="finish" class="btn primary" type="button">Finish</button>
-        <div id="final" class="final" aria-live="polite"></div>
+      <h3>When to use empty alt</h3>
+      <p>Use <code>alt=""</code> for decorative images (icons, purely visual flourishes) so assistive technologies ignore them. For informative images, provide concise, meaningful descriptions.</p>
+
+      <div class="note">
+        <strong>Captioning and long descriptions</strong>: For complex images (charts, diagrams), provide a short <code>alt</code> and a longer description nearby or via <code>aria-describedby</code> linking to a detailed explanation.
       </div>
-    </article>
-  </div>
+    </section>
+
+    <section id="responsive-images">
+      <h2>Responsive images</h2>
+      <p>Use <code>srcset</code> and <code>sizes</code> to serve appropriately sized images for different viewports and resolutions. This improves performance and reduces bandwidth on small devices.</p>
+
+      <pre class="code">
+&lt;img src="photo-800.jpg"
+     srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w"
+     sizes="(max-width:600px) 100vw, 600px"
+     alt="A person coding at a laptop"&gt;
+      </pre>
+
+      <h3>Picture element for art direction</h3>
+      <pre class="code">
+&lt;picture&gt;
+  &lt;source media="(max-width:600px)" srcset="hero-small.jpg"&gt;
+  &lt;source media="(min-width:601px)" srcset="hero-large.jpg"&gt;
+  &lt;img src="hero-large.jpg" alt="Hero image description"&gt;
+&lt;/picture&gt;
+      </pre>
+    </section>
+
+    <section id="best-practices">
+      <h2>Best practices</h2>
+      <ul>
+        <li>Write descriptive link text that stands alone out of context.</li>
+        <li>Use <code>rel="noopener noreferrer"</code> with <code>target="_blank"</code>.</li>
+        <li>Provide meaningful <code>alt</code> text for images; use empty <code>alt=""</code> for decorative images.</li>
+        <li>Use responsive images to optimize performance.</li>
+        <li>Prefer relative links for internal navigation so the site remains portable.</li>
+      </ul>
+
+      <div class="example">
+        <strong>Accessible link example</strong>
+        <pre class="code">
+&lt;a href="report.pdf" title="Download the full report (PDF)"&gt;Download the full report (PDF)&lt;/a&gt;
+        </pre>
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>Links and images are fundamental building blocks of the web. Use clear, descriptive link text and correct URL types. For images, always consider accessibility and performance: provide appropriate <code>alt</code> text and use responsive techniques to serve the right image for each device.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>A11y Project. (n.d.). Accessibility resources. Retrieved from https://www.a11yproject.com</li>
+        <li>MDN Web Docs. (n.d.). Images in HTML. Retrieved from https://developer.mozilla.org</li>
+        <li>MDN Web Docs. (n.d.). Linking between pages. Retrieved from https://developer.mozilla.org</li>
+        <li>WHATWG. (n.d.). HTML Living Standard. Retrieved from https://html.spec.whatwg.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 3: Links and Images</p>
+    </footer>
+  </main>
 
   <script>
-    (function () {
-      // Bank larger than 5 to avoid repetition
-      const BANK = [
-        { q: 'Which HTML element creates a hyperlink to another page or resource?', opts: ['<link>', '<a>', '<href>', '<nav>'], correct: 1 },
-        { q: 'Which attribute on the <a> element specifies the destination URL?', opts: ['src', 'href', 'link', 'target'], correct: 1 },
-        { q: 'Which attribute provides alternative text for an image for accessibility?', opts: ['title', 'alt', 'caption', 'desc'], correct: 1 },
-        { q: 'Which markup correctly embeds an image located at images/photo.jpg?', opts: ['<img src="images/photo.jpg" alt="Photo">', '<image href="images/photo.jpg">', '<img href="images/photo.jpg">', '<picture src="images/photo.jpg">'], correct: 0 },
-        { q: 'Which target value opens a link in a new browser tab or window?', opts: ['_self', '_parent', '_blank', '_top'], correct: 2 },
-        { q: 'Which attribute is recommended with target="_blank" to improve security?', opts: ['rel="noopener"', 'download', 'type="external"', 'referrer="no"'], correct: 0 },
-        { q: 'Which attribute allows responsive images by providing multiple source options?', opts: ['srcset', 'sizes', 'picture', 'responsive'], correct: 0 },
-        { q: 'Which element groups navigation links semantically?', opts: ['<nav>', '<div>', '<section>', '<menu>'], correct: 0 },
-        { q: 'Which attribute sets the image as decorative so screen readers ignore it?', opts: ['alt=""', 'aria-hidden="true"', 'role="presentation"', 'All of the above'], correct: 3 },
-        { q: 'Which attribute on <img> specifies the image file path?', opts: ['href', 'src', 'data-src', 'link'], correct: 1 }
-      ];
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
-      function shuffle(arr) {
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      }
-
-      function buildQuiz() {
-        return shuffle(BANK).slice(0, 5).map(q => {
-          const optsShuffled = shuffle(q.opts.map((t, idx) => ({ t, idx })));
-          const correctText = q.opts[q.correct];
-          const correctIndex = optsShuffled.findIndex(o => o.t === correctText);
-          return {
-            id: 'q-' + Math.random().toString(36).slice(2, 8),
-            q: q.q,
-            opts: optsShuffled.map(o => o.t),
-            correctIndex
-          };
-        });
-      }
-
-      let selected = buildQuiz();
-      let selections = {}; // qid -> chosen index
-      let score = 0;
-
-      const questionsEl = document.getElementById('questions');
-      const progressFill = document.getElementById('progressFill');
-      const scoreBadge = document.getElementById('scoreBadge');
-      const finalEl = document.getElementById('final');
-      const finishBtn = document.getElementById('finish');
-      const restartBtn = document.getElementById('restart');
-
-      function render() {
-        questionsEl.innerHTML = '';
-        selected.forEach((item, i) => {
-          const sec = document.createElement('section');
-          sec.className = 'question';
-          sec.id = item.id;
-          sec.setAttribute('aria-labelledby', `${item.id}-title`);
-
-          const h2 = document.createElement('h2');
-          h2.id = `${item.id}-title`;
-          h2.textContent = `Question ${i + 1}`;
-          sec.appendChild(h2);
-
-          const p = document.createElement('p');
-          p.textContent = item.q;
-          sec.appendChild(p);
-
-          const opts = document.createElement('div');
-          opts.className = 'options';
-          opts.setAttribute('role', 'list');
-
-          item.opts.forEach((optText, oi) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'option';
-            btn.setAttribute('data-q', item.id);
-            btn.setAttribute('data-idx', oi);
-            btn.setAttribute('aria-pressed', 'false');
-
-            const label = document.createElement('span');
-            label.className = 'label';
-            label.textContent = optText;
-
-            btn.appendChild(label);
-            btn.addEventListener('click', onSelect);
-            opts.appendChild(btn);
-          });
-
-          sec.appendChild(opts);
-          questionsEl.appendChild(sec);
-        });
-
-        updateProgress();
-      }
-
-      function onSelect(e) {
-        const btn = e.currentTarget;
-        const qid = btn.getAttribute('data-q');
-        const idx = Number(btn.getAttribute('data-idx'));
-        if (selections[qid] != null) return; // already answered
-
-        selections[qid] = idx;
-        const item = selected.find(s => s.id === qid);
-        const container = document.getElementById(qid);
-        const buttons = Array.from(container.querySelectorAll('.option'));
-        buttons.forEach(b => b.disabled = true);
-
-        const chosen = container.querySelector(`.option[data-idx="${idx}"]`);
-        const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-
-        if (idx === item.correctIndex) {
-          chosen.classList.add('correct');
-          score++;
-        } else {
-          chosen.classList.add('wrong');
-          if (correct) correct.classList.add('correct');
-        }
-
-        buttons.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        chosen.setAttribute('aria-pressed', 'true');
-        if (correct) correct.setAttribute('aria-pressed', 'true');
-
-        updateProgress();
-      }
-
-      function updateProgress() {
-        const answered = Object.keys(selections).length;
-        const total = selected.length;
-        const percent = Math.round((answered / total) * 100);
-        progressFill.style.width = percent + '%';
-        scoreBadge.textContent = `${score} / ${total}`;
-      }
-
-      function finish() {
-        selected.forEach(item => {
-          if (selections[item.id] == null) {
-            const container = document.getElementById(item.id);
-            const buttons = Array.from(container.querySelectorAll('.option'));
-            buttons.forEach(b => b.disabled = true);
-            const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-            if (correct) correct.classList.add('correct');
-          }
-        });
-        updateProgress();
-        finalEl.textContent = `Final score: ${score} / ${selected.length}`;
-        finishBtn.disabled = true;
-      }
-
-      function restart() {
-        selections = {};
-        score = 0;
-        finalEl.textContent = '';
-        finishBtn.disabled = false;
-        selected = buildQuiz();
-        render();
-      }
-
-      finishBtn.addEventListener('click', finish);
-      restartBtn.addEventListener('click', restart);
-
-      // initial render
-      render();
-
-      // expose for debugging if needed
-      window.__tdx_html3 = { selected, selections };
-    })();
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
   </script>
 </body>
 </html>

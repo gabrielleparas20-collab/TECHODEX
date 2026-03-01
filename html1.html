@@ -3,296 +3,378 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex — HTML Quiz 1: Basics</title>
+  <title>Lesson 1 — HTML Basics | Techodex</title>
+
+  <!-- Global stylesheet -->
   <link rel="stylesheet" href="../../css/main.css" />
-  <link rel="stylesheet" href="../../css/responsive.css" />
+
+  <!-- Local lesson styles (isolated) -->
   <style>
     :root{
-      --bg-0: #071428;
-      --panel: #0b2540;
+      --lesson-bg: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
       --muted: #bfcbdc;
       --accent: #00aaff;
-      --accent-2: #7b61ff;
-      --success: #00d18a;
-      --danger: #ff4f9a;
-      --card-radius: 12px;
+      --card-radius: 10px;
       --max-width: 980px;
-      --gap: 12px;
+      --sources-bg: linear-gradient(180deg, rgba(0,170,255,0.03), rgba(255,255,255,0.01));
     }
 
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,var(--bg-0),#041226);color:#eaf6ff;-webkit-font-smoothing:antialiased}
-    .wrap{max-width:var(--max-width);margin:28px auto;padding:18px}
-
-    /* Header */
-    .site-header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:44px;height:44px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
-    .nameplate{font-weight:800}
-    .nav-links a{color:var(--muted);margin-left:12px;text-decoration:none;font-weight:700}
-
-    /* Card */
-    .quiz-card{
-      background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));
-      padding:18px;border-radius:var(--card-radius);border:1px solid rgba(255,255,255,0.04);
-      box-shadow:0 18px 48px rgba(0,0,0,0.6);
+    .lesson-wrap{
+      max-width: var(--max-width);
+      margin: 28px auto;
+      padding: 22px;
+      background: var(--lesson-bg);
+      border-radius: var(--card-radius);
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+      color: #eaf6ff;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      line-height: 1.5;
     }
 
-    .quiz-header{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-    .quiz-header h1{margin:0;font-size:1.25rem}
-    .quiz-header .sub{color:var(--muted);font-size:0.95rem;margin:0}
-
-    /* Progress */
-    .progress-row{display:flex;align-items:center;gap:12px;margin-top:6px}
-    .progress-bar{flex:1;height:12px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
-    .progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width .28s ease}
-    .score{min-width:72px;text-align:right;color:var(--muted);font-weight:800}
-
-    /* Questions layout */
-    .questions{display:grid;gap:var(--gap);margin-top:14px}
-    .question{
-      background:linear-gradient(180deg,#071a2b,#061423);
-      border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,0.03);
-      box-shadow:0 8px 24px rgba(0,0,0,0.5);
+    .lesson-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:12px;
     }
-    .question h2{margin:0 0 8px 0;font-size:1rem}
-    .question p{margin:0 0 12px 0;color:var(--muted);line-height:1.4;white-space:pre-wrap}
+    .lesson-header h1{ margin:0; font-size:1.45rem; letter-spacing:0.2px; }
+    .lesson-meta{ color: var(--muted); font-size:0.95rem; margin-top:6px; }
 
-    /* Options */
-    .options{display:grid;gap:10px}
-    .option{
-      display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:linear-gradient(180deg,#0b2a44,#072033);
-      border:1px solid rgba(255,255,255,0.03);color:#eaf6ff;font-weight:800;cursor:pointer;transition:transform .08s ease,box-shadow .12s ease;
+    .toc{ display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 18px; }
+    .toc a{
+      color: #bfe9ff;
+      text-decoration:none;
+      padding:6px 8px;
+      border-radius:8px;
+      background: rgba(255,255,255,0.01);
+      border:1px solid rgba(255,255,255,0.02);
+      font-size:0.92rem;
     }
-    .option:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.45)}
-    .option[aria-pressed="true"]{outline:3px solid rgba(0,170,255,0.12)}
-    .option.correct{background:linear-gradient(90deg,var(--success),#2fe0b0);color:#071428;border-color:rgba(0,209,138,0.12)}
-    .option.wrong{background:linear-gradient(90deg,var(--danger),#ff7aa6);color:#071428;border-color:rgba(255,79,154,0.12)}
-    .option .label{flex:1;text-align:left;white-space:pre-wrap}
 
-    /* Controls */
-    .controls{display:flex;gap:10px;align-items:center;margin-top:14px}
-    .btn{padding:10px 14px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#071428}
-    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    section{ margin-bottom:18px; }
+    h2{ font-size:1.05rem; margin:0 0 8px; color:#fff; }
+    p, li{ color: #dbe9ff; margin:6px 0; font-size:0.98rem; }
 
-    .final{margin-left:12px;color:var(--muted);font-weight:800}
+    /* Code blocks: ensure tags are shown as text (escaped in HTML) */
+    pre.code{
+      background: rgba(0,0,0,0.6);
+      padding:12px;
+      border-radius:8px;
+      overflow:auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      font-size:0.95rem;
+      color:#e6f7ff;
+      border:1px solid rgba(255,255,255,0.03);
+      margin-top:8px;
+      white-space: pre-wrap;
+      word-break: normal;
+    }
 
-    @media (max-width:720px){
-      .wrap{padding:12px}
-      .quiz-card{padding:14px}
-      .option{padding:10px}
+    .example{
+      margin-top:10px;
+      padding:10px;
+      border-left:4px solid rgba(0,170,255,0.14);
+      background: linear-gradient(180deg, rgba(0,170,255,0.02), transparent);
+      border-radius:6px;
+      color:#eaf6ff;
+    }
+
+    .exercise{
+      background: rgba(255,255,255,0.02);
+      padding:12px;
+      border-radius:8px;
+      border:1px dashed rgba(255,255,255,0.03);
+      color:#eaf6ff;
+    }
+
+    .btn-row{ display:flex; gap:10px; margin-top:12px; }
+    .btn-lesson{
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:700;
+      text-decoration:none;
+      color:#fff;
+      background: linear-gradient(90deg,var(--accent),#0077aa);
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn-ghost{
+      padding:10px 14px;
+      border-radius:8px;
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.03);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .note{
+      background: rgba(255,255,255,0.02);
+      padding:8px 10px;
+      border-radius:8px;
+      color:#dbe9ff;
+      border-left:4px solid rgba(255,215,0,0.12);
+      margin-top:8px;
+    }
+
+    /* Highlighted sources area */
+    .sources {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--sources-bg);
+      border: 1px solid rgba(0,170,255,0.08);
+      color: #eaf6ff;
+    }
+    .sources h2 { margin-top: 0; color: #fff; }
+    .sources ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
+    .sources li { margin: 6px 0; font-size: 0.95rem; }
+
+    footer.lesson-footer{ margin-top:18px; color:var(--muted); font-size:0.92rem; }
+
+    @media (max-width:900px){
+      .lesson-wrap{ padding:16px; margin:16px; }
+      .lesson-header{ flex-direction:column; align-items:flex-start; gap:6px; }
+      .toc a{ font-size:0.88rem; padding:6px; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Header -->
-    <header class="site-header" role="banner">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <div class="nameplate">Techodex</div>
-          <div style="color:var(--muted);font-size:0.92rem">HTML Quiz 1</div>
-        </div>
+  <header class="site-header fade-in">
+    <div class="brand">
+      <img src="../../assets/logo.png" alt="Techodex Logo" class="logo" />
+      <span class="nameplate">Techodex</span>
+    </div>
+    <nav class="nav-links">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Lessons</a>
+      <a href="../../quizzes/index.html">Quizzes</a>
+      <a href="../../achievements.html">Achievements</a>
+      <a href="../../game/index.html">Game</a>
+    </nav>
+    <button class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main class="lesson-wrap" id="lesson1">
+    <div class="lesson-header">
+      <div>
+        <h1>Lesson 1 — HTML Basics</h1>
+        <div class="lesson-meta">Estimated time: <strong>25–40 minutes</strong> · Level: <strong>Beginner</strong></div>
       </div>
-
-      <nav class="nav-links" aria-label="Main navigation">
-        <a href="../../index.html">Home</a>
-        <a href="../../lessons/index.html">Lessons</a>
-        <a href="../index.html">Quizzes</a>
-        <a href="../../game/index.html">Game</a>
-      </nav>
-    </header>
-
-    <!-- Quiz card -->
-    <article class="quiz-card" role="main" aria-labelledby="quizTitle">
-      <header class="quiz-header">
-        <h1 id="quizTitle">HTML Quiz 1 — Basics</h1>
-        <div class="sub">Five randomized questions. Answers are checked instantly and cannot be changed. No repeats within a session.</div>
-
-        <div class="progress-row" aria-hidden="false">
-          <div class="progress-bar" aria-hidden="true"><div id="progressFill" class="progress-fill" style="width:0%"></div></div>
-          <div class="score" id="scoreBadge">0 / 5</div>
-        </div>
-      </header>
-
-      <section id="questions" class="questions" aria-live="polite">
-        <!-- Questions injected by script -->
-      </section>
-
-      <div class="controls" aria-hidden="false">
-        <button id="restart" class="btn ghost" type="button">Shuffle & Restart</button>
-        <button id="finish" class="btn primary" type="button">Finish</button>
-        <div id="final" class="final" aria-live="polite"></div>
+      <div>
+        <a class="btn-ghost" href="../index.html" aria-label="Back to Lessons">Back to Lessons</a>
       </div>
-    </article>
-  </div>
+    </div>
+
+    <nav class="toc" aria-label="Lesson table of contents">
+      <a href="#objectives">Objectives</a>
+      <a href="#structure">Document Structure</a>
+      <a href="#elements">Basic Elements</a>
+      <a href="#semantic">Semantic Elements</a>
+      <a href="#accessibility">Accessibility</a>
+      <a href="#deep-dive">Deep Dive</a>
+      <a href="#summary">Summary</a>
+      <a href="#sources">Sources</a>
+    </nav>
+
+    <section id="objectives">
+      <h2>Objectives</h2>
+      <ul>
+        <li>Understand what HTML is and why it matters.</li>
+        <li>Create a valid minimal HTML document with DOCTYPE, head, and body.</li>
+        <li>Use headings, paragraphs, links, images, and lists.</li>
+        <li>Recognize semantic elements and basic accessibility practices.</li>
+      </ul>
+    </section>
+
+    <section id="structure">
+      <h2>Document structure</h2>
+      <p>Every HTML page should start with the HTML5 DOCTYPE and include a root <code>&lt;html&gt;</code> element, a <code>&lt;head&gt;</code> for metadata, and a <code>&lt;body&gt;</code> for visible content. The DOCTYPE ensures browsers render the page in standards mode rather than quirks mode.</p>
+
+      <pre class="code" aria-hidden="false">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+    &lt;title&gt;My first page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;This is a minimal HTML document.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+
+      <div class="example">
+        <strong>Why this matters</strong>
+        <p class="small">The DOCTYPE declaration is the simplest way to ensure consistent parsing and rendering across modern browsers.</p>
+      </div>
+    </section>
+
+    <section id="elements">
+      <h2>Basic elements</h2>
+
+      <h3>Headings and paragraphs</h3>
+      <p>Use <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> to create a logical outline; use <code>&lt;p&gt;</code> for paragraphs.</p>
+      <pre class="code">
+&lt;h1&gt;Main title&lt;/h1&gt;
+&lt;h2&gt;Section title&lt;/h2&gt;
+&lt;p&gt;A paragraph of text.&lt;/p&gt;
+      </pre>
+
+      <h3>Links and images</h3>
+      <p>Links use the <code>&lt;a&gt;</code> element with an <code>href</code> attribute. Images use <code>&lt;img&gt;</code> with <code>src</code> and <code>alt</code> attributes — always provide meaningful <code>alt</code> text for accessibility.</p>
+      <pre class="code">
+&lt;a href="https://example.com"&gt;Visit example.com&lt;/a&gt;
+
+&lt;img src="images/logo.png" alt="Techodex logo"&gt;
+      </pre>
+
+      <h3>Lists</h3>
+      <p>Use ordered (<code>&lt;ol&gt;</code>) and unordered (<code>&lt;ul&gt;</code>) lists for grouped items; list items are <code>&lt;li&gt;</code>.</p>
+      <pre class="code">
+&lt;ul&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;
+      </pre>
+    </section>
+
+    <section id="semantic">
+      <h2>Semantic elements</h2>
+      <p>Semantic elements (for example <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>) describe the role of content. They help screen readers, search engines, and future developers understand the page. Prefer semantic elements over generic <code>&lt;div&gt;</code>s when the element's meaning is clear.</p>
+
+      <pre class="code">
+&lt;header&gt;
+  &lt;h1&gt;Site title&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+  &lt;article&gt;...&lt;/article&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;...&lt;/footer&gt;
+      </pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Use <code>&lt;main&gt;</code> once per page; it should contain the primary content. Use <code>&lt;article&gt;</code> for self-contained pieces (blog posts, news items).
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility basics</h2>
+      <p>Accessibility starts with semantic HTML. Add <code>alt</code> text for images, use descriptive link text (avoid "click here"), ensure headings form a logical outline, and use form labels (<code>&lt;label for="..."&gt;</code>) so assistive technologies can associate labels with inputs.</p>
+
+      <pre class="code">
+&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input id="email" type="email" name="email"&gt;
+      </pre>
+
+      <p class="small">These practices make your content usable by more people and improve search engine understanding of your pages.</p>
+    </section>
+
+    <section id="deep-dive">
+      <h2>Deep dive — practical details</h2>
+
+      <h3>Attributes and global attributes</h3>
+      <p>Attributes provide additional information about elements. Many attributes are global (usable on most elements): <code>id</code>, <code>class</code>, <code>title</code>, <code>hidden</code>, <code>data-*</code>, and ARIA attributes like <code>aria-label</code>. Use <code>id</code> for unique identifiers and <code>class</code> for styling or grouping.</p>
+      <pre class="code">
+&lt;button id="saveBtn" class="btn primary" title="Save changes"&gt;Save&lt;/button&gt;
+&lt;div data-user-id="42"&gt;...&lt;/div&gt;
+      </pre>
+
+      <h3>Forms — structure and labels</h3>
+      <p>Forms are interactive and require careful labeling. Always associate labels with inputs using the <code>for</code> attribute or by wrapping the input inside the label. Use appropriate input types (<code>email</code>, <code>tel</code>, <code>number</code>) to enable built-in validation and mobile-friendly keyboards.</p>
+      <pre class="code">
+&lt;form action="/subscribe" method="post"&gt;
+  &lt;label for="name"&gt;Full name&lt;/label&gt;
+  &lt;input id="name" name="name" type="text" required&gt;
+
+  &lt;label for="email"&gt;Email&lt;/label&gt;
+  &lt;input id="email" name="email" type="email" required&gt;
+
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;
+      </pre>
+
+      <h3>Images: responsive and accessible</h3>
+      <p>Use <code>srcset</code> and <code>sizes</code> to serve appropriately sized images for different viewports. Always include <code>alt</code>. For decorative images, use an empty <code>alt=""</code> so screen readers skip them.</p>
+      <pre class="code">
+&lt;img src="photo-800.jpg"
+     srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w"
+     sizes="(max-width:600px) 100vw, 600px"
+     alt="A person coding at a laptop"&gt;
+      </pre>
+
+      <h3>Meta tags and basic SEO</h3>
+      <p>Include a descriptive <code>&lt;title&gt;</code> and a concise meta description. Use language attributes and canonical links when appropriate.</p>
+      <pre class="code">
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;title&gt;About — My Site&lt;/title&gt;
+  &lt;meta name="description" content="Short description of this page for search engines"&gt;
+&lt;/head&gt;
+      </pre>
+
+      <h3>Responsive basics</h3>
+      <p>Start with the viewport meta tag and design mobile-first. Use flexible layouts (percentages, flexbox) and responsive images to ensure pages adapt to different screens.</p>
+      <pre class="code">
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+
+/* CSS example (mobile-first) */
+.container { padding: 16px; }
+@media (min-width: 800px) {
+  .container { max-width: 900px; margin: 0 auto; }
+}
+      </pre>
+
+      <div class="note">
+        <strong>Practice tip:</strong> Try converting one of your static pages to be responsive by adding the viewport meta tag and switching fixed widths to percentages or flexbox.
+      </div>
+    </section>
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p>HTML gives structure and meaning to web content. After mastering the minimal document and basic elements, focus on semantic markup, accessibility, and responsive techniques. These foundations make future styling and interactivity far easier and more robust.</p>
+    </section>
+
+    <section id="sources" class="sources" aria-label="Sources">
+      <h2>Sources</h2>
+      <ul>
+        <li>GeeksforGeeks. (n.d.). Explain the importance of Doctype in HTML. Retrieved from https://www.geeksforgeeks.org</li>
+        <li>MDN Web Docs. (n.d.). Semantic HTML. Retrieved from https://developer.mozilla.org</li>
+        <li>W3C. (2021). HTML 5.3: Semantics, structure, and APIs of HTML documents. Retrieved from https://www.w3.org</li>
+        <li>W3Schools. (n.d.). HTML doctype declaration. Retrieved from https://www.w3schools.com</li>
+      </ul>
+    </section>
+
+    <footer class="lesson-footer">
+      <p>© 2026 Techodex — Lesson 1: HTML Basics</p>
+    </footer>
+  </main>
 
   <script>
-    (function () {
-      // Bank of questions (more than 5 to avoid repetition)
-      const BANK = [
-        { id: 'a', q: 'Which tag defines the main heading of a page?', opts: ['<h1>', '<head>', '<title>', '<header>'], correct: 0 },
-        { id: 'b', q: 'Which element wraps the visible content of the page?', opts: ['<body>', '<main>', '<content>', '<page>'], correct: 0 },
-        { id: 'c', q: 'Which declaration tells the browser the document type?', opts: ['<!DOCTYPE html>', '<!HTML>', '<doctype html>', '<!DOCTYPE>'], correct: 0 },
-        { id: 'd', q: 'Which tag contains metadata like title and links to stylesheets?', opts: ['<head>', '<header>', '<meta>', '<info>'], correct: 0 },
-        { id: 'e', q: 'Which tag creates a paragraph?', opts: ['<p>', '<para>', '<text>', '<paragraph>'], correct: 0 },
-        { id: 'f', q: 'Which tag is used for an ordered list?', opts: ['<ol>', '<ul>', '<li>', '<list>'], correct: 0 },
-        { id: 'g', q: 'Which tag is used to include a line break?', opts: ['<br>', '<lb>', '<break>', '<newline>'], correct: 0 },
-        { id: 'h', q: 'Which tag defines a hyperlink?', opts: ['<a>', '<link>', '<href>', '<nav>'], correct: 0 },
-        { id: 'i', q: 'Which tag is semantic for navigation links?', opts: ['<nav>', '<div>', '<menu>', '<links>'], correct: 0 },
-        { id: 'j', q: 'Which tag sets the page title shown in the browser tab?', opts: ['<title>', '<head>', '<meta>', '<tab>'], correct: 0 }
-      ];
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.toc a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
 
-      // Shuffle helper
-      function shuffle(arr) {
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      }
-
-      // Build a randomized quiz of 5 unique questions
-      function buildQuiz() {
-        return shuffle(BANK).slice(0, 5).map(q => {
-          const optsShuffled = shuffle(q.opts.map((t, idx) => ({ t, idx })));
-          const correctText = q.opts[q.correct];
-          const correctIndex = optsShuffled.findIndex(o => o.t === correctText);
-          return { id: q.id + '-' + Math.random().toString(36).slice(2,6), q: q.q, opts: optsShuffled.map(o => o.t), correctIndex };
-        });
-      }
-
-      let selected = buildQuiz();
-
-      const questionsEl = document.getElementById('questions');
-      const progressFill = document.getElementById('progressFill');
-      const scoreBadge = document.getElementById('scoreBadge');
-      const finalEl = document.getElementById('final');
-      let selections = {}; // qid -> chosen index
-      let score = 0;
-
-      // Render questions using textContent to avoid HTML parsing of tags
-      function render() {
-        questionsEl.innerHTML = '';
-        selected.forEach((item, i) => {
-          const sec = document.createElement('section');
-          sec.className = 'question';
-          sec.id = 'q-' + item.id;
-          sec.setAttribute('aria-labelledby', `q-${item.id}-title`);
-
-          const h2 = document.createElement('h2');
-          h2.id = `q-${item.id}-title`;
-          h2.textContent = `Question ${i + 1}`;
-          sec.appendChild(h2);
-
-          const p = document.createElement('p');
-          // Use textContent so strings like "<h1>" render literally
-          p.textContent = item.q;
-          sec.appendChild(p);
-
-          const opts = document.createElement('div');
-          opts.className = 'options';
-          opts.setAttribute('role', 'list');
-
-          item.opts.forEach((optText, oi) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'option';
-            btn.setAttribute('data-q', item.id);
-            btn.setAttribute('data-idx', oi);
-            btn.setAttribute('aria-pressed', 'false');
-
-            const label = document.createElement('span');
-            label.className = 'label';
-            // Use textContent to avoid HTML parsing
-            label.textContent = optText;
-
-            btn.appendChild(label);
-            btn.addEventListener('click', onSelect);
-            opts.appendChild(btn);
-          });
-
-          sec.appendChild(opts);
-          questionsEl.appendChild(sec);
-        });
-
-        updateProgress();
-      }
-
-      function onSelect(e) {
-        const btn = e.currentTarget;
-        const qid = btn.getAttribute('data-q');
-        const idx = Number(btn.getAttribute('data-idx'));
-        if (selections[qid] != null) return; // already answered
-
-        selections[qid] = idx;
-        const item = selected.find(s => s.id === qid);
-        const container = document.getElementById('q-' + qid);
-        const buttons = Array.from(container.querySelectorAll('.option'));
-        buttons.forEach(b => b.disabled = true);
-
-        const chosen = container.querySelector(`.option[data-idx="${idx}"]`);
-        const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-
-        if (idx === item.correctIndex) {
-          chosen.classList.add('correct');
-          score++;
-        } else {
-          chosen.classList.add('wrong');
-          if (correct) correct.classList.add('correct');
-        }
-
-        buttons.forEach(b => b.setAttribute('aria-pressed', 'false'));
-        chosen.setAttribute('aria-pressed', 'true');
-        if (correct) correct.setAttribute('aria-pressed', 'true');
-
-        updateProgress();
-      }
-
-      function updateProgress() {
-        const answered = Object.keys(selections).length;
-        const total = selected.length;
-        const percent = Math.round((answered / total) * 100);
-        progressFill.style.width = percent + '%';
-        scoreBadge.textContent = `${score} / ${total}`;
-      }
-
-      function finish() {
-        selected.forEach(item => {
-          if (selections[item.id] == null) {
-            const container = document.getElementById('q-' + item.id);
-            const buttons = Array.from(container.querySelectorAll('.option'));
-            buttons.forEach(b => b.disabled = true);
-            const correct = container.querySelector(`.option[data-idx="${item.correctIndex}"]`);
-            if (correct) correct.classList.add('correct');
-          }
-        });
-        updateProgress();
-        finalEl.textContent = `Final score: ${score} / ${selected.length}`;
-        document.getElementById('finish').disabled = true;
-      }
-
-      function restart() {
-        selections = {};
-        score = 0;
-        finalEl.textContent = '';
-        document.getElementById('finish').disabled = false;
-        selected = buildQuiz();
-        render();
-      }
-
-      // Wire controls
-      document.getElementById('finish').addEventListener('click', finish);
-      document.getElementById('restart').addEventListener('click', restart);
-
-      // Initial render
-      render();
-
-      // Expose for debugging if needed
-      window.__tdx_html1 = { selected, selections };
-    })();
+    // Focus outline when keyboard navigating
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+    });
   </script>
 </body>
 </html>

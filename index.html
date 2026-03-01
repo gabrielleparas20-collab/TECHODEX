@@ -1,274 +1,298 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Techodex — Home</title>
-  <link rel="stylesheet" href="css/main.css" />
-  <link rel="stylesheet" href="css/responsive.css" />
-
+  <title>Techodex — Lessons</title>
+  <link rel="stylesheet" href="../css/main.css" />
   <style>
-    /* Small, focused enhancements:
-       - center text inside the "tabs" (cards)
-       - give each card a distinct color accent
-       - subtle entrance and hover animations
-    */
-
     :root{
-      --bg-top: #071428;
-      --bg-bottom: #081a2b;
-      --muted: #bfcbdc;
-      --text: #eaf6ff;
-      --card-radius: 12px;
-      --glass: rgba(255,255,255,0.03);
-      --shadow: 0 12px 30px rgba(2,6,23,0.55);
+      --muted: #cfd8e3;
+      --accent-html: #0077aa;
+      --accent-css: #ff7a3d;
+      --panel-radius: 12px;
     }
 
-    /* keep page background subtle and animated */
-    @keyframes bgShift { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
-    body {
-      margin:0;
-      min-height:100vh;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:var(--text);
-      background: linear-gradient(180deg,var(--bg-top),var(--bg-bottom));
-      background-size:300% 300%;
-      animation: bgShift 20s ease-in-out infinite;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: #0d1b2a; color: #fff; }
 
-    /* header */
-    .site-header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      padding:18px 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-      border-bottom:1px solid rgba(255,255,255,0.02);
-      backdrop-filter: blur(6px);
-    }
-    .brand { display:flex; align-items:center; gap:12px; }
-    .brand .logo { width:48px; height:48px; border-radius:8px; background:linear-gradient(135deg,#00aaff,#7b61ff); border:1px solid var(--glass); box-shadow:0 8px 22px rgba(0,0,0,0.45); }
-    .nameplate { font-weight:800; font-size:1rem; color:var(--text); }
+    .lessons-root{ max-width:1100px; margin:28px auto; padding:18px; }
+    .header-row{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+    .header-row h1{ margin:0; font-size:1.4rem; }
+    .panels{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
 
-    .nav-links { display:flex; gap:12px; align-items:center; }
-    .nav-links a {
-      color:var(--muted);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:8px;
-      font-weight:700;
-      transition: all 160ms ease;
-    }
-    .nav-links a:hover { color:var(--text); background: rgba(255,255,255,0.02); transform: translateY(-3px); }
+    .panel{ background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06)); border-radius:var(--panel-radius); border:1px solid rgba(255,255,255,0.03); box-shadow:0 10px 26px rgba(0,0,0,0.55); overflow:hidden; display:flex; flex-direction:column; }
+    .panel-head{ display:flex; align-items:center; justify-content:space-between; padding:12px 14px; cursor:pointer; gap:12px; }
+    .panel-title{ display:flex; gap:10px; align-items:center; font-weight:800; }
+    .panel-sub{ color:var(--muted); font-size:0.92rem; }
 
-    .menu-toggle { display:none; background:transparent; border:1px solid rgba(255,255,255,0.03); color:var(--muted); padding:8px 10px; border-radius:8px; }
+    .toggle-btn{ background:transparent; border:none; color:var(--muted); font-weight:700; padding:8px 10px; border-radius:8px; cursor:pointer; }
 
-    /* hero */
-    .hero {
-      max-width:1100px;
-      margin:28px auto;
-      padding:40px 28px;
-      text-align:center;
-      border-radius:var(--card-radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: var(--shadow);
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .hero h1 { margin:0 0 12px 0; font-size:clamp(1.6rem,3.2vw,2.4rem); color:var(--text); }
-    .hero p { margin:0 0 18px 0; color:var(--muted); max-width:64ch; margin-left:auto; margin-right:auto; }
+    .panel-list{ max-height:0; overflow:hidden; transition:max-height .28s ease, padding .18s ease; padding:0 12px; border-top:1px solid rgba(255,255,255,0.02); }
+    .panel.open .panel-list{ padding:10px 12px 14px; max-height:420px; overflow-y:auto; -webkit-overflow-scrolling:touch; }
 
-    .hero .btn {
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:10px;
-      font-weight:800;
-      color:#071428;
-      background: linear-gradient(90deg,#00aaff,#7b61ff);
-      text-decoration:none;
-      box-shadow: 0 12px 30px rgba(0,170,255,0.08);
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-    .hero .btn:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(0,170,255,0.12); }
+    .lesson-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px; border-radius:8px; text-decoration:none; color:inherit; }
+    .lesson-row:hover{ background: rgba(255,255,255,0.02); transform:translateY(-2px); }
+    .lesson-left{ display:flex; gap:12px; align-items:center; min-width:0; }
+    .lesson-num{ width:40px; height:40px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; color:#fff; background:linear-gradient(135deg,#0f2b3a,#003a5a); flex-shrink:0; }
+    .lesson-meta{ min-width:0; overflow:hidden; }
+    .lesson-name{ font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lesson-desc{ color:var(--muted); font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 
-    /* main grid of "tabs" (cards) */
-    .home-content {
-      max-width:1100px;
-      margin:22px auto;
-      padding:0 12px 28px;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap:18px;
-      align-items:stretch;
-    }
+    .lesson-action{ margin-left:12px; display:flex; gap:8px; align-items:center; }
+    .btn-small{ padding:8px 10px; border-radius:8px; font-weight:700; color:#fff; border:none; cursor:pointer; }
+    .btn-open{ background: linear-gradient(90deg,var(--accent-html),#0077aa); }
+    .btn-open.css{ background: linear-gradient(90deg,var(--accent-css),#aa4b1a); }
+    .btn-locked{ background: linear-gradient(90deg,#2b2b2b,#1a1a1a); color:#9aa6b8; cursor:default; }
 
-    /* center everything inside each card */
-    .card {
-      display:flex;
-      flex-direction:column;
-      align-items:center;       /* center horizontally */
-      justify-content:center;   /* center vertically */
-      text-align:center;        /* center text */
-      gap:12px;
-      padding:22px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.03);
-      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-      box-shadow: 0 8px 22px rgba(2,6,23,0.45);
-      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
-      min-height:160px;
-    }
-    .card h2 { margin:0; color:var(--text); font-size:1.05rem; }
-    .card p { margin:0; color:var(--muted); line-height:1.45; max-width:36ch; }
+    .locked{ opacity:0.55; filter:grayscale(6%); pointer-events:none; }
+    .locked .lesson-num{ background: linear-gradient(135deg,#333,#222); color:#b0b8c4; }
 
-    .card .btn {
-      margin-top:8px;
-      padding:10px 14px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-      color:var(--text);
-      background:transparent;
-      border:1px solid rgba(255,255,255,0.04);
-      transition: background 160ms ease, transform 160ms ease;
-    }
-    .card .btn:hover { background: rgba(255,255,255,0.02); transform: translateY(-4px); }
-
-    /* distinct color accents for each tab (top accent bar + subtle glow) */
-    .card.lessons { --accent-start:#00aaff; --accent-end:#7b61ff; }
-    .card.quizzes { --accent-start:#00d18a; --accent-end:#00aaff; }
-    .card.game    { --accent-start:#ffb86b; --accent-end:#ff7ab6; }
-    .card.achieve { --accent-start:#7b61ff; --accent-end:#00d1ff; }
-
-    .card::before{
-      content:"";
-      position:relative;
-      display:block;
-      width:64px;
-      height:6px;
-      border-radius:999px;
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      margin-bottom:6px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-
-    /* hover glow using the accent */
-    .card.lessons:hover { box-shadow: 0 20px 48px rgba(0,170,255,0.12); background: linear-gradient(180deg, rgba(0,170,255,0.02), rgba(255,255,255,0.015)); }
-    .card.quizzes:hover { box-shadow: 0 20px 48px rgba(0,209,138,0.12); background: linear-gradient(180deg, rgba(0,209,138,0.02), rgba(255,255,255,0.015)); }
-    .card.game:hover    { box-shadow: 0 20px 48px rgba(255,184,107,0.12); background: linear-gradient(180deg, rgba(255,184,107,0.02), rgba(255,255,255,0.015)); }
-    .card.achieve:hover { box-shadow: 0 20px 48px rgba(123,97,255,0.12); background: linear-gradient(180deg, rgba(123,97,255,0.02), rgba(255,255,255,0.015)); }
-
-    /* small entrance animation for cards */
-    .card { transform: translateY(6px); opacity:0; }
-    .card.visible { transform: translateY(0); opacity:1; transition: transform 420ms cubic-bezier(.2,.9,.2,1), opacity 420ms ease; }
-
-    /* footer */
-    .site-footer {
-      max-width:1100px;
-      margin: 18px auto 48px;
-      padding: 18px;
-      color: var(--muted);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:center;
-      border-top: 1px solid rgba(255,255,255,0.02);
-    }
-
-    /* responsive adjustments */
-    @media (max-width:820px){
-      .nav-links { display:none; }
-      .menu-toggle { display:inline-block; }
-      .hero { padding:28px 18px; }
-      .card { min-height:140px; padding:18px; }
-      .card::before { margin-bottom:10px; }
-    }
-
-    /* respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      * { animation: none !important; transition: none !important; }
+    @media (max-width:900px){
+      .panels{ grid-template-columns:1fr; }
+      .panel.open .panel-list{ max-height:360px; }
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="site-header fade-in">
-    <div class="brand">
-      <img src="assets/logo.png" alt="Techodex Logo" class="logo">
-      <span class="nameplate">Techodex</span>
+  <header class="site-header fade-in" style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.12));position:sticky;top:0;z-index:1000;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="../assets/logo.png" alt="Techodex Logo" style="height:32px;">
+      <span style="font-weight:700;font-size:1.05rem;">Techodex</span>
     </div>
-
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="index.html">Home</a>
-      <a href="lessons/index.html">Lessons</a>
-      <a href="quizzes/index.html">Quizzes</a>
-      <a href="achievements.html">Achievements</a>
-      <a href="game/index.html">Game</a>
+    <nav style="display:flex;gap:12px;align-items:center;">
+      <a href="../index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Home</a>
+      <a href="index.html" aria-current="page" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;background:linear-gradient(90deg,var(--accent-html),var(--accent-css));">Lessons</a>
+      <a href="../quizzes/index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Quizzes</a>
+      <a href="../achievements.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Achievements</a>
+      <a href="../game/index.html" style="color:#fff;text-decoration:none;font-weight:600;padding:6px 8px;border-radius:8px;">Game</a>
     </nav>
-
-    <button class="menu-toggle" aria-label="Open menu">☰</button>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero fade-in" aria-labelledby="welcomeTitle">
-    <h1 id="welcomeTitle">Welcome to Techodex</h1>
-    <p>Learn, practice, and play — short lessons, clear examples, and interactive quizzes to help you build real skills.</p>
-    <a href="lessons/index.html" class="btn" aria-label="Start learning">Start Learning</a>
-  </section>
+  <main class="lessons-root fade-in" id="lessonsRoot">
+    <div class="header-row">
+      <div>
+        <h1 style="margin:0;">Lessons</h1>
+        <p style="margin:4px 0 0;color:var(--muted);">Choose a path and open lessons in order.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.02);padding:8px 12px;border-radius:999px;color:var(--muted);font-weight:700;" id="progressPill">HTML 0/10 · CSS 0/10</div>
+    </div>
 
-  <!-- Scrollable Sections (tabs/cards) -->
-  <main class="home-content fade-in" aria-live="polite">
-    <section class="card lessons" aria-labelledby="lessonsTitle">
-      <h2 id="lessonsTitle">Lessons</h2>
-      <p>Structured paths covering HTML, CSS, and web fundamentals with practical examples.</p>
-      <a href="lessons/index.html" class="btn" aria-label="Open lessons">Start Learning</a>
-    </section>
+    <div class="panels" role="region" aria-label="Lesson paths">
+      <section class="panel panel-html" id="panelHtml" aria-labelledby="htmlLabel">
+        <div class="panel-head" tabindex="0" role="button" aria-expanded="false" aria-controls="htmlList">
+          <div>
+            <div class="panel-title" id="htmlLabel"><span class="icon">📘</span> HTML</div>
+            <div class="panel-sub">10 lessons</div>
+          </div>
+          <div>
+            <button class="toggle-btn" data-target="htmlList">Open</button>
+          </div>
+        </div>
+        <div class="panel-list" id="htmlList" aria-hidden="true"></div>
+      </section>
 
-    <section class="card quizzes" aria-labelledby="quizzesTitle">
-      <h2 id="quizzesTitle">Quizzes</h2>
-      <p>Short, auto-checking quizzes that reinforce what you just learned.</p>
-      <a href="quizzes/index.html" class="btn" aria-label="Take a quiz">Take a Quiz</a>
-    </section>
-
-    <section class="card game" aria-labelledby="gameTitle">
-      <h2 id="gameTitle">Game</h2>
-      <p>Play interactive levels and earn stars while practicing core concepts.</p>
-      <a href="game/index.html" class="btn" aria-label="Play the game">Play Now</a>
-    </section>
-
-    <section class="card achieve" aria-labelledby="achievementsTitle">
-      <h2 id="achievementsTitle">Achievements</h2>
-      <p>Track progress, collect badges, and celebrate milestones as you learn.</p>
-      <a href="achievements.html" class="btn" aria-label="View achievements">View Achievements</a>
-    </section>
+      <section class="panel panel-css" id="panelCss" aria-labelledby="cssLabel">
+        <div class="panel-head" tabindex="0" role="button" aria-expanded="false" aria-controls="cssList">
+          <div>
+            <div class="panel-title" id="cssLabel"><span class="icon">🎨</span> CSS</div>
+            <div class="panel-sub">10 lessons</div>
+          </div>
+          <div>
+            <button class="toggle-btn" data-target="cssList">Open</button>
+          </div>
+        </div>
+        <div class="panel-list" id="cssList" aria-hidden="true"></div>
+      </section>
+    </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer fade-in" role="contentinfo">
-    <p>© 2026 Techodex — Interactive Learning Platform</p>
-    <p>Built for open‑source learning. Sources cited in lessons.</p>
+  <footer class="site-footer fade-in" style="padding:18px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.03);">
+    <p style="margin:0;">© 2026 Techodex</p>
   </footer>
 
   <script>
-    // menu toggle for small screens
-    (function(){
-      const btn = document.querySelector('.menu-toggle');
-      const nav = document.querySelector('.nav-links');
-      btn.addEventListener('click', () => {
-        const visible = getComputedStyle(nav).display !== 'none' && nav.style.display === 'flex';
-        nav.style.display = visible ? '' : 'flex';
-        btn.setAttribute('aria-expanded', String(!visible));
+    (function () {
+      const htmlLessons = [
+        { id:1, name:'Lesson 1', desc:'HTML Basics', href:'html/html1.html' },
+        { id:2, name:'Lesson 2', desc:'Text & Headings', href:'html/html2.html' },
+        { id:3, name:'Lesson 3', desc:'Links & Images', href:'html/html3.html' },
+        { id:4, name:'Lesson 4', desc:'Lists & Tables', href:'html/html4.html' },
+        { id:5, name:'Lesson 5', desc:'Forms', href:'html/html5.html' },
+        { id:6, name:'Lesson 6', desc:'Semantic HTML', href:'html/html6.html' },
+        { id:7, name:'Lesson 7', desc:'Media', href:'html/html7.html' },
+        { id:8, name:'Lesson 8', desc:'Attributes', href:'html/html8.html' },
+        { id:9, name:'Lesson 9', desc:'HTML5 APIs', href:'html/html9.html' },
+        { id:10, name:'Lesson 10', desc:'Final Project', href:'html/html10.html' }
+      ];
+
+      const cssLessons = [
+        { id:1, name:'Lesson 1', desc:'Selectors', href:'css/css1.html' },
+        { id:2, name:'Lesson 2', desc:'Box Model', href:'css/css2.html' },
+        { id:3, name:'Lesson 3', desc:'Colors & Backgrounds', href:'css/css3.html' },
+        { id:4, name:'Lesson 4', desc:'Typography', href:'css/css4.html' },
+        { id:5, name:'Lesson 5', desc:'Positioning', href:'css/css5.html' },
+        { id:6, name:'Lesson 6', desc:'Flexbox', href:'css/css6.html' },
+        { id:7, name:'Lesson 7', desc:'Grid', href:'css/css7.html' },
+        { id:8, name:'Lesson 8', desc:'Animations', href:'css/css8.html' },
+        { id:9, name:'Lesson 9', desc:'Advanced CSS', href:'css/css9.html' },
+        { id:10, name:'Lesson 10', desc:'Final Project', href:'css/css10.html' }
+      ];
+
+      const STORAGE_KEY = 'techodex_lessons_opened';
+
+      function getOpened() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return { html: [1], css: [1] };
+          return JSON.parse(raw);
+        } catch (e) {
+          return { html: [1], css: [1] };
+        }
+      }
+
+      function setOpened(obj) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      }
+
+      function markOpened(path, id) {
+        const opened = getOpened();
+        if (!opened[path].includes(id)) opened[path].push(id);
+        const next = id + 1;
+        if (next <= 10 && !opened[path].includes(next)) opened[path].push(next);
+        opened[path] = Array.from(new Set(opened[path])).sort((a,b)=>a-b);
+        setOpened(opened);
+        render();
+      }
+
+      function buildRow(lesson, path, openedIds) {
+        const row = document.createElement('a');
+        row.className = 'lesson-row';
+        row.href = lesson.href;
+        row.setAttribute('data-desc', lesson.desc);
+        row.setAttribute('role','link');
+
+        const left = document.createElement('div');
+        left.className = 'lesson-left';
+        const num = document.createElement('div');
+        num.className = 'lesson-num';
+        num.textContent = lesson.id;
+        const meta = document.createElement('div');
+        meta.className = 'lesson-meta';
+        const name = document.createElement('div');
+        name.className = 'lesson-name';
+        name.textContent = lesson.name;
+        const desc = document.createElement('div');
+        desc.className = 'lesson-desc';
+        desc.textContent = lesson.desc;
+        meta.appendChild(name);
+        meta.appendChild(desc);
+        left.appendChild(num);
+        left.appendChild(meta);
+
+        const action = document.createElement('div');
+        action.className = 'lesson-action';
+        const btn = document.createElement('button');
+        btn.className = 'btn-small';
+        btn.type = 'button';
+
+        const isUnlocked = openedIds.includes(lesson.id);
+        if (isUnlocked) {
+          btn.classList.add('btn-open');
+          if (path === 'css') btn.classList.add('css');
+          btn.textContent = 'Open';
+        } else {
+          btn.classList.add('btn-locked');
+          btn.textContent = 'Locked';
+          row.classList.add('locked');
+          row.setAttribute('aria-disabled','true');
+          row.href = '#';
+        }
+
+        action.appendChild(btn);
+        row.appendChild(left);
+        row.appendChild(action);
+
+        row.addEventListener('click', (e) => {
+          if (!isUnlocked) {
+            e.preventDefault();
+            row.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(0)' }], { duration: 180 });
+            return;
+          }
+          e.preventDefault();
+          markOpened(path, lesson.id);
+          setTimeout(() => { window.location.href = lesson.href; }, 120);
+        });
+
+        row.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            row.click();
+          }
+        });
+
+        row.setAttribute('tabindex','0');
+
+        return row;
+      }
+
+      function render() {
+        const opened = getOpened();
+        const htmlList = document.getElementById('htmlList');
+        const cssList = document.getElementById('cssList');
+        htmlList.innerHTML = '';
+        cssList.innerHTML = '';
+
+        htmlLessons.forEach(l => htmlList.appendChild(buildRow(l, 'html', opened.html)));
+        cssLessons.forEach(l => cssList.appendChild(buildRow(l, 'css', opened.css)));
+
+        const htmlCount = Array.from(new Set(opened.html)).filter(n => n >=1 && n <=10).length;
+        const cssCount = Array.from(new Set(opened.css)).filter(n => n >=1 && n <=10).length;
+        document.getElementById('progressPill').textContent = `HTML ${htmlCount}/10 · CSS ${cssCount}/10`;
+      }
+
+      document.querySelectorAll('.panel').forEach(panel => {
+        const head = panel.querySelector('.panel-head');
+        const list = panel.querySelector('.panel-list');
+        const btn = head.querySelector('.toggle-btn');
+
+        function open() {
+          panel.classList.add('open');
+          head.setAttribute('aria-expanded','true');
+          list.setAttribute('aria-hidden','false');
+          btn.textContent = 'Close';
+        }
+        function close() {
+          panel.classList.remove('open');
+          head.setAttribute('aria-expanded','false');
+          list.setAttribute('aria-hidden','true');
+          btn.textContent = 'Open';
+        }
+        function toggle() { panel.classList.contains('open') ? close() : open(); }
+
+        head.addEventListener('click', (e) => {
+          if (e.target.closest('a') || e.target.closest('button') && !e.target.classList.contains('toggle-btn')) return;
+          toggle();
+        });
+        head.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+          if (e.key === 'ArrowDown') { e.preventDefault(); panel.querySelector('.panel-list .lesson-row:not(.locked)')?.focus(); }
+        });
+        btn.addEventListener('click', (e) => { e.stopPropagation(); toggle(); });
       });
 
-      // staggered reveal for cards
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.card').forEach((el, i) => {
-          setTimeout(() => el.classList.add('visible'), 90 * i);
-        });
+      document.addEventListener('keydown', (e) => {
+        const active = document.activeElement;
+        if (!active || !active.classList.contains('lesson-row')) return;
+        const list = active.closest('.panel-list');
+        if (!list) return;
+        const items = Array.from(list.querySelectorAll('.lesson-row:not(.locked)'));
+        const idx = items.indexOf(active);
+        if (e.key === 'ArrowDown') { e.preventDefault(); items[(idx + 1) % items.length]?.focus(); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); items[(idx - 1 + items.length) % items.length]?.focus(); }
       });
+
+      render();
+      document.querySelectorAll('.panel-list').forEach(pl => pl.setAttribute('tabindex','-1'));
     })();
   </script>
 </body>
